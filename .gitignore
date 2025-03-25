@@ -14,6 +14,11 @@ venv/
 instance/
 *.sqlite3
 *.db
+*.pyvenv.cfg
+bin/
+lib/
+
+
 
 # Entornos y configuraciones sensibles
 .env
@@ -32,3 +37,6 @@ Thumbs.db
 /backend/__pycache__
 /backend/env
 /backend/instance
+
+
+.vscode
