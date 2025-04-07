@@ -1,13 +1,11 @@
-from flask import Flask
+from main import create_app
 import os
 
-app = Flask(__name__)
-
-def home():
-    return "Hello, Flask!"
-
-app.add_url_rule('/', 'home', home)
+app = create_app()
+app.app_context().push()
 
 if __name__ == '__main__':
-    port = int(os.getenv('server_port', 5000))
-    app.run(debug=True, port=port)
+    
+    app.run(debug=True,port=os.getenv('PORT'))
+
+
