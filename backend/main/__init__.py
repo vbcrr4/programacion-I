@@ -15,8 +15,10 @@ def create_app():
     load_dotenv()
        
     #cargar los recursos
-    api.add_resource(resources.AnimalResource, '/animal/<id>')
-    api.add_resource(resources.AnimalesResource, '/animales')
-    
+    api.add_resource(resources.PedidoResource, '/pedido/<id>')
+    api.add_resource(resources.UsuarioResource,'/usuario/<id>')
+    api.add_resource(resources.ProductoResource,'/producto/<id>')
+    api.add_resource(resources.ProductosResource,'/productos')
+    #resources.AnimalesResource, '/animales'
     api.init_app(app)
     return app
