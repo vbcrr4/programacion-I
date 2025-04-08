@@ -3,22 +3,29 @@ from dotenv import load_dotenv
 
 from flask_restful import Api
 
-import main.resources as resources
+from resources import (
+    OrderResource,
+    UserResource,
+    OrderListResource,
+    ProductListResource,
+    ProductResource,
+    LoginResource,
+    RegisterResource,
+)
 
-#Inicializamos restful
 api = Api()
 
+
 def create_app():
-    #Inicializar flask
     app = Flask(__name__)
-    #cargamos variables de entorno
     load_dotenv()
-       
-    #cargar los recursos
-    api.add_resource(resources.PedidoResource, '/pedido/<id>')
-    api.add_resource(resources.UsuarioResource,'/usuario/<id>')
-    api.add_resource(resources.ProductoResource,'/producto/<id>')
-    api.add_resource(resources.ProductosResource,'/productos')
-    #resources.AnimalesResource, '/animales'
+
+    api.add_resource(UserResource, "/users/<int:id>")
+    api.add_resource(ProductResource, "/products/<int:id>")
+    api.add_resource(ProductListResource, "/products")
+    api.add_resource(OrderResource, "/orders/<int:id>")
+    api.add_resource(OrderListResource, "/orders")
+    api.add_resource(RegisterResource, "/register")
+    api.add_resource(LoginResource, "/login")
     api.init_app(app)
     return app
