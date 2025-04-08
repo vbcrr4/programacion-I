@@ -1,6 +1,16 @@
+from .user import User as UserResource
+from .product import Product as ProductResource
+from .product import ProductList as ProductListResource
+from .order import Order as OrderResource
+from .order import OrderList as OrderListResource
+from .auth import Login as LoginResource, Register as RegisterResource
 
-
-from .producto import Producto as ProductoResource
-from .producto import Productos as ProductosResource
-from .usuario import Usuario as UsuarioResource
-from .pedido import Pedido as PedidoResource
+__all__ = [
+    "UserResource",
+    "ProductResource",
+    "ProductListResource",
+    "OrderResource",
+    "OrderListResource",
+    "LoginResource",
+    "RegisterResource",
+]
