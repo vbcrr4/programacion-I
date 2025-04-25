@@ -20,15 +20,28 @@ class Usuario(Resource):
     def delete(self, id):
         if int(id) in USUARIOS:
             del USUARIOS[int(id)]
-            return 'Eliminado con exito', 204
+            return 'Eliminado con exito', 200
         
         return 'El id a eliminar es inexistente', 404
     
     def put(self, id):
         if int(id) in USUARIOS:
-            animal = USUARIOS[int(id)]
+            usuario = USUARIOS[int(id)]
             data = request.get_json()
-            animal.update(data)
-            return 'Animal editado con exito', 201
+            usuario.update(data)
+            return 'Usuario editado con exito', 201
         
         return 'El id que intentan editar es inexistente', 404
+    
+class Usuarios(Resource):
+    def get(self):
+        usuarios = db.session.query(UsuarioModel).all()
+        return jsonify([usuario.to_json()for usuario in usuarios])
+    def post(self):
+        usuario = UsuarioModel.from_json(request.get_json())
+        db.session.commit()
+        return 'ok', 201
+
+        #id = int(max(USUARIOS.keys())) +1
+        #USUARIOS[id] = usuario
+        #return USUARIOS[id], 201
