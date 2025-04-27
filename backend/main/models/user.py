@@ -1,4 +1,4 @@
-from email.policy import default
+from multiprocessing.util import is_abstract_socket_namespace
 from .. import db
 
 class User(db.Model):
@@ -15,12 +15,26 @@ class User(db.Model):
     def to_json(self):
         user_json = {
         'id': self.id,
-        'Name':self.name,
-        'Cellphone':self.cellphone,
-        'Email':self.email,
-        'Password':self.password,
-        'Role': self.role,
+        'name':self.name,
+        'cellphone':self.cellphone,
+        'email':self.email,
+        'password':self.password,
+        'role': self.role,
         'is_active':self.is_active,
-        'Created_at':self.created_at,
+        'created_at':self.created_at,
     }
         return user_json
+    
+    @staticmethod
+    def from_json(user_json):
+        id = user_json.get('id')
+        name = user_json.get('name')
+        cellphone = user_json.get('cellphone')
+        email = user_json.get('email')
+        password = user_json.get('password')
+        role = user_json.get('role')
+        is_active = user_json.get('is_active')
+        created_at = user_json.get('created_at')
+        return User(id=id,name=name,cellphone=cellphone,email=email,password=password,role=role,is_active=is_active,
+                    created_at=created_at
+                    )
