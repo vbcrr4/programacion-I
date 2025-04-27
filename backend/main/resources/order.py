@@ -34,7 +34,7 @@ class Order(Resource):
         order_id = int(order_id)
         if order_id in ORDERS:
             del ORDERS[order_id]
-            return {"message": "Order deleted successfully"}, 204
+            return {"message": "Order deleted successfully"}, 200
             return {"message": "Order ID not found for deletion"}, 404
 
     def put(self, order_id):

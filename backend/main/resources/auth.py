@@ -1,7 +1,10 @@
 from flask_restful import Resource
 from flask import request
 
-USERS = {}
+USERS = {    1: {"name": "Nehuen", "role": "admin"},
+    2: {"name": "Franco", "role": "client"},
+    3: {"name": "Valentin", "role": "owner"},
+    }
 
 
 class Register(Resource):

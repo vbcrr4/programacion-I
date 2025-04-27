@@ -19,7 +19,7 @@ class Product(Resource):
         product_id = int(product_id)
         if product_id in PRODUCTS:
             del PRODUCTS[product_id]
-            return {"message": "Product deleted successfully"}, 204
+            return {"message": "Product deleted successfully"}, 200
         return {"message": "Product ID not found"}, 404
 
     def put(self, product_id):
