@@ -13,11 +13,24 @@ class Order_Details(db.Model):
     def to_json(self):
         product_json = {
         'id': self.id,
-        'user_id':self.user_id,
+        'order_id':self.order_id,
         'product_id':self.product_id,
         'quantity':self.quantity,
-        'comment':self.price,
-        'subtotal':self.subtotal
+        'price':float(self.price) if self.price is not None else None,
+        'subtotal':float(self.subtotal) if self.subtotal is not None else None
 
     }
         return product_json
+    
+    @staticmethod
+    def from_json(product_json):
+        id = product_json.get('id')
+        order_id = product_json.get('order_id')
+        product_id = product_json.get('product_id')
+        quantity = product_json.get('quantity')
+        price = product_json.get('price')
+        subtotal = product_json.get('subtotal')
+        
+        return Order_Details(id=id,order_id=order_id,product_id=product_id,price=price,quantity=quantity
+                       ,subtotal=subtotal,
+                    )
