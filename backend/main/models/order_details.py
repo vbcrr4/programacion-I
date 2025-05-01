@@ -16,8 +16,8 @@ class Order_Details(db.Model):
         'order_id':self.order_id,
         'product_id':self.product_id,
         'quantity':self.quantity,
-        'price':float(self.price) if self.price is not None else None,
-        'subtotal':float(self.subtotal) if self.subtotal is not None else None
+        'price':int(self.price) if self.price is not None else None,
+        'subtotal':int(self.subtotal) if self.subtotal is not None else None
 
     }
         return product_json
