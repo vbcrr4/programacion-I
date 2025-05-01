@@ -15,11 +15,11 @@ class Product(db.Model):
         'id': self.id,
         'name':self.name,
         'description':self.description,
-        'price':float(self.price) if self.price is not None else None,
+        'price':int(self.price) if self.price is not None else None,
         'available':self.available,
         'category': self.category,
         'image_url':self.image_url,
-        'popularity':float(self.popularity) if self.popularity is not None else None,
+        'popularity':int(self.popularity)if self.price is not None else None,
     }
         return product_json
     

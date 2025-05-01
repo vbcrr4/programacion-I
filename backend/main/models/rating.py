@@ -16,7 +16,7 @@ class Rating(db.Model):
         'id': self.id,
         'user_id':self.user_id,
         'product_id':self.product_id,
-        'rating':float(self.rating) if self.rating is not None else None,
+        'rating':int(self.rating) if self.rating is not None else None,
         'comment':self.comment,
         'created_at':self.created_at.isoformat() if self.created_at else None
 
