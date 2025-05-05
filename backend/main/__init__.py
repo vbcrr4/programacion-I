@@ -55,3 +55,4 @@ def create_app():
 
     api.init_app(app)
     return app
+
