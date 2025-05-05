@@ -17,11 +17,7 @@ __all__ = [
     "OrderListResource",
     "LoginResource",
     "RegisterResource",
-<<<<<<< HEAD
+
 ]
-=======
-    "NotificationResource","NotificationListResource",
-    "OrderDetailResource","OrderDetailListResource",
-    "RatingResource","RatingListResource"
-]
->>>>>>> origin/franco-develop
+
+
