@@ -3,11 +3,16 @@ from .. import db
 
 class Order_Details(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    order_id=db.Column(db.Integer,nullable=False)#Aca tiene que haber una llave externa con el id del user, no se como hacerlo
-    product_id=db.Column(db.Integer,nullable=False)
+    order_id=db.Column(db.Integer, db.ForeignKey('order.id'),nullable=False)
+    product_id=db.Column(db.Integer,db.ForeignKey('order.id'),nullable=False)
     quantity=db.Column(db.Integer,nullable=False)
     price=db.Column(db.Numeric(10,2),nullable=False)
     subtotal=db.Column(db.Numeric(10,2),nullable=False)
+
+    order = db.relationship('Order', backref=db.backref('order_details', lazy=True))
+    product = db.relationship('Product', backref=db.backref('order_details', lazy=True))
+
+   
 
 #Este to_json hay que corregirlo
     def to_json(self):
