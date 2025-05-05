@@ -4,11 +4,15 @@ from .. import db
 
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id=db.Column(db.Integer,nullable=False)#Aca tiene que haber una llave externa con el id del user, no se como hacerlo
-    product_id=db.Column(db.Integer,nullable=False)
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
+    product_id=db.Column(db.Integer,db.ForeignKey('product.id'),nullable=False)
     rating=db.Column(db.Integer,nullable=False)
     comment=db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.now())
+
+    user = db.relationship('User', backref=db.backref('ratings', lazy=True))
+    product = db.relationship('Product', backref=db.backref('ratings', lazy=True))
+
 
 #Este to_json hay que corregirlo
     def to_json(self):
