@@ -211,7 +211,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"Chicken\",\"description\":\"Hamburguesa Simple\",\"price\":5000,\"available\":true,\"category\":\"Food\",\n\"image_url\":\"Nourlyet.com\",\"Popularity\":5\n}",
+					"raw": "{\"name\":\"Fries\",\"description\":\"Papas Simple\",\"price\":2000,\"available\":true,\"category\":\"Food\",\n\"image_url\":\"Nourlyet.com\",\"popularity\":17\n}",
 					"options": {
 						"raw": {
 							"language": "json"
