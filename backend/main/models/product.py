@@ -9,6 +9,9 @@ class Product(db.Model):
     category=db.Column(db.String(50),nullable=False)
     image_url=db.Column(db.String(255),nullable=False)
     popularity=db.Column(db.Integer)
+    
+    def __repr__(self):
+        return '<Product: %r Name: %r >' % (self.id,self.name)
 
     def to_json(self):
         product_json = {
@@ -22,7 +25,12 @@ class Product(db.Model):
         'popularity':int(self.popularity)if self.price is not None else None,
     }
         return product_json
-    
+    def to_json_short(self):
+        product_json = {
+            'id': self.id,
+            'name': str(self.name),
+        }
+        return product_json
     @staticmethod
     def from_json(product_json):
         id = product_json.get('id')

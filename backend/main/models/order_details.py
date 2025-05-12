@@ -13,10 +13,12 @@ class Order_Details(db.Model):
     product = db.relationship('Product', backref=db.backref('order_details', lazy=True))
 
    
+    def __repr__(self):
+        return '<Order_Detail %r Order: %r Product %r >' % (self.id,self.order_id,self.product_id)
 
-#Este to_json hay que corregirlo
+
     def to_json(self):
-        product_json = {
+        order_detail_json = {
         'id': self.id,
         'order_id':self.order_id,
         'product_id':self.product_id,
@@ -25,16 +27,37 @@ class Order_Details(db.Model):
         'subtotal':int(self.subtotal) if self.subtotal is not None else None
 
     }
-        return product_json
+        return order_detail_json
     
+    def to_json_complete(self):
+        order_details_json={
+        'id': self.id,
+        'order_id':self.order_id,
+        'product_id':self.product_id,
+        'quantity':self.quantity,
+        'price':int(self.price) if self.price is not None else None,
+        'subtotal':int(self.subtotal) if self.subtotal is not None else None,
+        'order':self.order.to_json(),
+        'product':self.product.to_json()
+
+        }
+
+        return order_details_json  
+    
+    def to_json_short(self):
+        order_details_json = {
+            'id': self.id,
+            'product':int(self.product_id)
+        }
+        return order_details_json
     @staticmethod
-    def from_json(product_json):
-        id = product_json.get('id')
-        order_id = product_json.get('order_id')
-        product_id = product_json.get('product_id')
-        quantity = product_json.get('quantity')
-        price = product_json.get('price')
-        subtotal = product_json.get('subtotal')
+    def from_json(order_detail_json):
+        id = order_detail_json.get('id')
+        order_id = order_detail_json.get('order_id')
+        product_id = order_detail_json.get('product_id')
+        quantity = order_detail_json.get('quantity')
+        price = order_detail_json.get('price')
+        subtotal = order_detail_json.get('subtotal')
         
         return Order_Details(id=id,order_id=order_id,product_id=product_id,price=price,quantity=quantity
                        ,subtotal=subtotal,

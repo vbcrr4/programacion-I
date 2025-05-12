@@ -53,5 +53,9 @@ def create_app():
     api.add_resource(resources.RatingResource, "/ratings/<int:rating_id>")
     api.add_resource(resources.RatingListResource, "/ratings")
 
+    #app.register_blueprint(routes.auth) 
+    """Creamos carpetas del blueprint, inicializamos blueprints
+    """
+    
     api.init_app(app)
     return app

@@ -10,7 +10,8 @@ from .. import db
 
 
 class User(Resource):
-    def get(self, user_id):
+    #JWT decorador va aquí, 
+    def get(self, user_id):        
         user=db.session.query(UserModel).get_or_404(user_id)
         return user.to_json()
  #       user_id = int(user_id)
@@ -18,7 +19,7 @@ class User(Resource):
  #       if user:
  #           return user, 200 # 200 OK
  #       return {"message": "User ID not found"}, 404 # 404 NOT FOUND    
-
+# Se utiliza un decorador acá, para validar los roles
     def delete(self, user_id):
         user_id = int(user_id)
         user = db.session.query(UserModel).get_or_404(user_id)
@@ -47,7 +48,7 @@ class UserList(Resource):
 #        return USERS, 200
     
     def post(self):
-
+#No devolver al crear la contraseña en texto plano
         user = UserModel.from_json(request.get_json())
         db.session.add(user)
         db.session.commit()

@@ -13,6 +13,8 @@ class Rating(db.Model):
     user = db.relationship('User', backref=db.backref('ratings', lazy=True))
     product = db.relationship('Product', backref=db.backref('ratings', lazy=True))
 
+    def __repr__(self):
+        return '<Rating: %r Product: %r User: %r >' % (self.rating,self.product_id,self.user_id)
 
 #Este to_json hay que corregirlo
     def to_json(self):
@@ -26,7 +28,27 @@ class Rating(db.Model):
 
     }
         return rating_json
+
+    def to_json_complete(self):
+
+        rating_json = {
+        'id': self.id,
+        'user_id':self.user_id,
+        'product_id':self.product_id,
+        'rating':int(self.rating) if self.rating is not None else None,
+        'comment':self.comment,
+        'created_at':self.created_at.isoformat() if self.created_at else None,
+        'user':self.user.to_json_short(),
+        'product':self.product.to_json_short(),
+        }
+        return rating_json
     
+    def to_json_short(self):
+        rating_json = {
+            'id': self.id,
+            'rating': str(self.rating),
+        }
+        return rating_json
     @staticmethod
     def from_json(rating_json):
         id = rating_json.get('id')

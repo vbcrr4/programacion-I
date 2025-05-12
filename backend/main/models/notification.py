@@ -9,6 +9,10 @@ class Notification(db.Model):
     sent_date=db.Column(db.DateTime, nullable=False,default=datetime.now())
     status = db.Column(db.Enum('pending','sent','failed'))
 
+
+    def __repr__(self):
+        return '<Notification: %r User: %r Message: %r >' % (self.id,self.user_id,self.message)
+
 #Este to_json hay que corregirlo
     def to_json(self):
         product_json = {
@@ -21,6 +25,12 @@ class Notification(db.Model):
     }
         return product_json
     
+    def to_json_short(self):
+        notification_json = {
+            'id': self.id,
+            'message':str(self.message)
+        }
+        return notification_json
     @staticmethod
     def from_json(product_json):
         id = product_json.get('id')
