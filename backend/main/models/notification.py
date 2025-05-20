@@ -9,6 +9,7 @@ class Notification(db.Model):
     sent_date=db.Column(db.DateTime, nullable=False,default=datetime.now())
     status = db.Column(db.Enum('pending','sent','failed'))
 
+    user =db.relationship("Usuario",backref = db.backref("notification",lazy = True)) # creo que falto esta relacion en la otra rama
 #Este to_json hay que corregirlo
     def to_json(self):
         product_json = {
