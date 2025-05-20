@@ -8,7 +8,9 @@ class Order_Details(db.Model):
     quantity=db.Column(db.Integer,nullable=False)
     price=db.Column(db.Numeric(10,2),nullable=False)
     subtotal=db.Column(db.Numeric(10,2),nullable=False)
-
+    
+    order = db.relationship("Order",backref=db.backref('order_details',lazy = True))
+    product =db.relationship("Product",backref=db.backref('order_details',lazy = True))
 #Este to_json hay que corregirlo
     def to_json(self):
         product_json = {

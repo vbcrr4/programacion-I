@@ -12,6 +12,11 @@ class User(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.now())
 
+    orders = db.relationship("Order", back_populates="user",cascade="all, delete-orphan")                   # Relacion de 1 : n
+    notification = db.relationship("notification",back_populates="user",cascade="all, delete-orphan")         # Relacion de 1: n Creo que hay que meterla en la rama relaciones
+
+
+
     def to_json(self):
         user_json = {
         'id': self.id,
@@ -40,3 +45,5 @@ class User(db.Model):
         return User(id=id,name=name,cellphone=cellphone,email=email,password=password,address=address,role=role,is_active=is_active,
                     created_at=created_at
                     )
+    
+    
