@@ -51,7 +51,7 @@ class UserList(Resource):
         
         #Buscamos por direccion:
         if request.args.get('address'):
-            users=users.filter(UserModel.role.like("%"+request.args.get('address')+"%"))
+            users=users.filter(UserModel.address.like("%"+request.args.get('address')+"%"))
         
         #Buscamos usuarios por rol:
         if request.args.get('role'):
