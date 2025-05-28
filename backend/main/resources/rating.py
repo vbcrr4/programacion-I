@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request,jsonify
-from main.models import (RatingModel)
+from main.models import (RatingModel,UserModel,ProductModel)
+from sqlalchemy import func, desc
 from .. import db
 
 class Rating(Resource):
@@ -25,7 +26,23 @@ class Rating(Resource):
     
 class RatingList(Resource):
     def get(self):
-        rating = db.session.query(RatingModel).all()
+
+        page =1 
+        per_page=10
+        rating = db.session.query(RatingModel)
+        if request.args.get('page'):
+            page=int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page=int(request.args.get('per_page'))
+        #Filtrado por usuario
+        if request.args.get('user_id'):
+            rating=rating.filter(RatingModel.role.like(request.args.get('user_id')))
+        #Filtrado por producto
+        #if request.args.get('product'):
+        #    rating=rating.filter(RatingModel.role.like(request.args.get('user_id')))
+        
+        #Filtrado por rating
+        rating = rating.paginate(page=page, per_page=per_page, error_out=False)
         return jsonify([rating.to_json() for rating in rating])
     
     def post(self):

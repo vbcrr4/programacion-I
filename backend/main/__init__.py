@@ -4,26 +4,13 @@ from dotenv import load_dotenv
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 import os
-
-#from .resources import (
-#    UserResource,
-#    UserListResource,
-#    OrderResource,
-#    OrderListResource,
-#    ProductListResource,
-#    ProductResource,
-#    LoginResource,
-#    RegisterResource,
-#    RatingResource,RatingListResource,
-#    OrderDetailResource,OrderDetailListResource,
-#    NotificationResource,NotificationListResource,
-#
-#)
+from flask_migrate import Migrate
 
 api = Api()
 
 #Inicializamos la db con sqlalchemy
 db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
@@ -36,6 +23,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
     db.init_app(app)
+    migrate.init_app(app,db)
     
     import main.resources as resources
     api.add_resource(resources.UserResource, "/users/<int:user_id>")
