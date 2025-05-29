@@ -34,16 +34,32 @@ class RatingList(Resource):
             page=int(request.args.get('page'))
         if request.args.get('per_page'):
             per_page=int(request.args.get('per_page'))
-        #Filtrado por usuario
+        #Filtrado por usuario id
         if request.args.get('user_id'):
-            rating=rating.filter(RatingModel.role.like(request.args.get('user_id')))
+            rating=rating.filter(RatingModel.user_id.like(request.args.get('user_id')))
         #Filtrado por producto
-        #if request.args.get('product'):
-        #    rating=rating.filter(RatingModel.role.like(request.args.get('user_id')))
+        product_id = request.args.get('product_id')
+        if product_id:
+            product_id = RatingModel.query.get_or_404(product_id)
+            rating=rating.filter(RatingModel.product_id.like(request.args.get('product_id')))
+
+        date = request.args.get('asc','desc')
+        if date:
+        #filtrado por creacion, mas nuevo
+            if date.lower() == 'asc':
+                rating=rating.order_by(RatingModel.created_at.asc())
+        #filtrado por creacion, mas viejo
+            elif date.lower() == 'desc':
+                rating=rating.order_by(RatingModel.created_at.desc())
+
+            
         
         #Filtrado por rating
         rating = rating.paginate(page=page, per_page=per_page, error_out=False)
-        return jsonify([rating.to_json() for rating in rating])
+        return jsonify({'rating':[rating.to_json() for rating in rating],
+                        'total':rating.total,
+                        'pages':rating.pages,
+                        'page':page})
     
     def post(self):
         rating = RatingModel.from_json(request.get_json())

@@ -57,8 +57,9 @@ class UserList(Resource):
         if request.args.get('role'):
             users=users.filter(UserModel.role.like(request.args.get('role')))
         #Filtramos por cantidad de órdenes:
-        if request.args.get('nrOrders'):
-            users=users.outerjoin(UserModel.orders).group_by(UserModel.id).having(func.count(OrderModel.id)>= int(request.args.get('nrOrders')))
+        number_of_orders= request.args.get('nrOrders')
+        if number_of_orders:
+            users=users.outerjoin(UserModel.orders).group_by(UserModel.id).having(func.count(OrderModel.id)>= int(number_of_orders))
         
         users = users.paginate(page=page, per_page=per_page, error_out=False)
         return jsonify({'users':[user.to_json() for user in users],'total': users.total,'pages':users.pages,'page':page})
