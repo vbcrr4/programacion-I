@@ -39,12 +39,12 @@ class OrderDetailsList(Resource):
         order_id = request.args.get('order_id')
         if order_id:
             order_id=int(order_id)
-            order_details = order_details.filter(OrderDetails.order_id == order_id)
+            order_details = order_details.filter(OrderDetailsModel.order_id == order_id)
         #Filtrar por id de producto
         product_id = request.args.get('product_id')
         if product_id:
             product_id=int(product_id)
-            order_details = order_details.filter(OrderDetails.product_id == product_id)
+            order_details = order_details.filter(OrderDetailsModel.product_id == product_id)
 
         # Filtrar por cantidad de productos o menos
         nrquantity = request.args.get('nrquantity')

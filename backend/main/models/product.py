@@ -22,7 +22,7 @@ class Product(db.Model):
         'available':self.available,
         'category': self.category,
         'image_url':self.image_url,
-        'popularity':int(self.popularity)if self.price is not None else None,
+        'popularity':float(self.popularity) if self.price  is not None else None,
     }
         return product_json
     def to_json_short(self):
