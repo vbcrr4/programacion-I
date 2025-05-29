@@ -53,10 +53,9 @@ class Notification_List(Resource):
         notifications = notifications.paginate(page=page, per_page=per_page, error_out=True)
 
         return jsonify({'notifications': [notification.to_json() for notification in notifications.items],
-            'total': notifications.total,
-            'page': notifications.page,
-            'pages': notifications.pages,
-            'per_page': notifications.per_page
+                        'total' : notifications.total,
+                         'pages' : notifications.pages,
+                         'page' : page
         })
     
     def post(self):

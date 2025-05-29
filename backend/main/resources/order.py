@@ -85,9 +85,8 @@ class OrderList(Resource):
 
         return jsonify({'orders': [order.to_json() for order in orders],
             'total': orders.total,
-            'page': orders.page,
             'pages': orders.pages,
-            'per_page': orders.per_page
+            'page': page
         })
 
     def post(self):
