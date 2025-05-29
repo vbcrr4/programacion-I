@@ -83,7 +83,7 @@ class OrderList(Resource):
         #fin filtros
         orders = orders.paginate(page=page, per_page=per_page, error_out=True)
 
-        return jsonify({'orders': [order.to_json() for order in orders.items],
+        return jsonify({'orders': [order.to_json() for order in orders],
             'total': orders.total,
             'page': orders.page,
             'pages': orders.pages,
