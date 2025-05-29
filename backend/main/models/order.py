@@ -6,7 +6,6 @@ class Order(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     status = db.Column(db.Enum('pending','preparing','ready','delivered','canceled'))
     total = db.Column(db.Float,nullable=False)
-    user = db.relationship("User", back_populates="orders")
 
 
     def __repr__(self):
