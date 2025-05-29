@@ -48,8 +48,47 @@ class Order(Resource):
         
 class OrderList(Resource):
     def get(self):
-        orders = db.session.query(OrderModel).all()
-        return jsonify([order.to_json() for order in orders])
+        page = 1
+        per_page = 10
+
+        orders = db.session.query(OrderModel)
+        
+        #paginacion
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+
+        #filtro por id usuario
+        if request.args.get('user_id'):
+            user_id = int(request.args.get('user_id'))
+            orders = orders.filter(OrderModel.user_id == user_id)
+        #filtro por fecha de creacion
+        if request.args.get('created_at'):
+            created_at = request.args.get('created_at')
+            orders = orders.filter(OrderModel.created_at == created_at)
+        #filtro por estado
+        if request.args.get('status'):
+            status = request.args.get('status')
+            orders = orders.filter(OrderModel.status == status)
+        #filtro por mayor subtotal
+        if request.args.get('total'):
+            total = float(request.args.get('total'))
+            orders = orders.filter(OrderModel.total >= total)
+        #filtro por menor subtotal
+        if request.args.get('total_min'):
+            total_min = float(request.args.get('total_min'))
+            orders = orders.filter(OrderModel.total <= total_min)
+        
+        #fin filtros
+        orders = orders.paginate(page=page, per_page=per_page, error_out=True)
+
+        return jsonify({'orders': [order.to_json() for order in orders.items],
+            'total': orders.total,
+            'page': orders.page,
+            'pages': orders.pages,
+            'per_page': orders.per_page
+        })
 
     def post(self):
         order = OrderModel.from_json(request.get_json())
