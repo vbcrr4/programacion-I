@@ -15,10 +15,10 @@ class Order(db.Model):
     def to_json(self):
         order_json = {
         'id': self.id,
-        'user_id':self.user_id,
-        'created_at':self.created_at.isoformat() if self.created_at else None,
-        'status':self.status,
-        'total':self.total,
+        'user_id':int(self.user_id),
+        'created_at':str(self.created_at.strftime("%d-%m-%Y")),
+        'status':str(self.status),
+        'total':float(self.total),
 
     }
         return order_json
@@ -26,10 +26,10 @@ class Order(db.Model):
     def to_json_complete(self):
         order_json={
         'id': self.id,
-        'user_id':self.user_id,
-        'created_at':self.created_at.isoformat() if self.created_at else None,
-        'status':self.status,
-        'total':self.total,
+        'user_id':int(self.user_id),
+        'created_at':str(self.created_at.strftime("%d-%m-%Y")),
+        'status':str(self.status),
+        'total':float(self.total),
         'user':self.user.to_json(),
         }
 
@@ -45,7 +45,7 @@ class Order(db.Model):
     def from_json(order_json):
         id = order_json.get('id')
         user_id = order_json.get('user_id')
-        created_at = order_json.get('created_at')
+        created_at = datetime.strptime(order_json.get('created_at'),'%d-%m-%Y')
         status = order_json.get('status')
         total = order_json.get('total')
 

@@ -16,13 +16,13 @@ class Product(db.Model):
     def to_json(self):
         product_json = {
         'id': self.id,
-        'name':self.name,
-        'description':self.description,
+        'name':str(self.name),
+        'description':str(self.description),
         'price':int(self.price) if self.price is not None else None,
         'available':self.available,
-        'category': self.category,
-        'image_url':self.image_url,
-        'popularity':float(self.popularity) if self.price  is not None else None,
+        'category': str(self.category),
+        'image_url':str(self.image_url),
+        'popularity':int(self.popularity) if self.price  is not None else None, # 3Junio cambie int por float cuando reformule todos los models
     }
         return product_json
     def to_json_short(self):

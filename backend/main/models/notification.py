@@ -19,9 +19,9 @@ class Notification(db.Model):
         product_json = {
         'id': self.id,
         'user_id':self.user_id,
-        'message':self.message,
-        'sent_date':self.sent_date.isoformat(),
-        'status':self.status,
+        'message':str(self.message),
+        'created_at':str(self.sent_date.strftime("%H:%M%S %d-%m-%Y")),
+        'status':str(self.status),
 
     }
         return product_json
@@ -37,7 +37,7 @@ class Notification(db.Model):
         id = product_json.get('id')
         user_id = product_json.get('user_id')
         message = product_json.get('message')
-        sent_date = product_json.get('sent_date')
+        sent_date = datetime.strptime(product_json.get('sent_date'),"%H:%M%S %d-%m-%Y")
         status = product_json.get('status')
 
         return Notification(id=id,user_id=user_id,message=message,sent_date=sent_date,status=status

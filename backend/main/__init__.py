@@ -5,12 +5,16 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_migrate import Migrate
+from flask_jwt_extended import JWTManager
 
 api = Api()
 
 #Inicializamos la db con sqlalchemy
 db = SQLAlchemy()
+#Inicializa Migrate
 migrate = Migrate()
+# Inicializamos JWT de flask
+jwt = JWTManager()
 
 def create_app():
     app = Flask(__name__)
@@ -40,10 +44,16 @@ def create_app():
     api.add_resource(resources.OrderDetailListResource, "/orderdetails")
     api.add_resource(resources.RatingResource, "/ratings/<int:rating_id>")
     api.add_resource(resources.RatingListResource, "/ratings")
-
-    #app.register_blueprint(routes.auth) 
+    api.init_app(app)
+    #Cargar la secret key de jwt
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+    #cargar el tiempo de expiración del token
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
+    jwt.init_app(app)
+    
+    from main.auth import routes
+    app.register_blueprint(routes.auth) 
     """Creamos carpetas del blueprint, inicializamos blueprints
     """
     
-    api.init_app(app)
     return app

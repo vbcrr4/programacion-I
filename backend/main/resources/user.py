@@ -1,25 +1,37 @@
 from flask_restful import Resource
 from flask import request,jsonify
-from main.models import (UserModel, OrderModel)
 from .. import db
+from main.models import (UserModel, OrderModel)
 from sqlalchemy import func, desc
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from main.auth.decorators import role_required
 
 
 
 class User(Resource):
     #JWT decorador va aquí, 
+    @jwt_required(optional=True)
     def get(self, user_id):        
         user=db.session.query(UserModel).get_or_404(user_id)
-        return user.to_json_complete()
+        current_identity = get_jwt_identity()
+        if current_identity == user.id:
+            return user.to_json_complete()
+        else: return user.to_json() 
+        
  #       user_id = int(user_id)
  #       user = USERS.get(user_id)
  #       if user:
  #           return user, 200 # 200 OK
  #       return {"message": "User ID not found"}, 404 # 404 NOT FOUND    
 # Se utiliza un decorador acá, para validar los roles
+    @role_required(roles = ["Admin","Users"])
     def delete(self, user_id):
-        user_id = int(user_id)
+        
         user = db.session.query(UserModel).get_or_404(user_id)
+        role = get_jwt().get('role')
+        if role == 'Users' and user.id != get_jwt_identity():
+            return 'No tiene permisos para eliminar este recurso', 403
+        
         db.session.delete(user)
         db.session.commit()
         return user.to_json(), 200
@@ -27,7 +39,7 @@ class User(Resource):
 #            del USERS[user_id]
 #            return {"message": "User deleted successfully"}, 200
 #        return {"message": "User ID not found for deletion"}, 404
-
+    @jwt_required()
     def put(self, user_id):
         user = db.session.query(UserModel).get_or_404(user_id)
         data = request.get_json().items()
@@ -39,6 +51,7 @@ class User(Resource):
     
 
 class UserList(Resource):
+    @role_required(roles = ["Admin"])
     def  get(self):
         page =1 
         per_page=10

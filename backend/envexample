@@ -2,3 +2,6 @@ export PORT = 7000
 export DATABASE_PATH='*DIRECCION ABSOLUTA DE LA CARPETA DB: */DB/'
 export DATABASE_NAME='basedatos.db'
 export NAME_APP = 'ADMIN'
+
+export JWT_SECRET_KEY = 'otra_clave'
+export JWT_ACCESS_TOKEN_EXPIRES = 14400

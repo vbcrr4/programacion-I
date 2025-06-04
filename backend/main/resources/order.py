@@ -2,40 +2,25 @@ from flask_restful import Resource
 from flask import request,jsonify
 from main.models import (OrderModel)
 from .. import db
-
-#ORDERS = {
-#    1: {
-#        "user_id": 1,
-#        "created_at": "2025-02-01",
-#        "status": "delivered",
-#        "total": 10000,
-#    },
-#    2: {
-#        "user_id": 2,
-#        "created_at": "2025-02-01",
-#        "status": "delivered",
-#        "total": 20000,
-#    },
-#    3: {
-#        "user_id": 3,
-#        "created_at": "2025-02-01",
-#        "status": "delivered",
-#        "total": 30000,
-#    },
-#}
+from sqlalchemy import func, desc
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from main.auth.decorators import role_required
 
 
 class Order(Resource):
+    @jwt_required(optional=True)
     def get(self, order_id):
         order = db.session.query(OrderModel).get_or_404(order_id)
         return order.to_json()
-
+    
+    @role_required(roles = ["Admin"])
     def delete(self, order_id):
         order = db.session.query(OrderModel).get_or_404(order_id)
         db.session.delete(order)
         db.session.commit()
         return order.to_json(), 200        
-        
+    
+    @jwt_required()
     def put(self, order_id):
         
         order = db.session.query(OrderModel).get_or_404(order_id)
@@ -47,6 +32,7 @@ class Order(Resource):
         return order.to_json(), 201
         
 class OrderList(Resource):
+    @role_required(roles = ["Admin"])
     def get(self):
         page = 1
         per_page = 10

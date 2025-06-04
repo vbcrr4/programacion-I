@@ -20,11 +20,11 @@ class Rating(db.Model):
     def to_json(self):
         rating_json = {
         'id': self.id,
-        'user_id':self.user_id,
-        'product_id':self.product_id,
+        'user_id':int(self.user_id),
+        'product_id':int(self.product_id),
         'rating':int(self.rating) if self.rating is not None else None,
-        'comment':self.comment,
-        'created_at':self.created_at.isoformat() if self.created_at else None
+        'comment':str(self.comment),
+        'created_at':str(self.created_at.strftime("%d-%m-%Y")),
 
     }
         return rating_json
@@ -37,7 +37,7 @@ class Rating(db.Model):
         'product_id':self.product_id,
         'rating':int(self.rating) if self.rating is not None else None,
         'comment':self.comment,
-        'created_at':self.created_at.isoformat() if self.created_at else None,
+        'created_at':str(self.created_at.strftime("%d-%m-%Y")),
         'user':self.user.to_json_short(),
         'product':self.product.to_json_short(),
         }
@@ -56,7 +56,7 @@ class Rating(db.Model):
         product_id = rating_json.get('product_id')
         rating = rating_json.get('rating')
         comment = rating_json.get('comment')
-        created_at = rating_json.get('created_at')
+        created_at = datetime.strptime(rating_json.get('created_at'),'%d-%m-%Y')
 
 
         return Rating(id=id,user_id=user_id,product_id=product_id,rating=rating,comment=comment
