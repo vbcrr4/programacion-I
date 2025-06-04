@@ -74,7 +74,8 @@ class OrderList(Resource):
             'pages': orders.pages,
             'page': page
         })
-
+    
+    @jwt_required()
     def post(self):
         order = OrderModel.from_json(request.get_json())
         db.session.add(order)

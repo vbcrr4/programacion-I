@@ -2,18 +2,30 @@ from flask_restful import Resource
 from flask import request,jsonify
 from main.models import (NotificationModel)
 from .. import db
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from main.auth.decorators import role_required
 
 class Notification(Resource):
+    @jwt_required(optional=True)
     def get(self,rating_id):
         rating = db.session.query(NotificationModel).get_or_404(rating_id)
-        return rating.to_json()
-    
+        current_identity = get_jwt_identity()
+        if current_identity == rating.user_id:
+            return rating.to_json_complete()
+        else: return rating.to_json() 
+        
+    @role_required(roles = ["Admin","Users"])
     def delete(self,rating_id):
+
         rating = db.session.query(NotificationModel).get_or_404(rating_id)
+        role = get_jwt().get('role')
+        if role == 'Users' and rating.user_id != get_jwt_identity():
+            return 'No tiene permisos para eliminar este recurso', 403
         db.session.delete(rating)
         db.session.commit()
         return rating.to_json(), 200  
     
+    @role_required(roles = ["Admin"])
     def put(self,rating_id):
         rating = db.session.query(NotificationModel).get_or_404(rating_id)
         data = request.get_json().items()
@@ -23,7 +35,8 @@ class Notification(Resource):
         db.session.commit()
         return rating.to_json(), 201
     
-class Notification_List(Resource):
+class Notification_List(Resource):    
+    @role_required(roles = ["Admin"])
     def get(self):
         page = 1
         per_page = 10

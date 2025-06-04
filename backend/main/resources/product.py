@@ -2,29 +2,25 @@ from flask_restful import Resource
 from flask import request,jsonify
 from main.models import (ProductModel)
 from .. import db
-#PRODUCTS = {
-#    1: {"name": "burger", "price": 5000},
-#    2: {"name": "french fries", "price": 2000},
-#    3: {"name": "nuggets", "price": 3000},
-#}
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from main.auth.decorators import role_required
 
 
 class Product(Resource):
+    @role_required(roles = ["Admin",'Users'])
     def get(self, product_id):
         product = db.session.query(ProductModel).get_or_404(product_id)
         return product.to_json()
-        #product = PRODUCTS.get(int(product_id))
-        #if product:
-        #    return product, 200
-        #return {"message": "Product ID not found"}, 404
-
+    
+    @role_required(roles = ["Admin"])
     def delete(self, product_id):
         
         product = db.session.query(ProductModel).get_or_404(product_id)
         db.session.delete(product)
         db.session.commit()
         return product.to_json(), 200
-
+    
+    @role_required(roles = ["Admin"])
     def put(self, product_id):
         product = db.session.query(ProductModel).get_or_404(product_id)
         data = request.get_json().items()
@@ -36,6 +32,7 @@ class Product(Resource):
 
 
 class ProductList(Resource):
+    @role_required(roles = ["Admin",'Users'])
     def get(self):
         page = 1
         per_page = 10
@@ -74,7 +71,7 @@ class ProductList(Resource):
                          'pages' : products.pages,
                          'page' : page
                          })
-
+    @role_required(roles = ["Admin"])
     def post(self):
         product = ProductModel.from_json(request.get_json())
         db.session.add(product)

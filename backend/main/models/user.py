@@ -95,6 +95,13 @@ class User(db.Model):
 
         created_at = datetime.strptime(user_json.get('created_at'),'%d-%m-%Y')
         #No devolver al crear la contraseña en texto plano
-        return User(id=id,name=name,cellphone=cellphone,email=email,password=password,address=address,role=role,is_active=is_active,
+        return User(id=id
+                    ,name=name
+                    ,cellphone=cellphone,
+                    email=email,
+                    password=password,
+                    address=address
+                    ,role=role,
+                    is_active=is_active,
                     created_at=created_at
                     )

@@ -10,20 +10,15 @@ from main.auth.decorators import role_required
 
 class User(Resource):
     #JWT decorador va aquí, 
-    @jwt_required(optional=True)
+    @jwt_required()
     def get(self, user_id):        
         user=db.session.query(UserModel).get_or_404(user_id)
         current_identity = get_jwt_identity()
         if current_identity == user.id:
             return user.to_json_complete()
-        else: return user.to_json() 
+        else: return user.to_json()
         
- #       user_id = int(user_id)
- #       user = USERS.get(user_id)
- #       if user:
- #           return user, 200 # 200 OK
- #       return {"message": "User ID not found"}, 404 # 404 NOT FOUND    
-# Se utiliza un decorador acá, para validar los roles
+
     @role_required(roles = ["Admin","Users"])
     def delete(self, user_id):
         
@@ -31,6 +26,9 @@ class User(Resource):
         role = get_jwt().get('role')
         if role == 'Users' and user.id != get_jwt_identity():
             return 'No tiene permisos para eliminar este recurso', 403
+        elif role == 'Users' and user.id == get_jwt_identity():
+            user.is_active = False #Desactiva el usuario
+            return 'Usuario desactivado', 200
         
         db.session.delete(user)
         db.session.commit()
@@ -42,9 +40,11 @@ class User(Resource):
     @jwt_required()
     def put(self, user_id):
         user = db.session.query(UserModel).get_or_404(user_id)
-        data = request.get_json().items()
-        for key, value in data:
-            setattr(user, key, value)
+        current_identity = get_jwt_identity()
+        if current_identity == user.id:
+            data = request.get_json().items()
+            for key, value in data:
+                setattr(user, key, value)
         db.session.add(user)
         db.session.commit()
         return user.to_json(), 201

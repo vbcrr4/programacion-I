@@ -3,12 +3,16 @@ from flask import request,jsonify
 from sqlalchemy import func
 from main.models import (OrderDetailsModel)
 from .. import db
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from main.auth.decorators import role_required
 
 class OrderDetails(Resource):
+    @jwt_required(optional=True)
     def get(self,orderdetails_id):
         order_details = db.session.query(OrderDetailsModel).get_or_404(orderdetails_id)
         return order_details.to_json()
     
+    @role_required(roles = ["Admin"])
     def delete(self,orderdetails_id):
         order_details = db.session.query(OrderDetailsModel).get_or_404(orderdetails_id)
         db.session.delete(order_details)
@@ -25,6 +29,7 @@ class OrderDetails(Resource):
         return order_details.to_json(), 201
     
 class OrderDetailsList(Resource):
+    @role_required(roles = ["Admin"])
     def get(self):
         page = 1
         per_page = 10
@@ -62,6 +67,7 @@ class OrderDetailsList(Resource):
                         'pages' : order_details.pages,
                         'page' : page})
     
+    @jwt_required(optional=True)
     def post(self):
         orders_details = OrderDetailsModel.from_json(request.get_json())
         db.session.add(orders_details)
