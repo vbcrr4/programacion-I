@@ -13,6 +13,7 @@ def login():
     user = db.session.query(UserModel).filter(UserModel.email == request.get_json().get("email")).first()
     ## Devuelvo error si no existe el user o si la contraseña no coincide
     if (user is None) or not (user.validate_pass(request.get_json().get("password"))):
+        #print(user.validate_pass(request.get_json().get("password"))) DEBUGGEO
         return 'Invalid user or password', 401 
     #Valida la contraseña
     # if user.validate_pass(request.get_json().get("password")):

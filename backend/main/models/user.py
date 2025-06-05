@@ -30,7 +30,6 @@ class User(db.Model):
     #Método que compara una contraseña en texto plano con el hash guardado en la db
     def validate_pass(self,password):
         return check_password_hash(self.password, password)
-
     """Se utilizan tokens de cookies en el front, para enviar usuario contraseña
     Cabecera: dice que tipo y algoritmo de cifrado
     Payload: contiene la info de usuario o entidad que se quiere autenticar, No mandar contraseña en el payload(NO HAY CIFRADO)
@@ -93,13 +92,13 @@ class User(db.Model):
         role = user_json.get('role')
         is_active = user_json.get('is_active')
 
-        created_at = datetime.strptime(user_json.get('created_at'),'%d-%m-%Y')
+        created_at = datetime.strptime(user_json.get('created_at'),'%d-%m-%Y') #ESTO NO FUNCIONA AL HACER POST CON USUARIO NUEVO; POSIBLEMENTE EL DEFAULT NO FUNCIONA?
         #No devolver al crear la contraseña en texto plano
         return User(id=id
                     ,name=name
                     ,cellphone=cellphone,
                     email=email,
-                    password=password,
+                    plain_password=password,
                     address=address
                     ,role=role,
                     is_active=is_active,

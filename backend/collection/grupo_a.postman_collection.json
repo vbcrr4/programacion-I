@@ -84,7 +84,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1:7000/users?address",
+									"raw": "http://127.0.0.1:7000/users?address=Neuquen",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -99,7 +99,7 @@
 									"query": [
 										{
 											"key": "address",
-											"value": null
+											"value": "Neuquen"
 										}
 									]
 								}
@@ -111,6 +111,16 @@
 				{
 					"name": "get_user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -358,7 +368,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:7000/products",
+							"raw": "http://127.0.0.1:7000/products?per_page=5&page=2",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -369,6 +379,16 @@
 							"port": "7000",
 							"path": [
 								"products"
+							],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "5"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -1544,6 +1564,81 @@
 							"path": [
 								"notifications",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"password\":\"12345\",\n\"email\":\"pruebalogin2@gmail.com\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/auth/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"UserPrueba1\", \"cellphone\": \"261559489\", \"email\":\"pruebalogin2@gmail.com\", \"password\":\"12345\",\"address\":\"Mendoza\",\n\"role\":\"Admin\", \"created_at\":\"4-6-2025\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/auth/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"auth",
+								"register"
 							]
 						}
 					},
