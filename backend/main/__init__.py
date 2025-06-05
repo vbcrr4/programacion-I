@@ -58,6 +58,9 @@ def create_app():
     app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
     app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token_cookie'
     app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token_cookie'
+    app.config['JWT_REFRESH_COOKIE_PATH'] = '/api/v1/auth/refresh'
+    app.config['JWT_COOKIE_CSRF_PROTECT'] = False #desactiva csrf protection para testing
+    app.config['JWT_SESSION_COOKIE'] = False #permite cookies en multiplees rutas
     jwt.init_app(app)
     
     from main.auth import routes
