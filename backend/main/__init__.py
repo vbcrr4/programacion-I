@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
+
 #importar flask mail
 from flask_mail import Mail
 
@@ -51,6 +52,12 @@ def create_app():
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
     #cargar el tiempo de expiración del token
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
+    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = 86400
+    #Configuración de cookies para refresh de JWTs
+    app.config["JWT_COOKIE_SECURE"] = True
+    app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+    app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token_cookie'
+    app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token_cookie'
     jwt.init_app(app)
     
     from main.auth import routes

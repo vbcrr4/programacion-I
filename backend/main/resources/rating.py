@@ -12,6 +12,7 @@ class Rating(Resource):
         rating = db.session.query(RatingModel).get_or_404(rating_id)
         return rating.to_json()
     
+
     @role_required(roles = ["Admin","Users"])
     def delete(self,rating_id):
         role = get_jwt().get('role')

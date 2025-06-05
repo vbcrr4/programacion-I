@@ -1,13 +1,31 @@
 from flask import request, jsonify, Blueprint
 from .. import db
 from main.models import UserModel
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token,set_access_cookies,get_jwt
 #importar funcion de envio de mail
 from main.mail.functions import sendMail
+#datetime para el refresh del token
+from datetime import datetime,timedelta
+
 #Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 #Método de logueo
+@auth.after_request
+def refresh_expiring_jwts(response):
+    try:
+        exp_timestamp = get_jwt()["exp"]
+        now = datetime.now()
+        target_timestamp = datetime.timestamp(now+timedelta(minutes=3))
+        print('HOLA SOY UN TESTEO DEL REFRESH')
+        if target_timestamp > exp_timestamp:
+            access_token = create_access_token(identity=get_jwt_identity())
+            set_access_cookies(response, access_token)
+        return response
+    except(RuntimeError,KeyError):
+        return response
+
+
 @auth.route('/login', methods=['POST'])
 def login():
     #Busca al user en la db por mail
@@ -26,9 +44,10 @@ def login():
         'email': user.email,
         'access_token': access_token
     }
-
+    response = jsonify(data)
+    set_access_cookies(response, access_token)
     #Devolver valores y token
-    return data, 200
+    return response, 200
 
 #Método de registro
 @auth.route('/register', methods=['POST'])

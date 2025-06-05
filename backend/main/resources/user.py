@@ -9,7 +9,8 @@ from main.auth.decorators import role_required
 
 
 class User(Resource):
-    #JWT decorador va aquí, 
+    #JWT decorador va aquí,
+
     @jwt_required()
     def get(self, user_id):        
         user=db.session.query(UserModel).get_or_404(user_id)
@@ -18,8 +19,8 @@ class User(Resource):
             return user.to_json_complete()
         else: return user.to_json()
         
-
     @role_required(roles = ["Admin","Users"])
+
     def delete(self, user_id):
         
         user = db.session.query(UserModel).get_or_404(user_id)
@@ -52,6 +53,7 @@ class User(Resource):
 
 class UserList(Resource):
     @role_required(roles = ["Admin"])
+    @jwt_required()
     def  get(self):
         page =1 
         per_page=10

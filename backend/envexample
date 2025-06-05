@@ -4,7 +4,7 @@ export DATABASE_NAME='basedatos.db'
 export NAME_APP = 'ADMIN'
 
 export JWT_SECRET_KEY = 'otra_clave'
-export JWT_ACCESS_TOKEN_EXPIRES = 14400
+export JWT_ACCESS_TOKEN_EXPIRES = 3600
 
 #Mail configuration
 #Mail Server adress
