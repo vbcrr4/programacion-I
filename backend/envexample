@@ -5,3 +5,13 @@ export NAME_APP = 'ADMIN'
 
 export JWT_SECRET_KEY = 'otra_clave'
 export JWT_ACCESS_TOKEN_EXPIRES = 14400
+
+#Mail configuration
+#Mail Server adress
+export MAIL_SERVER = 'smtp.gmail.com'
+export MAIL_PORT = '587'
+export MAIL_USE_TLS = 'True'
+export MAIL_USERNAME = 'name@mail.com'
+export MAIL_PASSWORD = 'pass'
+#Mail FROM name
+export FLASKY_MAIL_SENDER = 'App Name Admin <admin@appname.com>'
