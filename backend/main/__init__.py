@@ -6,7 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-
+from flask_jwt_extended import create_access_token,set_access_cookies,create_refresh_token,get_jwt_identity,get_jwt
+from datetime import datetime,timedelta
 #importar flask mail
 from flask_mail import Mail
 
@@ -54,21 +55,36 @@ def create_app():
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
     app.config['JWT_REFRESH_TOKEN_EXPIRES'] = int(os.getenv('JWT_REFRESH_TOKEN_EXPIRES'))
     #Configuración de cookies para refresh de JWTs
-    from main.auth.refresh import refresh_check
-    app.before_request(refresh_check)
-
-    #app.config["JWT_COOKIE_SECURE"] = True
-    #app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
-    #app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token_cookie'
-    #app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token_cookie'
-    #app.config['JWT_REFRESH_COOKIE_PATH'] = '/api/v1/auth/refresh'
-    #app.config['JWT_COOKIE_CSRF_PROTECT'] = False #desactiva csrf protection para testing
-    #app.config['JWT_SESSION_COOKIE'] = False #permite cookies en multiplees rutas
+    app.config['JWT_TOKEN_LOCATION'] = ['cookies']  # ¡Esto es esencial!
+    app.config['JWT_COOKIE_SECURE'] = True  # True en producción con HTTPS
+    app.config['JWT_COOKIE_CSRF_PROTECT'] = True  # True para protección CSRF
+    app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token'
+    app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token'
+    app.config['JWT_COOKIE_DOMAIN'] = None  # Configurar en producción
+#    
+#@auth.before_request
+#def refresh_expiring_jwts(response):
+#    print('REFRESH CHECK AFTER REQUEST')
+#    try:
+#        expiracion_timestamp = get_jwt()["exp"]
+#        now = datetime.now()
+#        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
+#        if target_timestamp > expiracion_timestamp:
+#            user = db.session.query(UserModel).filter(UserModel.id == get_jwt_identity()).first()
+#            access_token = create_access_token(identity=user)
+#            print(access_token)
+#            set_access_cookies(response, access_token)
+#            print(set_access_cookies(response,access_token))
+#        return response
+#    except (RuntimeError, KeyError):
+#        # Case where there is not a valid JWT. Just return the original response
+#        return response
 
     jwt.init_app(app)
     
     from main.auth import routes
-    app.register_blueprint(routes.auth) 
+    app.register_blueprint(routes.auth)
+    
     """Creamos carpetas del blueprint, inicializamos blueprints
     """
 

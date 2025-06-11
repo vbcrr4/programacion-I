@@ -11,7 +11,7 @@ from main.auth.decorators import role_required
 class User(Resource):
     #JWT decorador va aquí,
 
-    @jwt_required()
+    @jwt_required(verify_type=True)
     def get(self, user_id):        
         user=db.session.query(UserModel).get_or_404(user_id)
         current_identity = get_jwt_identity()
