@@ -52,21 +52,26 @@ def create_app():
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
     #cargar el tiempo de expiración del token
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
-    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = 86400
+    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = int(os.getenv('JWT_REFRESH_TOKEN_EXPIRES'))
     #Configuración de cookies para refresh de JWTs
-    app.config["JWT_COOKIE_SECURE"] = True
-    app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
-    app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token_cookie'
-    app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token_cookie'
-    app.config['JWT_REFRESH_COOKIE_PATH'] = '/api/v1/auth/refresh'
-    app.config['JWT_COOKIE_CSRF_PROTECT'] = False #desactiva csrf protection para testing
-    app.config['JWT_SESSION_COOKIE'] = False #permite cookies en multiplees rutas
+    from main.auth.refresh import refresh_check
+    app.before_request(refresh_check)
+
+    #app.config["JWT_COOKIE_SECURE"] = True
+    #app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+    #app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token_cookie'
+    #app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token_cookie'
+    #app.config['JWT_REFRESH_COOKIE_PATH'] = '/api/v1/auth/refresh'
+    #app.config['JWT_COOKIE_CSRF_PROTECT'] = False #desactiva csrf protection para testing
+    #app.config['JWT_SESSION_COOKIE'] = False #permite cookies en multiplees rutas
+
     jwt.init_app(app)
     
     from main.auth import routes
     app.register_blueprint(routes.auth) 
     """Creamos carpetas del blueprint, inicializamos blueprints
     """
+
     #cofiguracion de mail
     app.config['MAIL_HOSTNAME'] = os.getenv('MAIL_HOSTNAME')
     app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')

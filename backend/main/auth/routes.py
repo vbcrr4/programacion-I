@@ -4,30 +4,37 @@ from main.models import UserModel
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token,set_access_cookies,get_jwt
 #importar funcion de envio de mail
 from main.mail.functions import sendMail
-#datetime para el refresh del token
-from datetime import datetime,timedelta
 
 #Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
+#datetime para el refresh del token
+#from datetime import datetime,timedelta
 #Método de logueo
-@auth.after_request
-def refresh_expiring_jwts(response):
-    try:
-        #solo refresca si la ruta es /auth/refresh
-        if request.path != '/auth/refresh':
-            exp_timestamp = get_jwt()["exp"]
-            now = datetime.now()
-            target_timestamp = datetime.timestamp(now+timedelta(minutes=3))
-            print('HOLA SOY UN TESTEO DEL REFRESH')
-
-            if target_timestamp > exp_timestamp:
-                access_token = create_access_token(identity=get_jwt_identity())
-                set_access_cookies(response, access_token)
-        return response
-    except(RuntimeError,KeyError):
-        return response
-
+#@auth.after_request
+#def refresh_expiring_jwts(response):
+#    try:
+#        #solo refresca si la ruta es /auth/refresh
+#        exp_timestamp = get_jwt()["exp"]
+#        now = datetime.now()
+#        target_timestamp = datetime.timestamp(now+timedelta(minutes=3))
+#        print('HOLA SOY UN TESTEO DEL REFRESH')
+#
+#        if target_timestamp > exp_timestamp:
+#            access_token = create_access_token(identity=get_jwt_identity())
+#            set_access_cookies(response, access_token)
+#        return response
+#    except(RuntimeError,KeyError):
+#        return response
+@auth.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)  # Solo acepta refresh tokens
+def refresh():
+    current_user = get_jwt_identity()
+    new_access_token = create_access_token(identity=current_user)
+    
+    return jsonify({
+        'access_token': new_access_token
+    }), 200
 
 @auth.route('/login', methods=['POST'])
 def login():
@@ -43,7 +50,7 @@ def login():
     access_token = create_access_token(identity=user)
     #Pasa el objeto user como identidad
     data = {
-        'id': str(user.id),
+        'id': user.id,
         'email': user.email,
         'access_token': access_token
     }

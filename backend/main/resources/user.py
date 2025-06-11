@@ -20,7 +20,6 @@ class User(Resource):
         else: return user.to_json()
         
     @role_required(roles = ["Admin","Users"])
-
     def delete(self, user_id):
         
         user = db.session.query(UserModel).get_or_404(user_id)
