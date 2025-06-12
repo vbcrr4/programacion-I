@@ -1,7 +1,7 @@
 from flask import request, jsonify, Blueprint
 from .. import db
 from main.models import UserModel
-from flask_jwt_extended import create_access_token,set_access_cookies,create_refresh_token,get_jwt_identity,get_jwt
+from flask_jwt_extended import create_access_token,set_access_cookies,create_refresh_token,get_jwt_identity,jwt_required,get_jwt
 from datetime import datetime,timedelta
 #importar funcion de envio de mail
 from main.mail.functions import sendMail
@@ -15,10 +15,7 @@ def login():
     user = db.session.query(UserModel).filter(UserModel.email == request.get_json().get("email")).first()
     ## Devuelvo error si no existe el user o si la contraseña no coincide
     if (user is None) or not (user.validate_pass(request.get_json().get("password"))):
-        #print(user.validate_pass(request.get_json().get("password"))) DEBUGGEO
         return 'Invalid user or password', 401 
-    #Valida la contraseña
-    # if user.validate_pass(request.get_json().get("password")):
     #Genera un nuevo token
     access_token = create_access_token(identity=user)
     refresh_token = create_refresh_token(identity=user)
@@ -38,9 +35,13 @@ def login():
 
 
 @auth.route('/refresh', methods=['POST'])
-def refresh(refresh=True):
-    identity = get_jwt_identity()
-    access_token = create_access_token(identity=identity)
+@jwt_required(refresh=True)
+def refresh():
+    jwt_data= get_jwt()
+    user = {'role':jwt_data['role'],
+            'id':jwt_data['id'],
+            'email':jwt_data['email']}    
+    access_token = create_access_token(identity=user)
     return jsonify(access_token=access_token)
 
 

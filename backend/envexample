@@ -5,6 +5,7 @@ export NAME_APP = 'ADMIN'
 
 export JWT_SECRET_KEY = 'otra_clave'
 export JWT_ACCESS_TOKEN_EXPIRES = 3600
+export JWT_REFRESH_TOKEN_EXPIRES = 604800
 
 #Mail configuration
 #Mail Server adress

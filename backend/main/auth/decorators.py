@@ -24,14 +24,27 @@ def role_required(roles):
 @jwt.user_identity_loader
 def user_identity_lookup(user):
     #Definir ID como atributo identificatorio
-    return str(user.id)
+    if isinstance(user,dict):
+        return str(user['id'])
+    else:       
+        return str(user.id)
 
 #Define que atributos se guardarán dentro del token
 @jwt.additional_claims_loader
-def add_claims_to_access_token(user):
-    claims = {
-        'role': user.role,
-        'id': user.id,
-        'email': user.email
+def add_claims_to_access_token(user_data):
+    if isinstance(user_data, dict):
+        # Si es un dict, accedemos con claves
+        role = user_data.get("role")
+        user_id = user_data.get("id")
+        email = user_data.get("email")
+    else:
+        # Si es un objeto, accedemos con atributos
+        role = getattr(user_data, "role", None)
+        user_id = getattr(user_data, "id", None)
+        email = getattr(user_data, "email", None)
+
+    return {
+        "role": role,
+        "id": user_id,
+        "email": email,
     }
-    return claims

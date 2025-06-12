@@ -10,7 +10,6 @@ from main.auth.decorators import role_required
 
 class User(Resource):
     #JWT decorador va aquí,
-
     @jwt_required()
     def get(self, user_id):        
         user=db.session.query(UserModel).get_or_404(user_id)

@@ -52,13 +52,15 @@ def create_app():
     #cargar el tiempo de expiración del token
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
     app.config['JWT_REFRESH_TOKEN_EXPIRES'] = int(os.getenv('JWT_REFRESH_TOKEN_EXPIRES'))
-    #Configuración de cookies para refresh de JWTs
-    app.config['JWT_TOKEN_LOCATION'] = ['cookies']  
-    app.config['JWT_COOKIE_SECURE'] = True  # True en producción con HTTPS
-    app.config['JWT_COOKIE_CSRF_PROTECT'] = True  # True para protección CSRF
-    app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token'
-    app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token'
-    app.config['JWT_COOKIE_DOMAIN'] = None  # Configurar en producción
+    
+    ##Configuración de cookies para refresh de JWTs (Por defecto esto)
+    #app.config['JWT_REFRESH_TOKEN_IN_COOKIES'] = True
+    ##app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+    #app.config['JWT_COOKIE_SECURE'] = True  # True en producción con HTTPS
+    #app.config['JWT_COOKIE_CSRF_PROTECT'] = True  # True para protección CSRF
+    #app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token'
+    #app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token'
+    #app.config['JWT_COOKIE_DOMAIN'] = None  # Configurar en producción
 
 
 
