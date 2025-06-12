@@ -21,38 +21,28 @@ def login():
     # if user.validate_pass(request.get_json().get("password")):
     #Genera un nuevo token
     access_token = create_access_token(identity=user)
-    print('ACCESSTOKEN: ',access_token)
+    refresh_token = create_refresh_token(identity=user)
+
     #Pasa el objeto user como identidad
     data = {
         'id': user.id,
         'email': user.email,
         'access_token': access_token,
+        'refresh_token': refresh_token
     }
     response = jsonify(data)
     set_access_cookies(response, access_token)
-    print('SET_ACCESS_COOKIES: ',set_access_cookies(response,access_token))
+
     #Devolver valores y token
     return response, 200
 
-@auth.after_request
-def refresh_expiring_jwts(response):
-    print('REFRESH CHECK AFTER REQUEST')
-    if request.path == '/auth/login':
-        return response
-    try:
-        expiracion_timestamp = get_jwt()["exp"]
-        now = datetime.now()
-        target_timestamp = datetime.timestamp(now + timedelta(minutes=30))
-        if target_timestamp > expiracion_timestamp:
-            user = db.session.query(UserModel).filter(UserModel.id == get_jwt_identity()).first()
-            access_token = create_access_token(identity=user)
-            print(access_token)
-            set_access_cookies(response, access_token)
-            print(set_access_cookies(response,access_token))
-        return response
-    except (RuntimeError, KeyError):
-        # Case where there is not a valid JWT. Just return the original response
-        return response
+
+@auth.route('/refresh', methods=['POST'])
+def refresh(refresh=True):
+    identity = get_jwt_identity()
+    access_token = create_access_token(identity=identity)
+    return jsonify(access_token=access_token)
+
 
 #Método de registro
 @auth.route('/register', methods=['POST'])

@@ -1584,7 +1584,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"password\":\"12345\",\n\"email\":\"pruebalogin2@gmail.com\" \n}",
+							"raw": "{ \"password\":\"12345\",\n\"email\":\"francoquirogabazooka@gmail.com\" \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1619,7 +1619,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"name\": \"UserPrueba1\", \"cellphone\": \"261559489\", \"email\":\"pruebalogin2@gmail.com\", \"password\":\"12345\",\"address\":\"Mendoza\",\n\"role\":\"Admin\", \"created_at\":\"4-6-2025\"\n}",
+							"raw": "{\"name\": \"UserPruebaMail2\", \"cellphone\": \"262569599\", \"email\":\"\",\"password\":\"12345\",\"address\":\"Mendoza\",\n\"role\":\"Admin\", \"created_at\":\"4-6-2025\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1639,6 +1639,43 @@
 							"path": [
 								"auth",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0OTczMDc5NywianRpIjoiYjdjZDcwNTEtZmUyOC00MDllLThjMzctNjM3ZDEyNmJmYzNjIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiIxMSIsIm5iZiI6MTc0OTczMDc5NywiY3NyZiI6IjVjYmZkMDFlLTIxMjgtNDYyYy1iYmU1LTM2YWEwYmY4ZDczNyIsImV4cCI6MTc0OTczMjU5Nywicm9sZSI6IkFkbWluIiwiaWQiOjExLCJlbWFpbCI6ImZyYW5jb3F1aXJvZ2FiYXpvb2thQGdtYWlsLmNvbSJ9.5lBHTpSC8sQHEgNNEOgAKfcRRRF5RuMnJ0gcSERZcFc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"auth",
+								"refresh"
 							]
 						}
 					},
