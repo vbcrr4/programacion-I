@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos - Rotisería UM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Rotisería UM</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.html">Registro</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="gestion_menu.html">Gestión de menú</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">Pedidos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-primary text-white text-center py-4">
+    <div class="container">
+      <h1 class="fw-bold">Pedidos</h1>
+      <p class="mb-0">Consulta, gestiona y actualiza los pedidos de la Rotisería UM</p>
+    </div>
+  </header>
+
+  <!-- Lista de pedidos -->
+  <div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h4 mb-0">Listado de pedidos</h2>
+      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoPedidoModal">
+        + Nuevo pedido
+      </button>
+    </div>
+
+    <!-- Ejemplo de pedidos -->
+    <div class="list-group shadow-sm">
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="mb-1">Pedido #001</h5>
+          <p class="mb-1 small text-muted">Cliente: Juan Pérez — 2 Pizzas, 1 Gaseosa</p>
+          <span class="badge bg-warning text-dark">Pendiente</span>
+        </div>
+        <div>
+          <button class="btn btn-sm btn-primary me-2">Entregar</button>
+          <button class="btn btn-sm btn-danger">Eliminar</button>
+        </div>
+      </div>
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="mb-1">Pedido #002</h5>
+          <p class="mb-1 small text-muted">Cliente: María Gómez — 1 Hamburguesa, 1 Agua</p>
+          <span class="badge bg-success">Entregado</span>
+        </div>
+        <div>
+          <button class="btn btn-sm btn-secondary me-2">Ver</button>
+          <button class="btn btn-sm btn-danger">Eliminar</button>
+        </div>
+      </div>
+      <!-- Podés copiar más items para simular pedidos -->
+    </div>
+  </div>
+
+  <!-- Modal para nuevo pedido -->
+  <div class="modal fade" id="nuevoPedidoModal" tabindex="-1" aria-labelledby="nuevoPedidoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="nuevoPedidoModalLabel">Nuevo pedido</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="nombreCliente" class="form-label">Nombre del cliente</label>
+              <input type="text" class="form-control" id="nombreCliente">
+            </div>
+            <div class="mb-3">
+              <label for="detallePedido" class="form-label">Detalle del pedido</label>
+              <textarea class="form-control" id="detallePedido" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="estadoPedido" class="form-label">Estado</label>
+              <select class="form-select" id="estadoPedido">
+                <option>Pendiente</option>
+                <option>En preparación</option>
+                <option>Entregado</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <small>&copy; 2025 Rotisería UM - Todos los derechos reservados</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

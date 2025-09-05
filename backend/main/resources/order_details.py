@@ -25,8 +25,41 @@ class OrderDetails(Resource):
     
 class OrderDetailsList(Resource):
     def get(self):
-        order_details = db.session.query(OrderDetailsModel).all()
-        return jsonify([order_details.to_json() for order_details in order_details])
+        page = 1
+        per_page = 10
+        order_details = db.session.query(OrderDetailsModel)
+        if request.args.get('page'):
+            page=int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page=int(request.args.get('per_page'))
+        ##FILTROS
+        #Filtrar por id de orden
+        
+        order_id = request.args.get('order_id')
+        if order_id:
+            order_id=int(order_id)
+            order_details = order_details.filter(OrderDetailsModel.order_id == order_id)
+        #Filtrar por id de producto
+        product_id = request.args.get('product_id')
+        if product_id:
+            product_id=int(product_id)
+            order_details = order_details.filter(OrderDetailsModel.product_id == product_id)
+
+        # Filtrar por cantidad de productos o menos
+        nrquantity = request.args.get('nrquantity')
+        if nrquantity:
+            order_details=order_details.group_by(OrderDetailsModel.quantity).having(func.count(OrderDetailsModel.quantity)<= int(nrquantity))
+        #filtrar por
+        maxprice =request.args.get('price')
+        if maxprice:
+            order_details = order_details.order_by(OrderDetailsModel.price <= maxprice)
+
+        order_details = order_details.paginate(page=page, per_page=per_page, error_out=False)
+
+        return jsonify({'order_details':[order_detail.to_json() for order_detail in order_details],
+                        'total' : order_details.total,
+                        'pages' : order_details.pages,
+                        'page' : page})
     
     def post(self):
         orders_details = OrderDetailsModel.from_json(request.get_json())

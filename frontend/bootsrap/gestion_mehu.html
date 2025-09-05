@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Menú - Rotisería UM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Rotisería UM</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.html">Registro</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">Gestión de menú</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="bg-primary text-white text-center py-4">
+    <div class="container">
+      <h1 class="fw-bold">Gestión de Menú</h1>
+      <p class="mb-0">Administra los productos disponibles en la Rotisería UM</p>
+    </div>
+  </header>
+
+  <!-- Sección gestión -->
+  <div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h4 mb-0">Productos</h2>
+      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoProductoModal">
+        + Agregar producto
+      </button>
+    </div>
+
+    <!-- Lista de productos -->
+    <div class="row g-3">
+      <!-- Producto ejemplo -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow-sm">
+          <img src="img/pizza.jpg" class="card-img-top" alt="Pizza">
+          <div class="card-body">
+            <h5 class="card-title">Pizza Muzzarella</h5>
+            <p class="card-text">Deliciosa pizza de muzzarella casera.</p>
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-sm btn-primary">Editar</button>
+              <button class="btn btn-sm btn-danger">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Copiá el bloque anterior para más productos -->
+    </div>
+  </div>
+
+  <!-- Modal agregar producto -->
+  <div class="modal fade" id="nuevoProductoModal" tabindex="-1" aria-labelledby="nuevoProductoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="nuevoProductoModalLabel">Agregar nuevo producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="nombreProducto" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombreProducto">
+            </div>
+            <div class="mb-3">
+              <label for="descripcionProducto" class="form-label">Descripción</label>
+              <textarea class="form-control" id="descripcionProducto" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="imagenProducto" class="form-label">Imagen (URL o archivo)</label>
+              <input type="text" class="form-control" id="imagenProducto">
+            </div>
+            <!-- Podés agregar más campos, ej. precio -->
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <small>&copy; 2025 Rotisería UM - Todos los derechos reservados</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

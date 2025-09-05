@@ -1,26 +1,22 @@
+import os
 from flask import Flask
 from dotenv import load_dotenv
 
 from flask_restful import Api
-import os
 from flask_sqlalchemy import SQLAlchemy
 
-from resources import (
-    OrderResource,
-    UserResource,
-    OrderListResource,
-    ProductListResource,
-    ProductResource,
-    LoginResource,
-    RegisterResource,
-)
-# Inicializa la API
+from flask_migrate import Migrate
+from flask_jwt_extended import JWTManager
+
 api = Api()
 
 #Inicializamos la db con sqlalchemy
 db = SQLAlchemy()
+migrate = Migrate()
+jwt = JWTManager()
 
-def create_app():                   # Configura el entorno y usa dotenv para cargar configuraciones sensibles
+
+def create_app():
     app = Flask(__name__)
     load_dotenv()
 
@@ -29,19 +25,40 @@ def create_app():                   # Configura el entorno y usa dotenv para car
         os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_USI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME') # Aca configuramos la DB en este caso SQL lite
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
     db.init_app(app)
+    migrate.init_app(app,db)
     
+    import main.resources as resources
+    api.add_resource(resources.UserResource, "/users/<int:user_id>")
+    api.add_resource(resources.UserListResource, "/users")
+    api.add_resource(resources.ProductResource, "/products/<int:product_id>")
+    api.add_resource(resources.ProductListResource, "/products")
+    api.add_resource(resources.OrderResource, "/orders/<int:order_id>")
+    api.add_resource(resources.OrderListResource, "/orders")
+    api.add_resource(resources.RegisterResource, "/register")
+    api.add_resource(resources.LoginResource, "/login")
+    api.add_resource(resources.NotificationResource, "/notifications/<int:rating_id>")
+    api.add_resource(resources.NotificationListResource, "/notifications")
+    api.add_resource(resources.OrderDetailResource, "/orderdetails/<int:orderdetails_id>")
+    api.add_resource(resources.OrderDetailListResource, "/orderdetails")
+    api.add_resource(resources.RatingResource, "/ratings/<int:rating_id>")
+    api.add_resource(resources.RatingListResource, "/ratings")
 
-    api.add_resource(UserResource, "/users/<int:id>")
-    api.add_resource(ProductResource, "/products/<int:id>")
-    api.add_resource(ProductListResource, "/products")
-    api.add_resource(OrderResource, "/orders/<int:id>")         # Todo esto define las rutas de la API y las vincula a clases en resources.py
-    api.add_resource(OrderListResource, "/orders")
-    api.add_resource(RegisterResource, "/register")
-    api.add_resource(LoginResource, "/login")
+    #app.register_blueprint(routes.auth) 
+    """Creamos carpetas del blueprint, inicializamos blueprints
+    """
+    
     api.init_app(app)
+
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+    app.config['JWT_ACCES_TOKEN_EXPIRES'] = os.getenv['JWT_ACCES_TOKEN_EXPIRES']
+    jwt.init_app(app)
+    from main.auth import routes
+
+    app.register_blueprint(routes.auth)
+
+
+
+
     return app
-
-
-# Este archivo en teoria es el corazon del backend. Se encarga de Ensamblar la app Flask. Configura la base de datos. Registra los endpoints y garantiza el funcionamiento
