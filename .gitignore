@@ -2,6 +2,7 @@
 /include
 /lib
 /lib64
+*/entorno*
 pyvenv.cfg
 .env
 /frontend/pruebas_n

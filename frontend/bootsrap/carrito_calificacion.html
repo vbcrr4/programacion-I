@@ -25,13 +25,12 @@
     .card-carrito h2 {
       font-weight: bold;
     }
+
     .tab-btn {
       border-radius: 30px;
       padding: 0.4rem 1.2rem;
       font-weight: bold;
       border: none;
-      text-decoration: none;
-      color: #fff;
     }
     .tab-btn.active {
       background: #9d4edd;
@@ -75,7 +74,7 @@
       padding: 1rem;
       margin-bottom: 1rem;
     }
-    /* Comentarios */
+    
     textarea {
       width: 100%;
       border-radius: 10px;
@@ -83,7 +82,7 @@
       padding: 0.6rem;
       resize: none;
     }
-    /* Estrellas */
+
     .stars {
       display: flex;
       justify-content: center;
@@ -106,25 +105,24 @@
   <div class="card-carrito text-center">
     <h2>Carrito</h2>
 
-    <!-- Recuadro superior -->
+    
     <div class="header-carrito">
       <span class="badge">2</span>
       <span>Items pedidos</span>
     </div>
 
-    <!-- Contenedor con marco morado -->
+    
     <div class="marco-morado">
-      <!-- Tabs con links -->
       <div class="d-flex justify-content-center my-3 gap-2">
-        <a href="carrito_pedido.html" class="tab-btn active">Pedido</a>
-        <a href="carrito_pedido.html" class="tab-btn btn-dark">Envío</a>
-        <a href="carrito_pedido.html" class="tab-btn btn-dark">Calificar</a>
+        <button href="carrito_pedido.html" class="tab-btn btn-dark">Pedido</button>
+        <button href="carrito_pedido.html" class="tab-btn btn-dark">Envío</button>
+        <button href="carrito_calificacion.html" class="tab-btn active">Calificar</button>
       </div>
+  
+      
+      <h5 class="text-start fw-bold mb-2 text-center">Pedido</h5>
+    
 
-      <!-- Título Pedido -->
-      <h5 class="text-start fw-bold mb-2">Pedido</h5>
-
-      <!-- Items -->
       <div class="item d-flex align-items-center">
         <img src="img/pizza.jpg" alt="Pizza">
         <div class="text-start">
@@ -140,13 +138,13 @@
         </div>
       </div>
 
-      <!-- Comentarios -->
+      
       <div class="mt-3 text-start">
         <label for="comentarios"></label>
         <textarea id="comentarios" rows="2" placeholder="Comentarios:"></textarea>
       </div>
 
-      <!-- Estrellas -->
+      
       <div class="stars">
         <span>★</span>
         <span>★</span>
