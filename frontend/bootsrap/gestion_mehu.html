@@ -1,107 +1,224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestión de Menú - Rotisería UM</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background: linear-gradient(180deg, #1e003e, #000020);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      position: relative;
+      padding-bottom: 6rem; /* espacio para que no tape el botón */
+    }
+    .menu-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      padding: 1rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+    .menu-item {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 0.75rem;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .item-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .item-icon {
+      background: #9b4dff;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      min-width: 42px;
+      min-height: 42px;
+    }
+    .item-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    .item-text .price {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+    .action-buttons .btn {
+      margin-left: 5px;
+    }
+    .btn-edit {
+      background: #9b4dff;
+      border: none;
+      color: #fff;
+    }
+    .btn-edit:hover { background: #7b3ce3; }
+    .btn-delete {
+      background: #e63946;
+      border: none;
+      color: #fff;
+    }
+    .btn-delete:hover { background: #c1121f; }
+    .back-btn {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+    .back-btn:hover { color: #9b4dff; }
+    .fab-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #9b4dff;
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      z-index: 1050;
+    }
+    .fab-btn:hover { background: #7b3ce3; }
+  </style>
 </head>
-<body class="bg-light">
+<body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">Rotisería UM</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="register.html">Registro</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link active" href="#">Gestión de menú</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- Botón volver -->
+  <a href="index.html" class="back-btn"><i class="bi bi-arrow-left"></i></a>
 
-  <!-- Header -->
-  <header class="bg-primary text-white text-center py-4">
-    <div class="container">
-      <h1 class="fw-bold">Gestión de Menú</h1>
-      <p class="mb-0">Administra los productos disponibles en la Rotisería UM</p>
-    </div>
-  </header>
+  <div class="menu-card">
+    <h4 class="text-center mb-3">Gestión de Menú</h4>
+    <hr class="border-light">
 
-  <!-- Sección gestión -->
-  <div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h2 class="h4 mb-0">Productos</h2>
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#nuevoProductoModal">
-        + Agregar producto
-      </button>
-    </div>
-
-    <!-- Lista de productos -->
-    <div class="row g-3">
-      <!-- Producto ejemplo -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="card shadow-sm">
-          <img src="img/pizza.jpg" class="card-img-top" alt="Pizza">
-          <div class="card-body">
-            <h5 class="card-title">Pizza Muzzarella</h5>
-            <p class="card-text">Deliciosa pizza de muzzarella casera.</p>
-            <div class="d-flex justify-content-between">
-              <button class="btn btn-sm btn-primary">Editar</button>
-              <button class="btn btn-sm btn-danger">Eliminar</button>
-            </div>
+    <!-- Contenedor de ítems -->
+    <div id="menuItems">
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-icon"><i class="bi bi-emoji-smile"></i></div>
+          <div class="item-text">
+            <span class="item-name">Napolitana</span>
+            <span class="price">$10.000</span>
           </div>
         </div>
+        <div class="action-buttons">
+          <button class="btn btn-edit edit-btn"><i class="bi bi-pencil"></i></button>
+          <button class="btn btn-delete delete-btn"><i class="bi bi-x-lg"></i></button>
+        </div>
       </div>
-      <!-- Copiá el bloque anterior para más productos -->
+
+      <div class="menu-item">
+        <div class="item-info">
+          <div class="item-icon"><i class="bi bi-emoji-smile"></i></div>
+          <div class="item-text">
+            <span class="item-name">Muzzarella</span>
+            <span class="price">$9.000</span>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-edit edit-btn"><i class="bi bi-pencil"></i></button>
+          <button class="btn btn-delete delete-btn"><i class="bi bi-x-lg"></i></button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Modal agregar producto -->
-  <div class="modal fade" id="nuevoProductoModal" tabindex="-1" aria-labelledby="nuevoProductoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+  <!-- Botón flotante (sigue abriendo el modal de nuevo producto) -->
+  <button class="fab-btn" data-bs-toggle="modal" data-bs-target="#nuevoProductoModal">
+    <i class="bi bi-plus-lg"></i>
+  </button>
+
+  <!-- Modal para agregar producto (ya existente) -->
+  <div class="modal fade" id="nuevoProductoModal" tabindex="-1" aria-labelledby="nuevoProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
         <div class="modal-header">
-          <h5 class="modal-title" id="nuevoProductoModalLabel">Agregar nuevo producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          <h5 class="modal-title" id="nuevoProductoLabel">Agregar nuevo producto</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form id="nuevoProductoForm">
             <div class="mb-3">
-              <label for="nombreProducto" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombreProducto">
+              <label for="nombreProducto" class="form-label">Nombre del producto</label>
+              <input type="text" class="form-control" id="nombreProducto" required>
             </div>
             <div class="mb-3">
-              <label for="descripcionProducto" class="form-label">Descripción</label>
-              <textarea class="form-control" id="descripcionProducto" rows="3"></textarea>
+              <label for="precioProducto" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="precioProducto" required>
             </div>
             <div class="mb-3">
-              <label for="imagenProducto" class="form-label">Imagen (URL o archivo)</label>
-              <input type="text" class="form-control" id="imagenProducto">
+              <label for="iconoProducto" class="form-label">Ícono (opcional)</label>
+              <input type="text" class="form-control" id="iconoProducto" placeholder="ej: bi-emoji-smile">
+              <div class="form-text text-secondary">Usa clases de Bootstrap Icons</div>
             </div>
-            <!-- Podés agregar más campos, ej. precio -->
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
+          <button type="button" class="btn btn-primary" id="guardarNuevo">Guardar</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3 mt-5">
-    <small>&copy; 2025 Rotisería UM - Todos los derechos reservados</small>
-  </footer>
+  <!-- Modal para editar producto (se abre al clicar "editar") -->
+  <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editarProductoLabel">Editar producto</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editarProductoForm">
+            <div class="mb-3">
+              <label for="editNombre" class="form-label">Nombre del producto</label>
+              <input type="text" class="form-control" id="editNombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="editPrecio" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="editPrecio" required>
+            </div>
+            <div class="mb-3">
+              <label for="editIcono" class="form-label">Ícono (clase)</label>
+              <input type="text" class="form-control" id="editIcono" placeholder="ej: bi-emoji-smile">
+              <div class="form-text text-secondary">Usa clases de Bootstrap Icons</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- Cancelar -->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <!-- Guardar: actualiza la vista del item (sin backend) -->
+          <button type="button" class="btn btn-primary" id="guardarEdicion">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
