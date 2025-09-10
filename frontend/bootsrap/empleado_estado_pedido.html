@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estado de Pedidos - Rotisería UM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --color-primary: #8B45BD;
+      --color-primary-30: rgba(139, 69, 189, 0.3);
+      --color-primary-10: rgba(139, 69, 189, 0.1);
+      --color-text: rgba(255, 255, 255, 0.7);
+      --color-dark: #1a1a2e;
+      --color-darker: #0d0d1a;
+    }
+    
+    body {
+      background: var(--color-dark);
+      color: var(--color-text);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .main-container {
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    .card {
+      background: linear-gradient(135deg, var(--color-darker), #1b0026);
+      border: 2px solid var(--color-primary);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(139, 69, 189, 0.4);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .card-header {
+      background: var(--color-primary);
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      padding: 1rem;
+      border: none;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .filter-tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      background: var(--color-primary-10);
+      border-radius: 30px;
+      padding: 5px;
+    }
+    
+    .filter-tab {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: var(--color-text);
+    }
+    
+    .filter-tab.active {
+      background: var(--color-primary);
+      color: white;
+    }
+    
+    .order-card {
+      background: var(--color-primary-10);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--color-primary);
+    }
+    
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .order-title {
+      font-weight: bold;
+      color: white;
+      margin: 0;
+    }
+    
+    .order-status {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    .status-pending {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+    
+    .status-preparing {
+      background: rgba(23, 162, 184, 0.2);
+      color: #17a2b8;
+    }
+    
+    .status-ready {
+      background: rgba(40, 167, 69, 0.2);
+      color: #28a745;
+    }
+    
+    .order-details {
+      margin-bottom: 10px;
+    }
+    
+    .order-info {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    
+    .order-time {
+      font-size: 0.8rem;
+      color: #ffc107;
+    }
+    
+    .order-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .btn-action {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background: var(--color-primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #7839a3;
+    }
+    
+    .btn-success {
+      background: #28a745;
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background: #218838;
+    }
+    
+    .back-button {
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .back-button:hover {
+      background: #7839a3;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Botón de volver -->
+    <button class="back-button" onclick="window.location.href='empleado_panel.html'">
+      <i class="bi bi-arrow-left"></i> Volver al Panel
+    </button>
+
+    <!-- Estado de pedidos -->
+    <div class="card">
+      <div class="card-header">
+        Estado de Pedidos
+      </div>
+      <div class="card-body">
+        <!-- Filtros -->
+        <div class="filter-tabs">
+          <div class="filter-tab active">Todos</div>
+          <div class="filter-tab">Pendiente</div>
+          <div class="filter-tab">Preparando</div>
+          <div class="filter-tab">Listo</div>
+        </div>
+
+        <!-- Lista de pedidos -->
+        <!-- Pedido #1238 - Pendiente -->
+        <div class="order-card">
+          <div class="order-header">
+            <h3 class="order-title">Pedido #1238</h3>
+            <span class="order-status status-pending">Pendiente</span>
+          </div>
+          <div class="order-details">
+            <p class="order-info">1x Napolitana, 6x Empanadas</p>
+            <p class="order-info">Juan Pérez - Zona Sur</p>
+            <p class="order-time">Hace 10 min</p>
+          </div>
+          <div class="order-actions">
+            <button class="btn-action btn-primary">Iniciar Preparación</button>
+          </div>
+        </div>
+
+        <!-- Pedido #1239 - En preparación -->
+        <div class="order-card">
+          <div class="order-header">
+            <h3 class="order-title">Pedido #1239</h3>
+            <span class="order-status status-preparing">En Preparación</span>
+          </div>
+          <div class="order-details">
+            <p class="order-info">2x Muzzarella</p>
+            <p class="order-info">Ana Silva - Zona Norte</p>
+            <p class="order-time">Hace 15 min</p>
+          </div>
+          <div class="order-actions">
+            <button class="btn-action btn-primary">Marcar Listo</button>
+          </div>
+        </div>
+
+        <!-- Pedido #1240 - Listo -->
+        <div class="order-card">
+          <div class="order-header">
+            <h3 class="order-title">Pedido #1240</h3>
+            <span class="order-status status-ready">Listo</span>
+          </div>
+          <div class="order-details">
+            <p class="order-info">1x Napolitana, 12x Empanadas</p>
+            <p class="order-info">Carlos López - Zona Centro</p>
+            <p class="order-time">Hace 5 min</p>
+          </div>
+          <div class="order-actions">
+            <button class="btn-action btn-primary">Notificar Cliente</button>
+            <button class="btn-action btn-success">Entregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Funcionalidad para los filtros de pestañas
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Remover clase active de todas las pestañas
+        document.querySelectorAll('.filter-tab').forEach(t => {
+          t.classList.remove('active');
+        });
+        
+        // Agregar clase active a la pestaña clickeada
+        this.classList.add('active');
+        
+        // Aquí iría la lógica para filtrar los pedidos según la pestaña seleccionada
+        // Por simplicidad, no se implementa en este ejemplo
+      });
+    });
+  </script>
+</body>
+</html>
