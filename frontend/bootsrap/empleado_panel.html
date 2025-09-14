@@ -86,10 +86,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      text-decoration: none; /* quita subrayado */
     }
     .action-btn:hover {
       background-color: rgba(155, 77, 255, 0.2);
       transform: translateY(-3px);
+      color: #fff;
     }
     .action-icon {
       font-size: 1.5rem;
@@ -163,8 +165,7 @@
 </head>
 <body>
 
-  <!-- Botón volver -->
-  <a href="index.html" class="back-btn"><i class="bi bi-arrow-left"></i></a>
+
 
   <div class="carrito-card">
     <div class="title-container">
@@ -183,24 +184,24 @@
       </div>
     </div>
     
-    <!-- Botones de acción -->
+    <!-- Botones de acción con links -->
     <div class="actions-grid">
-      <button class="action-btn">
+      <a href="empleado_estado_pedido.html" class="action-btn">
         <div class="action-icon"><i class="bi bi-list-check"></i></div>
         <div class="action-text">Ver Pedidos</div>
-      </button>
-      <button class="action-btn">
+      </a>
+      <a href="empleado_stock_productos.html" class="action-btn">
         <div class="action-icon"><i class="bi bi-box-seam"></i></div>
         <div class="action-text">Verificar Stock</div>
-      </button>
-      <button class="action-btn">
+      </a>
+      <a href="empleado_validarcuentas.html" class="action-btn">
         <div class="action-icon"><i class="bi bi-person-check"></i></div>
         <div class="action-text">Validar Cuentas</div>
-      </button>
-      <button class="action-btn">
+      </a>
+      <a href="empleado_gestionclientes.html" class="action-btn">
         <div class="action-icon"><i class="bi bi-people"></i></div>
         <div class="action-text">Gestionar Clientes</div>
-      </button>
+      </a>
     </div>
     
     <!-- Sección de pedidos urgentes -->
