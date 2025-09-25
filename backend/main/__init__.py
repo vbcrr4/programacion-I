@@ -1,29 +1,20 @@
+import os
 from flask import Flask
 from dotenv import load_dotenv
 
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
-import os
 
-#from .resources import (
-#    UserResource,
-#    UserListResource,
-#    OrderResource,
-#    OrderListResource,
-#    ProductListResource,
-#    ProductResource,
-#    LoginResource,
-#    RegisterResource,
-#    RatingResource,RatingListResource,
-#    OrderDetailResource,OrderDetailListResource,
-#    NotificationResource,NotificationListResource,
-#
-#)
+from flask_migrate import Migrate
+from flask_jwt_extended import JWTManager
 
 api = Api()
 
 #Inicializamos la db con sqlalchemy
 db = SQLAlchemy()
+migrate = Migrate()
+jwt = JWTManager()
+
 
 def create_app():
     app = Flask(__name__)
@@ -36,6 +27,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
     db.init_app(app)
+    migrate.init_app(app,db)
     
     import main.resources as resources
     api.add_resource(resources.UserResource, "/users/<int:user_id>")
@@ -53,6 +45,25 @@ def create_app():
     api.add_resource(resources.RatingResource, "/ratings/<int:rating_id>")
     api.add_resource(resources.RatingListResource, "/ratings")
 
+    #app.register_blueprint(routes.auth) 
+    """Creamos carpetas del blueprint, inicializamos blueprints
+    """
+    
     api.init_app(app)
+<<<<<<< HEAD
     return app
 
+=======
+
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
+    app.config['JWT_ACCES_TOKEN_EXPIRES'] = os.getenv['JWT_ACCES_TOKEN_EXPIRES']
+    jwt.init_app(app)
+    from main.auth import routes
+
+    app.register_blueprint(routes.auth)
+
+
+
+
+    return app
+>>>>>>> 4489879e11e99bf4a765511d574171e2080645f3

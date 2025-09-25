@@ -1,10 +1,17 @@
 /bin
+<<<<<<< HEAD
 */include
 */lib*
 */lib64/
+=======
+/include
+/lib
+/lib64
+*/entorno*
+>>>>>>> 4489879e11e99bf4a765511d574171e2080645f3
 pyvenv.cfg
 .env
-
+/frontend/pruebas_n
 # Node y Angular
 node_modules/
 dist/
@@ -47,3 +54,7 @@ Thumbs.db
 *entorno
 
 .vscode
+
+#Apuntes mios
+/clase1
+/clase2

@@ -37,8 +37,44 @@ class Product(Resource):
 
 class ProductList(Resource):
     def get(self):
-        products = db.session.query(ProductModel).all()
-        return jsonify([product.to_json() for product in products])
+        page = 1
+        per_page = 10
+
+        products = db.session.query(ProductModel)
+
+        if request.args.get('page'):
+            page = int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page = int(request.args.get('per_page'))
+
+        
+        #Buscamos por nombre
+        if request.args.get('name'):
+            name = request.args.get('name')
+            products = products.filter(ProductModel.name.ilike(f'%{name}%'))
+        #Buscamos por precio
+        if request.args.get('price'):
+            price = float(request.args.get('price'))
+            products = products.filter(ProductModel.price <= price)
+        #Buscamos por disponibilidad
+        if request.args.get('available'):
+            available = request.args.get('available').lower() == 'true'
+            products = products.filter(ProductModel.available == available)
+        #Buscamos por categoria
+        if request.args.get('category'):
+            category = request.args.get('category')
+            products = products.filter(ProductModel.category.ilike(f'%{category}%'))
+
+        #fin filtros
+
+        products = products.paginate(page=page, per_page=per_page, error_out=True)
+
+        return jsonify({ 'products': [product.to_json() for product in products],
+                        'total' : products.total,
+                         'pages' : products.pages,
+                         'page' : page
+                         })
+   
     
     def post(self):
         product = ProductModel.from_json(request.get_json())

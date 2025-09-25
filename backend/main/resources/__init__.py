@@ -19,5 +19,9 @@ __all__ = [
     "RegisterResource",
     "NotificationResource","NotificationListResource",
     "OrderDetailResource","OrderDetailListResource",
-    "RatingResource","RatingListResource"
+    "RatingResource",
+    "RatingListResource"
+
 ]
+
+
