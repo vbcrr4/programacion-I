@@ -15,46 +15,25 @@
       justify-content: center;
       color: #fff;
       padding: 1rem;
+            /* IGUAL EN ADMIN MENU y EMPLEADO PANEL Y EMPLEADO PANEL */
     }
-    .carrito-card {
+    .stats-card {
       background-color: rgba(255, 255, 255, 0.05);
       border-radius: 1.2rem;
       padding: 1rem;
       width: 100%;
       max-width: 380px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+          /* IGUAL EN EMPLEADO PANEL Y ADMIN MENU */
     }
-    .header-badge {
-      background: #9b4dff;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding:  0.8rem;
-      margin-bottom: 1rem;
-      gap: 10px;
-    }
-    .header-badge .badge {
-      background: #5c0ad6;
-      margin-right: 0.5rem;
-      border-radius: 50%;
-    }
+
     .stats-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
-    .stat-card {
-      background-color: rgba(255, 255, 255, 0.08);
-      border-radius: 0.75rem;
-      padding: 1rem;
-      text-align: center;
-      height: 100px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+
     .stat-number {
       font-size: 2.2rem;
       font-weight: bold;
@@ -72,6 +51,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 0.8rem;
       margin-bottom: 1.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL  */
     }
     .action-btn {
       background-color: rgba(255, 255, 255, 0.08);
@@ -87,23 +67,25 @@
       justify-content: center;
       align-items: center;
       text-decoration: none; 
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
     }
     .action-btn:hover {
       background-color: rgba(155, 77, 255, 0.2);
       transform: translateY(-3px);
       color: #fff;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
     }
     .action-icon {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
       color: #9b4dff;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
     }
     .action-text {
       font-size: 0.85rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
     }
-    .urgent-section {
-      margin-top: 1rem;
-    }
+
     .urgent-order {
       background-color: rgba(230, 57, 70, 0.15);
       border-radius: 0.75rem;
@@ -135,12 +117,7 @@
       color: #bbb;
       font-size: 0.8rem;
     }
-    .section-title {
-      font-size: 1rem;
-      margin-bottom: 0.8rem;
-      color: #9b4dff;
-      font-weight: bold;
-    }
+
     .back-btn {
       position: absolute;
       top: 1rem;
@@ -148,37 +125,42 @@
       color: white;
       font-size: 1.5rem;
       text-decoration: none;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
     }
     .back-btn:hover { 
       color: #9b4dff; 
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
     }
     .title-container {
       text-align: center;
       margin-bottom: 1.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
     }
     .main-title {
       font-size: 1.5rem;
       font-weight: bold;
       margin-bottom: 0.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
     }
+
   </style>
 </head>
 <body>
 
 
 
-  <div class="carrito-card">
+  <div class="stats-card">
     <div class="title-container">
       <div class="main-title">Panel Empleado</div>
     </div>
     
 
     <div class="stats-container">
-      <div class="stat-card">
+      <div class="action-btn">
         <div class="stat-number">8</div>
         <div class="stat-label">Pendientes</div>
       </div>
-      <div class="stat-card">
+      <div class="action-btn">
         <div class="stat-number">3</div>
         <div class="stat-label">En preparación</div>
       </div>
@@ -206,7 +188,7 @@
     
 
     <div class="urgent-section">
-      <div class="section-title">Pedidos Urgentes</div>
+      <div class="stats-container">Pedidos Urgentes</div>
       
 
       <div class="urgent-order">
