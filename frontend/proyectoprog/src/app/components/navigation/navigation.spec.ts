@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule, Routes } from '@angular/router';
-import { AdminMenu } from './admin-menu';
 
+import { Navigation } from './navigation';
 
-export const routes: Routes = []
-describe('AdminMenu', () => {
-  let component: AdminMenu;
-  let fixture: ComponentFixture<AdminMenu>;
+describe('Navigation', () => {
+  let component: Navigation;
+  let fixture: ComponentFixture<Navigation>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminMenu]
+      imports: [Navigation]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminMenu);
+    fixture = TestBed.createComponent(Navigation);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

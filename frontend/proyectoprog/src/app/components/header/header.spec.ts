@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule, Routes } from '@angular/router';
-import { AdminMenu } from './admin-menu';
 
+import { Header } from './header';
 
-export const routes: Routes = []
-describe('AdminMenu', () => {
-  let component: AdminMenu;
-  let fixture: ComponentFixture<AdminMenu>;
+describe('Header', () => {
+  let component: Header;
+  let fixture: ComponentFixture<Header>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminMenu]
+      imports: [Header]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AdminMenu);
+    fixture = TestBed.createComponent(Header);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
