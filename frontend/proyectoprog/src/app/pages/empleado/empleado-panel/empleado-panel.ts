@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
+import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-empleado-panel',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './empleado-panel.html',
   styleUrl: './empleado-panel.css'
 })

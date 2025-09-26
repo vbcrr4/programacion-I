@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule,Routes } from '@angular/router';
+// import { NgModule } from '@angular/core';RouterModule
+import { Routes } from '@angular/router';
 // import { GestionMenu } from '../gestion-menu/gestion-menu';
 // import { NuevoProducto } from '../nuevo-producto/nuevo-producto';
 // import { Pedidos } from '../pedidos/pedidos';
@@ -19,8 +19,8 @@ export const routes: Routes = [
     { path: '**', loadComponent: () => import('../../error-page/error-page').then(c => c.ErrorPage) }
   ];
   
-  @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-  })
-  export class AppRoutingModule { }
+  // @NgModule({
+  //   imports: [RouterModule.forRoot(routes)],
+  //   exports: [RouterModule]
+  // })
+  // export class AppRoutingModule { }
