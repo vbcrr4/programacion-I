@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-estado-pedido',
-  imports: [],
+  standalone: true,
+  imports: [RouterLink, CommonModule],
   templateUrl: './estado-pedido.html',
-  styleUrl: './estado-pedido.css'
+  styleUrls: ['./estado-pedido.css']
 })
-export class EstadoPedido {
-
-}
+export class EstadoPedido {}
