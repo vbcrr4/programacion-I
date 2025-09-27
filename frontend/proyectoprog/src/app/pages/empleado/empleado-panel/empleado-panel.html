@@ -1,1 +1,52 @@
-<p>empleado-panel works!</p>
+<div class="stats-card">
+  <div class="title-container">
+    <div class="main-title">Panel Empleado</div>
+  </div>
+
+  <div class="stats-container">
+    <div class="action-btn">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Pendientes</div>
+    </div>
+    <div class="action-btn">
+      <div class="stat-number">3</div>
+      <div class="stat-label">En preparación</div>
+    </div>
+  </div>
+
+  <div class="actions-grid">
+    <a routerLink="/empleado/estado-pedido" class="action-btn">
+      <div class="action-icon"><i class="bi bi-list-check"></i></div>
+      <div class="action-text">Ver Pedidos</div>
+    </a>
+    <a routerLink="/empleado/stock-productos" class="action-btn">
+      <div class="action-icon"><i class="bi bi-box-seam"></i></div>
+      <div class="action-text">Verificar Stock</div>
+    </a>
+    <a routerLink="/empleado/validar-cuentas" class="action-btn">
+      <div class="action-icon"><i class="bi bi-person-check"></i></div>
+      <div class="action-text">Validar Cuentas</div>
+    </a>
+    <a routerLink="/empleado/gestion-clientes" class="action-btn">
+      <div class="action-icon"><i class="bi bi-people"></i></div>
+      <div class="action-text">Gestionar Clientes</div>
+    </a>
+  </div>
+
+  <div class="urgent-section">
+    <div class="stats-container">Pedidos Urgentes</div>
+
+    <div class="urgent-order">
+      <div class="order-header">
+        <div class="order-title">Pedido #1240</div>
+        <div class="order-time">24 min</div>
+      </div>
+      <div class="order-details">
+        <strong>x2 Napolitana</strong>
+      </div>
+      <div class="order-client">
+        Mesa González - Zona Centro
+      </div>
+    </div>
+  </div>
+</div>
