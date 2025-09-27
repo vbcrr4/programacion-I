@@ -1,10 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-stock-productos',
-  imports: [],
+  standalone : true,
+  imports: [CommonModule,RouterLink],
   templateUrl: './stock-productos.html',
-  styleUrl: './stock-productos.css'
+  styleUrls: ['./stock-productos.css']
 })
 export class StockProductos {
 
