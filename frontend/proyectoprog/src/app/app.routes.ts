@@ -10,6 +10,8 @@ export const routes: Routes = [
   { path: 'estado-pedido', loadComponent: () => import('./pages/empleado/estado-pedido/estado-pedido').then(m => m.EstadoPedido) },
   { path: 'stock-productos', loadComponent: () => import('./pages/empleado/stock-productos/stock-productos').then(m => m.StockProductos) },
   { path: 'validar-cuentas', loadComponent: () => import('./pages/empleado/validar-cuentas/validar-cuentas').then(m => m.ValidarCuentas) },
+  { path: 'gestion-clientes', loadComponent: () => import('./pages/empleado/gestion-clientes/gestion-clientes').then(m => m.GestionClientes) },
+
   { path: 'error', loadComponent: () => import('./pages/error-page/error-page').then(m => m.ErrorPage) },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'error' }

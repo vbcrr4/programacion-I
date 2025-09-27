@@ -1,1 +1,73 @@
-<p>gestion-clientes works!</p>
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión Clientes</title>
+  <div class="main-container">
+        <div class="card">
+            
+
+            <div class="card-header-custom">
+          <a routerLink="/empleado-panel" class="back-btn"><i class="bi bi-arrow-left"></i></a>
+
+        <h5 class="title">Gestión Clientes</h5>
+      </div>
+
+
+      <div class="search-box">
+        <input type="text" class="form-control" placeholder="Buscar cliente..."/>
+      </div>
+
+
+      <div class="filter-tabs">
+        <button class="filter-btn active">Todos</button>
+        <button class="filter-btn">Activos</button>
+        <button class="filter-btn">Bloqueados</button>
+        <button class="filter-btn">Frecuentes</button>
+      </div>
+
+
+      <div class="client-item">
+        <div class="client-left">
+          <div class="avatar">JP</div>
+          <div class="client-info">
+            <p class="name">Juan Pérez</p>
+            <p>15 pedidos realizados</p>
+            <p>Cliente desde: Ene 2024</p>
+            <span class="status status-active">Cliente activo</span>
+          </div>
+        </div>
+        <div class="client-actions">
+          <button class="action-btn btn-remove">-</button>
+          <button class="action-btn btn-block">⛔</button>
+        </div>
+      </div>
+
+
+      <div class="client-item">
+        <div class="client-left">
+          <div class="avatar" style="background:#9b4dff;">CS</div>
+          <div class="client-info">
+            <p class="name">Carlos Silva</p>
+            <p>2 pedidos cancelados</p>
+            <p>Última actividad: Hace 5 días</p>
+            <span class="status status-blocked">Bloqueado</span>
+          </div>
+        </div>
+        <div class="client-actions">
+          <button class="action-btn btn-remove">-</button>
+          <button class="action-btn btn-approve">✔</button>
+        </div>
+      </div>
+
+
+      <div class="client-item">
+        <div class="client-left">
+          <div class="avatar" style="background:#9b4dff;">MG</div>
+          <div class="client-info">
+            <p class="name">María González</p>
+            <p>32 pedidos realizados</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

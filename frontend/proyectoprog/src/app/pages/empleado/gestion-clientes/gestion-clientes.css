@@ -1,0 +1,155 @@
+body {
+      background: linear-gradient(180deg, #1e003e, #000020);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .main-container {
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      color: #fff;
+      overflow: hidden;
+    }
+
+
+    .card-header-custom {
+      position: relative; /* permite ubicar la flecha dentro */
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* centra el título */
+    }
+
+    .card-header-custom .back-btn {
+      position: absolute;
+      left: 1rem; /* la fijamos a la izquierda */
+    }
+    .back-btn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: white;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+
+    .search-box {
+      padding: 0 1rem 1rem;
+    }
+    .search-box input {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+    }
+    .search-box input::placeholder {
+      color: #bbb;
+    }
+
+
+    .filter-tabs {
+      padding: 0 1rem 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+    .filter-btn.active {
+      background: #9b4dff;
+    }
+
+
+    .client-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem;
+      margin: 0.6rem 1rem;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+    }
+    .client-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #fff;
+      background: #9b4dff;
+    }
+    .client-info p {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+    .client-info .name {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+    .status {
+      font-size: 0.75rem;
+      border-radius: 6px;
+      padding: 0.2rem 0.5rem;
+      margin-top: 0.2rem;
+      display: inline-block;
+    }
+    .status-active { background: #198754; }
+    .status-blocked { background: #dc3545; }
+
+    .client-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #fff;
+    }
+    .btn-remove { background: #6c757d; }
+    .btn-approve { background: #198754; }
+    .btn-block { background: #dc3545; }
