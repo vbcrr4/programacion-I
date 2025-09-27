@@ -1,4 +1,4 @@
-:root {
+    :root {
       --color-primary: #8B45BD;
       --color-primary-30: rgba(139, 69, 189, 0.3);
       --color-primary-10: rgba(139, 69, 189, 0.1);
@@ -176,4 +176,8 @@
     
     .back-btn:hover {
       background: rgba(255,255,255,0.25);
+    }
+
+    .filter-tabs .filter-tab {
+      color: #fff;
     }
