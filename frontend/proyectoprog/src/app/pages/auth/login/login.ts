@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AppRoutingModule } from "../../admin/admin-routing.routes";
+// import { AppRoutingModule } from "../../admin/admin-routing.routes";
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [AppRoutingModule,RouterLink],
+  imports: [RouterLink],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
