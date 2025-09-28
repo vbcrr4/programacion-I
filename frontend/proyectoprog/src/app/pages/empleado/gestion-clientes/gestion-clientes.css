@@ -22,16 +22,16 @@ body {
 
 
     .card-header-custom {
-      position: relative; /* permite ubicar la flecha dentro */
+      position: relative; 
       padding: 1rem;
       display: flex;
       align-items: center;
-      justify-content: center; /* centra el título */
+      justify-content: center; 
     }
 
     .card-header-custom .back-btn {
       position: absolute;
-      left: 1rem; /* la fijamos a la izquierda */
+      left: 1rem; 
     }
     .back-btn {
       background: rgba(255,255,255,0.15);

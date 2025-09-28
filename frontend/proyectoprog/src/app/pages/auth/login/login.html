@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div class="login-card">
+  <h2 class="text-center mb-4">Iniciar Sesión</h2>
+  <form>
+    <div class="mb-3">
+      <input type="email" class="form-control" placeholder="Email" />
+    </div>
+    <div class="mb-3">
+      <input type="password" class="form-control" placeholder="Password" />
+    </div>
+    <div class="text-center mb-3">
+      <a routerLink="/recuperar-password" class="text-light">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <a routerLink="/menu" class="btn-login d-block text-center">Ingresar</a>
+  </form>
+
+  <div class="text-center mt-3 extra-links">
+    <span>No tenés cuenta?
+      <a routerLink="/register">Creá tu cuenta</a>
+    </span>
+  </div>
+</div>
