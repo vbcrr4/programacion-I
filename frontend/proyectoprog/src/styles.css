@@ -82,37 +82,10 @@
     font-size: 0.85rem;
   }
   
-  /* BOTÓN DE REGRESO COMÚN */
-  .back-btn {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    color: white;
-    font-size: 1.5rem;
-    text-decoration: none;
-  }
+
+ 
   
-  .back-btn:hover { 
-    color: var(--color-primary); 
-  }
-  
-  /* Variante de botón redondo */
-  .back-btn.round {
-    background: rgba(255,255,255,0.15);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: relative;
-  }
-  
-  .back-btn.round:hover {
-    background: rgba(255,255,255,0.25);
-  }
+
   
   /* TÍTULOS PRINCIPALES */
   .title-container {

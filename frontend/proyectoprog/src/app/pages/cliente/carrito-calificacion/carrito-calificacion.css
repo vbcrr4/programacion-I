@@ -1,0 +1,17 @@
+.card-carrito {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #1b0026, #1a003d);
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+  }
+  .card-carrito h2 {
+    font-weight: bold;
+  }
+  .producto-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
