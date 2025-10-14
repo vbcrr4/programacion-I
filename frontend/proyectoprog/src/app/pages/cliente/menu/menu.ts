@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterLink} from '@angular/router';
+import { Navbar } from "../../../components/navbar/navbar";
+
 @Component({
   selector: 'app-menu',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [Navbar],
   templateUrl: './menu.html',
-  styleUrl: './menu.css'
+  styleUrls: ['./menu.css']
 })
 export class Menu {
 

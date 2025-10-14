@@ -1,11 +1,4 @@
-header {
-    background: #9d4edd;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 0 0 15px 15px;
-  }
+
   .logo-container {
     display: flex;
     align-items: center;
