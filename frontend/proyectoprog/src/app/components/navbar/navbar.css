@@ -1,1 +1,45 @@
+.navbar {
+  background: rgba(30, 0, 62, 0.9);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.navbar-brand {
+  color: #9b4dff !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.navbar-brand:hover {
+  color: #fff !important;
+}
+
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  margin: 0 8px;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-link:hover {
+  color: #9b4dff !important;
+  transform: translateY(-2px);
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand span {
+    display: none;
+  }
+}
 

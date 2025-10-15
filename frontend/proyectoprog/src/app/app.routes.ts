@@ -1,4 +1,6 @@
+import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
+import { Navbar } from './components/navbar/navbar';
 
 export const routes: Routes = [
   //  Auth

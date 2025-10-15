@@ -1,18 +1,37 @@
-<nav class="navbar fixed-top bg-light w-100">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top px-3">
+  <div class="container-fluid">
     
-    <!-- Logo + nombre -->
-    <div class="d-flex align-items-center">
-      <img src="assets/imagenpollo.jpg" alt="Logo" style="height: 40px; margin-right: 10px;">
-      <span class="fw-bold fs-5">Rotisería UM</span>
-    </div>
-
-    <!-- Enlace cuenta y carrito -->
-    <a routerLink="/carrito-pedido-cliente" class="text-decoration-none text-dark d-flex align-items-center">
-      <i class="fas fa-user me-2"></i> Mi cuenta
-      <i class="fas fa-shopping-cart ms-3"></i> 
-      <span class="ms-1">0</span>
+    <!-- Logo / Nombre -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/menu">
+      <img src="assets/imagenpollo.jpg" alt="Logo" class="rounded-circle me-2" width="40" height="40">
+      <span>Rotisería UM</span>
     </a>
 
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links del menú -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/menu"><i class="bi bi-house-door-fill"></i> Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/carrito-pedido-cliente"><i class="bi bi-cart-fill"></i> Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/empleado-panel"><i class="bi bi-briefcase-fill"></i> Empleados</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/perfil"><i class="bi bi-person-circle"></i> Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" routerLink="/login"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

@@ -11,3 +11,4 @@ export class App {
   // protected readonly title = signal('proyectoprog');
   title = 'AppRotisería'
 }
+
