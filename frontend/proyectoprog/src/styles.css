@@ -50,38 +50,6 @@
     margin-bottom: 1.5rem;
   }
   
-  .action-btn {
-    background-color: var(--bg-card-secondary);
-    border: none;
-    border-radius: var(--border-radius-md);
-    padding: 1rem 0.5rem;
-    color: var(--text-white);
-    text-align: center;
-    transition: all 0.3s ease;
-    height: 90px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-  }
-  
-  .action-btn:hover {
-    background-color: rgba(155, 77, 255, 0.2);
-    transform: translateY(-3px);
-    color: var(--text-white);
-  }
-  
-  .action-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-primary);
-  }
-  
-  .action-text {
-    font-size: 0.85rem;
-  }
-  
 
  
   

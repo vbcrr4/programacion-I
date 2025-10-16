@@ -1,40 +1,25 @@
 
+<app-navbar></app-navbar>
+<app-back-button link="/menu"></app-back-button>
+  
+    <!-- <app-action-bttn [link]="'/gestion-menu-admin'" [bttn_icon]="'bi bi-card-list'" label="prueba1"></app-action-bttn> -->
+    <div class="container-xl">
+    <div class="main-title">Panel Administrador</div>
+    <!-- <div class="row"> -->
+      <app-action-bttn link="gestion-menu-admin" bttn_icon="bi bi-card-list" label="Gestión Menú"></app-action-bttn>
+      <app-action-bttn link="/nuevo-producto-admin" bttn_icon="bi bi-plus-circle" label="Nuevo Producto"></app-action-bttn>
+      <app-action-bttn link="/pedidos-admin" bttn_icon="bi bi-receipt-cutoff" label="Pedidos"></app-action-bttn>
+      <app-action-bttn link="/usuarios-admin" bttn_icon="bi bi-people" label="Usuarios"></app-action-bttn>
+      <app-action-bttn link="/promociones-admin" bttn_icon="bi bi-stars" label="Promociones"></app-action-bttn>
+  </div>      
 
-<body>
-  <div class="stats-card">
-    <div class="title-container">
-      <div class="main-title">Panel Administrador</div>
-    </div>
-
-    
-    <div class="actions-grid">
-      <a routerLink= "/gestion-menu-admin"  href=""class="action-btn" >
-        <div class="action-icon"><i class="bi bi-card-list"></i></div>
-        <div class="action-text">Gestión Menú</div>
-      </a>
-      <a routerLink="/nuevo-producto-admin" class="action-btn">
-        <div class="action-icon"><i class="bi bi-plus-circle"></i></div>
-        <div class="action-text">Nuevo Producto</div>
-      </a>
-      <a routerLink="/pedidos-admin" class="action-btn">
-        <div class="action-icon"><i class="bi bi-receipt-cutoff"></i></div>
-        <div class="action-text">Pedidos</div>
-      </a>
-      <a routerLink="/usuarios-admin" class="action-btn">
-        <div class="action-icon"><i class="bi bi-people"></i></div>
-        <div class="action-text">Usuarios</div>
-      </a>
-      <a routerLink="/promociones-admin" class="action-btn">
-        <div class="action-icon"><i class="bi bi-stars"></i></div>
-        <div class="action-text">Promociones</div>
-      </a>
-    </div>
-  </div>
+  
 
 
 
 
-</body>
 
 
-<router-outlet></router-outlet>
+
+
+
