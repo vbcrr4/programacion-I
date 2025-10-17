@@ -1,24 +1,41 @@
- <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rotisería UM - Crear Cuenta</title>
+<!-- Banner superior -->
+<header class="register-header text-center">
+  <h1 class="app-title">Unite a <span class="highlight">Rotisería UM</span></h1>
+  <p class="subtitle">Creá tu cuenta y pedí tus platos favoritos</p>
+</header>
+
+<!-- Contenedor del formulario -->
+<div class="register-container">
   <div class="register-card">
     <h2 class="text-center mb-4">Crear Cuenta</h2>
+
     <form>
       <div class="mb-3">
-        <input type="text" class="form-control" placeholder="Nombre completo">
+        <label class="form-label">Nombre completo</label>
+        <input type="text" class="form-control" placeholder="Ej: Juan Pérez" />
       </div>
+
       <div class="mb-3">
-        <input type="email" class="form-control" placeholder="Email">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" placeholder="Ej: ejemplo@gmail.com" />
       </div>
+
       <div class="mb-3">
-        <input type="password" class="form-control" placeholder="Contraseña">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control" placeholder="********" />
       </div>
-      <div class="mb-3">
-        <input type="password" class="form-control" placeholder="Confirmar contraseña">
+
+      <div class="mb-4">
+        <label class="form-label">Confirmar contraseña</label>
+        <input type="password" class="form-control" placeholder="********" />
       </div>
-    <a routerLink="/menu" class="btn-login d-block text-center">Registrarse</a>
+
+      <!-- ✅ Botón con routerLink -->
+      <a routerLink="/menu" class="btn-register w-100 text-center d-block">Registrarse</a>
+
+      <div class="text-center mt-4 extra-links">
+        <small>¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></small>
+      </div>
     </form>
-    <div class="text-center mt-3 extra-links">
-      <span>¿Ya tenés cuenta? <a routerLink="/login">Inicia sesión</a></span>
-    </div>
   </div>
+</div>

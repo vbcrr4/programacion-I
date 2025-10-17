@@ -1,20 +1,32 @@
-<div class="login-card">
-  <h2 class="text-center mb-4">Iniciar Sesión</h2>
-  <form>
-    <div class="mb-3">
-      <input type="email" class="form-control" placeholder="Email" />
-    </div>
-    <div class="mb-3">
-      <input type="password" class="form-control" placeholder="Password" />
-    </div>
-   
+<!-- Banner superior -->
+<header class="login-header text-center">
+  <h1 class="app-title">Bienvenido a <span class="highlight">Rotisería UM</span></h1>
+  <p class="subtitle">Tu sabor favorito, más cerca que nunca</p>
+</header>
 
-    <a routerLink="/menu" class="btn-login d-block text-center">Ingresar</a>
-  </form>
+<!-- Contenedor rectangular del formulario -->
+<section class="login-section d-flex justify-content-center align-items-center">
+  <div class="login-panel p-5">
+    <div class="text-center mb-4">
+      <img src="assets/imagenpollo.jpg" alt="Logo Rotisería UM" class="login-logo mb-3">
+      <h2 class="fw-bold">Iniciar Sesión</h2>
+    </div>
 
-  <div class="text-center mt-3 extra-links">
-    <span>No tenés cuenta?
-      <a routerLink="/register">Creá tu cuenta</a>
-    </span>
+    <form>
+      <div class="mb-3">
+        <label class="form-label">Correo Electrónico</label>
+        <input type="email" class="form-control" placeholder="ejemplo@gmail.com" />
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control" placeholder="********" />
+      </div>
+
+  <a routerLink="/menu" class="btn-login w-100 text-center d-block">Ingresar</a>
+      <div class="text-center mt-4 extra-links">
+        <small>¿No tenés cuenta? <a routerLink="/register">Creá tu cuenta</a></small>
+      </div>
+    </form>
   </div>
-</div>
+</section>

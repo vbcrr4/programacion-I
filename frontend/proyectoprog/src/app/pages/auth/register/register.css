@@ -1,45 +1,89 @@
 body {
-      background: #1a1a2e;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .register-card {
-      background: linear-gradient(160deg, #1b0026, #1a003d);
-      color: #fff;
-      border-radius: 2rem;
-      padding: 2rem;
-      box-shadow: 0 0 25px rgba(0,0,0,0.5);
-      max-width: 400px;
-      width: 100%;
-    }
-    .form-control {
-      background: transparent;
-      border: 1px solid #6f42c1;
-      border-radius: 2rem;
-      color: #fff;
-    }
-    .form-control::placeholder {
-      color: #aaa;
-    }
-    .btn-register {
-      background-color: #a445f7;
-      border: none;
-      border-radius: 2rem;
-      font-weight: bold;
-      color: #fff;
-      padding: 0.75rem;
-      width: 100%;
-      transition: background 0.3s;
-    }
-    .btn-register:hover {
-      background-color: #8a2be2;
-    }
-    .extra-links a {
-      color: #a445f7;
-      text-decoration: none;
-    }
-    .extra-links a:hover {
-      text-decoration: underline;
-    }
+  background: linear-gradient(180deg, #1e003e, #000020);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Header */
+.register-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.highlight {
+  color: #9b4dff;
+}
+
+.subtitle {
+  color: #bbb;
+  font-size: 1rem;
+}
+
+/* Contenedor principal */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Tarjeta del formulario */
+.register-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Campos */
+.form-control {
+  background: transparent;
+  border: 1px solid #9b4dff;
+  border-radius: 2rem;
+  color: #fff;
+  padding: 0.75rem 1rem;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Botón principal */
+.btn-register {
+  background: #9b4dff;
+  border: none;
+  border-radius: 2rem;
+  font-weight: bold;
+  color: #fff;
+  padding: 0.8rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-register:hover {
+  background: #7b3ce3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(155, 77, 255, 0.4);
+}
+
+/* Enlaces */
+.extra-links a {
+  color: #9b4dff;
+  text-decoration: none;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}

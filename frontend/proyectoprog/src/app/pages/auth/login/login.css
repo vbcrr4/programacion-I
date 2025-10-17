@@ -1,45 +1,110 @@
-body {
-      background: #1a1a2e;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .login-card {
-      background: linear-gradient(160deg, #1b0026, #1a003d);
-      color: #fff;
-      border-radius: 2rem;
-      padding: 2rem;
-      box-shadow: 0 0 25px rgba(0,0,0,0.5);
-      max-width: 400px;
-      width: 100%;
-    }
-    .form-control {
-      background: transparent;
-      border: 1px solid #6f42c1;
-      border-radius: 2rem;
-      color: #fff;
-    }
-    .form-control::placeholder {
-      color: #aaa;
-    }
-    .btn-login {
-      background-color: #a445f7;
-      border: none;
-      border-radius: 2rem;
-      font-weight: bold;
-      color: #fff;
-      padding: 0.75rem;
-      width: 100%;
-      transition: background 0.3s;
-    }
-    .btn-login:hover {
-      background-color: #8a2be2;
-    }
-    .extra-links a {
-      color: #a445f7;
-      text-decoration: none;
-    }
-    .extra-links a:hover {
-      text-decoration: underline;
-    }
+/* --- Banner superior --- */
+.login-header {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.app-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--text-white);
+}
+
+.app-title .highlight {
+  color: var(--color-primary);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* --- Sección principal --- */
+.login-section {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Contenedor rectangular --- */
+.login-panel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 500px;
+  color: var(--text-white);
+  backdrop-filter: blur(8px);
+}
+
+/* --- Logo circular --- */
+.login-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-primary);
+}
+
+/* --- Inputs --- */
+.form-label {
+  color: var(--text-white);
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-primary);
+  color: var(--text-white);
+  border-radius: 10px;
+  padding: 10px 15px;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* --- Botón principal --- */
+.btn-login {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--text-white);
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  padding: 12px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-login:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(155, 77, 255, 0.4);
+}
+
+/* --- Enlace inferior --- */
+.extra-links a {
+  color: var(--color-primary);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 1.7rem;
+  }
+
+  .login-panel {
+    padding: 1.8rem;
+    margin-top: 1.5rem;
+  }
+}
