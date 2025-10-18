@@ -1,6 +1,7 @@
 .action-btn {
     background-color: var(--bg-card-secondary);
-    width: clamp(250px, 60%, 400px);
+    width: 100%;
+    /* width: clamp(250px, 100%, 400px); */
     border: none;
     border-radius: var(--border-radius-md);
     padding: 1rem 0.5rem;
