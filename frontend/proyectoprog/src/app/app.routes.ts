@@ -18,6 +18,8 @@ export const routes: Routes = [
   
   // IMPORTS DE CLIENTE
   { path: 'menu', loadComponent: () => import('./pages/cliente/menu/menu').then(m => m.Menu) },
+  // Carrito
+  { path: 'carrito', loadComponent: () => import('./pages/carrito/carrito').then(m => m.Carrito) },
   {path: 'carrito-calificacion-cliente',
      loadComponent: () => import('./pages/cliente/carrito-calificacion/carrito-calificacion').then(m=>m.CarritoCalificacion)},
   {path: 'carrito-envio-cliente', 

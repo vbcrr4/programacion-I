@@ -1,1 +1,85 @@
-<p>carrito works!</p>
+<app-navbar></app-navbar>
+
+<app-card-contenedora>
+    <!-- BOTONES -->
+    <div class="row align-items-start">
+        <div class="col">
+            <app-action-bttn (buttonClick)="tabseleccionada = 'pedido'" label="Pedido" link="/carrito"
+            bttn_icon="bi bi-cart-fill"></app-action-bttn>
+        </div>
+        <div class="col">
+            <app-action-bttn link="/carrito" label="Envío" 
+            bttn_icon="bi bi-car-front-fill"(buttonClick)="tabseleccionada = 'envio'"
+            ></app-action-bttn>
+        </div>
+        <div class="col">
+    <app-action-bttn link="/carrito" label="Calificar"
+    bttn_icon="bi bi-star-fill" (buttonClick)="tabseleccionada = 'calificar'"></app-action-bttn>
+</div>    
+</div>
+
+<!-- COSO PARA LAS DISTINTAS PANTALLAS DEL CARRITO -->
+@switch (tabseleccionada) {
+    @case ("pedido") {
+        
+        <h2 class="text-center">Pedido</h2>
+        <h6 class="text-center">Estado del pedido: {{status}}</h6>
+        
+        <div class="cards-scrollable-container">
+    <app-card     
+    imgSrc="assets/pizzas-muzzarella.jpg"
+    title="Pizza Muzza"
+    description="Clásica pizza de muzzarella con salsa de tomate y orégano."
+    price="$10.000">
+    </app-card>
+    <app-card     
+    imgSrc="assets/pizzas-muzzarella.jpg"
+    title="Pizza Muzza"
+    description="Clásica pizza de muzzarella con salsa de tomate y orégano."
+    price="$10.000">
+    </app-card>
+    <app-card     
+    imgSrc="assets/pizzas-muzzarella.jpg"
+    title="Pizza Muzza"
+    description="Clásica pizza de muzzarella con salsa de tomate y orégano."
+    price="$10.000">
+    </app-card>
+    <app-card     
+    imgSrc="assets/pizzas-muzzarella.jpg"
+    title="Pizza Muzza"
+    description="Clásica pizza de muzzarella con salsa de tomate y orégano."
+    price="$10.000">
+    </app-card>
+    </div>
+}
+@case ("envio") {
+    <h2 class="text-center">Envío</h2>
+    <h6 class="text-left">Estado del envío: {{del_status}}</h6>
+    <h6 class="text-left">Precio del envío: {{del_price}}</h6>
+    <h6 class="text-left">Dirección del envío: {{del_address}}</h6>
+}
+@case("calificar"){
+    <h2 class="text-center">Calificar pedido</h2>
+    <div class="cards-scrollable-container">
+        <h6 class="text-left">Último Pedido:</h6>
+        <app-card     
+        imgSrc="assets/pizzas-muzzarella.jpg"
+        title="Pizza Muzza"
+        description="Clásica pizza de muzzarella con salsa de tomate y orégano."
+        price="$10.000">
+        </app-card>
+        <app-card     
+        imgSrc="assets/pizzas-muzzarella.jpg"
+        title="Pizza Muzza"
+        description="Clásica pizza de muzzarella con salsa de tomate y orégano."
+        price="$10.000">
+        </app-card>
+    </div> <br>
+        <app-textarea placeholder="Escribe tu comentario aquí" type="comment"></app-textarea><br>
+        <app-calfiestrellas></app-calfiestrellas>
+
+
+
+}
+}
+</app-card-contenedora>

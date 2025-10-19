@@ -1,11 +1,13 @@
 <app-navbar></app-navbar>
 
 <div class="mt-2">
-  <app-search-bar></app-search-bar>
+  <app-textarea placeholder="Busca un producto" type="search"></app-textarea>
+  <!-- <app-search-bar></app-search-bar> -->
 </div>
 
 <div class="container mt-4">
   <app-card-contenedora>
+    <div class="cards-scrollable-container">
   <app-card 
     imgSrc="assets/pizzas-muzzarella.jpg"
     title="Pizza Muzza"
@@ -26,5 +28,18 @@
     description="Cebolla, queso, y un toque de orégano."
     price="$12.000">
   </app-card>
+  <app-card 
+  imgSrc="assets/pizzas-muzzarella.jpg"
+  title="Pizza Fugazzeta"
+  description="Cebolla, queso, y un toque de orégano."
+  price="$12.000">
+</app-card>
+<app-card 
+imgSrc="assets/pizzas-muzzarella.jpg"
+title="Pizza Fugazzeta"
+description="Cebolla, queso, y un toque de orégano."
+price="$12.000">
+</app-card>
+  </div>
 </app-card-contenedora>
 </div>

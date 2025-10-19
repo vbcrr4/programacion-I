@@ -205,6 +205,31 @@
     color: var(--text-white);
     background: var(--color-primary);
   }
+  .cards-scrollable-container {
+    max-height: 310px; /* Ajusta esta altura según necesites */
+    overflow-y: auto;
+    padding-right: 10px; /* Espacio para la scrollbar */
+}
+
+/* Personalizar la scrollbar (opcional) */
+.cards-scrollable-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cards-scrollable-container::-webkit-scrollbar-track {
+    background: linear-gradient(180deg, #1b0026, #1a003d);
+    border-radius: 10px;
+}
+
+.cards-scrollable-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1b0026, #1a003d);
+    border-radius: 10px;
+}
+
+.cards-scrollable-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #1b0026, #1a003d);
+}
+
   
   /* RESPONSIVE DESIGN */
   @media (max-width: 420px) {

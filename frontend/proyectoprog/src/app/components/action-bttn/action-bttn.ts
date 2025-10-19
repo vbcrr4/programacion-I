@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -12,5 +12,10 @@ export class ActionBttn {
 @Input() link: string=""
 @Input() bttn_icon: string=""
 @Input() label: string = 'Acción';
+@Output() buttonClick = new EventEmitter<void>();
+
+onClick() {
+  this.buttonClick.emit();
+}
 
 }

@@ -1,0 +1,50 @@
+<div class="textfield-container" [class.search-type]="type === 'search'">
+  
+    <!-- Para búsqueda -->
+    @if (type === 'search') {
+    <div class="search-field">
+      <i class="bi bi-search search-icon"></i>
+      <textarea
+        #textareaRef
+        class="expandible-textarea"
+        [placeholder]="placeholder"
+        [value]="value"
+        (input)="onInput($event)"
+        (keypress)="onKeyPress($event)"
+        rows="{{minRows}}"
+        maxlength="500">
+      </textarea>
+      @if (value) {
+      <button class="clear-btn" (click)="clear()">
+        <i class="bi bi-x"></i>
+      </button>
+      <button class="search-btn" (click)="search.emit(value)">
+        <i class="bi bi-arrow-right"></i>
+      </button>}
+    </div>}
+  
+    <!-- Para comentarios -->
+    @if (type === "comment"){
+    <div  class="comment-field">
+      <textarea
+        #textareaRef
+        class="expandible-textarea comment-textarea"
+        [placeholder]="placeholder"
+        [value]="value"
+        (input)="onInput($event)"
+        rows="{{minRows}}"
+        maxlength="200">
+      </textarea>
+      @if (value) {
+        <button class="clear-btn" (click)="clear()">
+          <i class="bi bi-x"></i>
+        </button>
+        <button class="search-btn" (click)="search.emit(value)">
+          <i class="bi bi-arrow-right"></i>
+        </button>}
+
+      <div class="comment-footer">
+        <span class="char-counter">{{value.length}}/200</span>
+      </div>
+    </div>}
+  </div>
