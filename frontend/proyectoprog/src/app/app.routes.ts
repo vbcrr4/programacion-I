@@ -21,7 +21,7 @@ export const routes: Routes = [
   {path: 'usuarios-admin', loadComponent: () => import('./pages/admin/usuarios/usuarios').then(m=>m.Usuarios)},
   
   // IMPORTS DE CLIENTE
-  { path: 'menu', loadComponent: () => import('./pages/cliente/menu/menu').then(m => m.Menu) },
+  { path: 'menu', loadComponent: () => import('./pages/menu/menu').then(m => m.Menu) },
   // Carrito
   { path: 'carrito', loadComponent: () => import('./pages/carrito/carrito').then(m => m.Carrito) },
   {path: 'carrito-calificacion-cliente',

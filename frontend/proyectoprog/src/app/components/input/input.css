@@ -15,6 +15,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .app-input {
@@ -96,11 +97,11 @@
   padding-right: calc(var(--spacing-md) * 2.5);
 }
 
-.app-input:focus ~ .input-icon {
+.app-input:focus~.input-icon {
   color: var(--color-primary);
 }
 
-.app-input.error ~ .input-icon {
+.app-input.error~.input-icon {
   color: var(--color-danger);
 }
 

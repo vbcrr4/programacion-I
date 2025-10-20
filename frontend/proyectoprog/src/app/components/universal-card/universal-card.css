@@ -4,9 +4,9 @@
   word-break: break-word;
   overflow-wrap: break-word;
   transition: background-color var(--transition-base),
-              box-shadow var(--transition-base),
-              border-color var(--transition-base),
-              transform var(--transition-base);
+    box-shadow var(--transition-base),
+    border-color var(--transition-base),
+    transform var(--transition-base);
 }
 
 .variant-default {
@@ -107,7 +107,7 @@
 }
 
 .hoverable:hover {
-  transform: translateY(-3px);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-glow);
 }
 
