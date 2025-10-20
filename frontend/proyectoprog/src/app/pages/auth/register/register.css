@@ -1,89 +1,55 @@
-body {
-  background: linear-gradient(180deg, #1e003e, #000020);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #fff;
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Header */
 .register-header {
+  margin-bottom: var(--spacing-xl);
   text-align: center;
-  margin-bottom: 2rem;
 }
 
 .app-title {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: var(--font-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-white);
 }
 
-.highlight {
-  color: #9b4dff;
+.app-title .highlight {
+  color: var(--color-primary);
 }
 
 .subtitle {
-  color: #bbb;
-  font-size: 1rem;
+  color: var(--text-muted);
+  font-size: var(--font-lg);
 }
 
-/* Contenedor principal */
-.register-container {
+.register-section {
+  min-height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Tarjeta del formulario */
 .register-card {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 1.5rem;
-  padding: 2rem;
-  width: 100%;
-  max-width: 450px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  min-width: 600px;
 }
 
-/* Campos */
-.form-control {
-  background: transparent;
-  border: 1px solid #9b4dff;
-  border-radius: 2rem;
-  color: #fff;
-  padding: 0.75rem 1rem;
-}
-
-.form-control::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* Botón principal */
-.btn-register {
-  background: #9b4dff;
-  border: none;
-  border-radius: 2rem;
-  font-weight: bold;
-  color: #fff;
-  padding: 0.8rem;
-  width: 100%;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.btn-register:hover {
-  background: #7b3ce3;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(155, 77, 255, 0.4);
-}
-
-/* Enlaces */
 .extra-links a {
-  color: #9b4dff;
+  color: var(--color-primary);
+  font-weight: var(--font-bold);
   text-decoration: none;
 }
 
 .extra-links a:hover {
   text-decoration: underline;
+  color: var(--color-primary-hover);
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: var(--font-2xl);
+  }
+
+  .register-card {
+    min-width: auto;
+  }
+
+  .subtitle {
+    font-size: var(--font-base);
+  }
 }

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-// import { AppRoutingModule } from "../../admin/admin-routing.routes";
 import { RouterLink } from '@angular/router';
+import { UniversalCard } from '../../../components/universal-card/universal-card';
+import { InputField } from '../../../components/input/input';
+import { ButtonField } from '../../../components/button/button';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [RouterLink, UniversalCard, InputField, ButtonField],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
 export class Register {
-
 }
