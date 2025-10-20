@@ -33,7 +33,12 @@
           </app-action-bttn>
         </div>
         <div class="col">
-          <app-action-bttn label="Pedidos" link="/panel" bttn_icon="bi bi-cart-check-fill"></app-action-bttn>
+          <app-action-bttn 
+            label="Pedidos"
+            link="/panel" 
+            bttn_icon="bi bi-cart-check-fill"
+            (buttonClick)="tabseleccionada = 'Pedidos'">
+          </app-action-bttn>
         </div>
         <div class="col">
           <app-action-bttn label="Usuarios" link="/panel" bttn_icon="bi bi-person-lines-fill"></app-action-bttn>
@@ -71,70 +76,166 @@
           </div>
         }
 
-        @case("Nuevo producto") {<section class="register-section d-flex justify-content-center align-items-center mt-4">
-    <app-universal-card
-      variant="glass"
-      size="xl"
-      padding="2xl"
-      borderRadius="xl"
-      customClass="register-card"
-    >
-      <!-- Banner superior -->
-      <header class="register-header text-center mb-4">
-        <h1 class="app-title">Nuevo <span class="highlight">Producto</span></h1>
-        <p class="subtitle">Completá los datos para agregar un producto al menú</p>
-      </header>
+        @case("Nuevo producto") {
+          <section class="register-section d-flex justify-content-center align-items-center mt-4">
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="2xl"
+              borderRadius="xl"
+              customClass="register-card"
+            >
+              <!-- Banner superior -->
+              <header class="register-header text-center mb-4">
+                <h1 class="app-title">Nuevo <span class="highlight">Producto</span></h1>
+                <p class="subtitle">Completá los datos para agregar un producto al menú</p>
+              </header>
 
-      <form>
-        <!-- Nombre del producto -->
-        <app-input
-          type="text"
-          label="Nombre del producto"
-          placeholder="Ej: Pizza Napolitana"
-          iconStart="bi bi-pencil-square"
-        ></app-input>
+              <form>
+                <!-- Nombre del producto -->
+                <app-input
+                  type="text"
+                  label="Nombre del producto"
+                  placeholder="Ej: Pizza Napolitana"
+                  iconStart="bi bi-pencil-square"
+                ></app-input>
 
-        <!-- Precio -->
-        <app-input
-          type="text"
-          label="Precio"
-          placeholder="Ej: $12.000"
-          iconStart="bi bi-currency-dollar"
-        ></app-input>
+                <!-- Precio -->
+                <app-input
+                  type="text"
+                  label="Precio"
+                  placeholder="Ej: $12.000"
+                  iconStart="bi bi-currency-dollar"
+                ></app-input>
 
-        <!-- Categoría -->
-        <app-input
-          type="text"
-          label="Categoría"
-          placeholder="Ej: Pizzas"
-          iconStart="bi bi-tags-fill"
-        ></app-input>
+                <!-- Categoría -->
+                <app-input
+                  type="text"
+                  label="Categoría"
+                  placeholder="Ej: Pizzas"
+                  iconStart="bi bi-tags-fill"
+                ></app-input>
 
-        <!-- Descripción -->
-        <app-textarea
-          placeholder="Descripción del producto"
-          type="comment"
-        ></app-textarea>
+                <!-- Descripción -->
+                <app-textarea
+                  placeholder="Descripción del producto"
+                  type="comment"
+                ></app-textarea>
 
-        <!-- Imagen -->
-        <app-input
-          type="url"
-          label="Imagen del producto"
-          placeholder=""
-          iconStart="bi bi-image"
-        ></app-input>
+                <!-- Imagen -->
+                <app-input
+                  type="url"
+                  label="Imagen del producto"
+                  placeholder=""
+                  iconStart="bi bi-image"
+                ></app-input>
 
-        <!-- Botón Guardar -->
-        <div class="text-center mt-4">
-          <app-action-bttn
-            label="Guardar"
-            link="/panel"
-            bttn_icon="bi bi-plus-lg"
-          ></app-action-bttn>
-        </div>
-      </form>
-    </app-universal-card>
-  </section>}
+                <!-- Botón Guardar -->
+                <div class="text-center mt-4">
+                  <app-action-bttn
+                    label="Guardar"
+                    link="/panel"
+                    bttn_icon="bi bi-plus-lg"
+                  ></app-action-bttn>
+                </div>
+              </form>
+            </app-universal-card>
+          </section>
+        }
+
+        @case("Pedidos") {
+          <h2 class="text-center mt-4">Pedidos</h2>
+
+          <!-- Cards resumen superior -->
+          <div class="d-flex justify-content-between mb-4">
+            <app-universal-card
+              variant="glass"
+              size="md"
+              padding="lg"
+              borderRadius="lg"
+              customClass="resumen-card"
+            >
+              <h3>Pedidos de hoy</h3>
+              <p class="display-4">23</p>
+            </app-universal-card>
+
+            <app-universal-card
+              variant="glass"
+              size="md"
+              padding="lg"
+              borderRadius="lg"
+              customClass="resumen-card"
+            >
+              <h3>Ingresos</h3>
+              <p class="display-4">125k</p>
+            </app-universal-card>
+          </div>
+
+          <!-- Lista de pedidos -->
+          <div class="cards-scrollable-container d-flex flex-column gap-3">
+            
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="lg"
+              borderRadius="lg"
+              customClass="pedido-card"
+            >
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h5>Pedido #001</h5>
+                  <p><strong>Usuario:</strong> Juan Pérez</p>
+                  <p><strong>Contenido:</strong> Pizza Muzza x2, Fainá x1</p>
+                  <p><strong>Hace:</strong> 30 min</p>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-warning text-dark">En preparación</span>
+                </div>
+              </div>
+            </app-universal-card>
+
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="lg"
+              borderRadius="lg"
+              customClass="pedido-card"
+            >
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h5>Pedido #002</h5>
+                  <p><strong>Usuario:</strong> María López</p>
+                  <p><strong>Contenido:</strong> Pizza Napolitana x1, Coca-Cola x2</p>
+                  <p><strong>Hace:</strong> 45 min</p>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-success">Entregado</span>
+                </div>
+              </div>
+            </app-universal-card>
+
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="lg"
+              borderRadius="lg"
+              customClass="pedido-card"
+            >
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h5>Pedido #003</h5>
+                  <p><strong>Usuario:</strong> Pedro Gómez</p>
+                  <p><strong>Contenido:</strong> Pizza Fugazza x1</p>
+                  <p><strong>Hace:</strong> 1 h</p>
+                </div>
+                <div class="text-end">
+                  <span class="badge bg-danger">Cancelado</span>
+                </div>
+              </div>
+            </app-universal-card>
+
+          </div>
+        }
 
       }
 
@@ -158,6 +259,6 @@
         </div>
       </div>
     }
-
+    
   }
 </app-card-contenedora>
