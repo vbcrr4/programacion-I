@@ -3,13 +3,14 @@ import { Routes } from '@angular/router';
 // import { Navbar } from './components/navbar/navbar';
 
 export const routes: Routes = [
+
   //  Auth
   { path: 'login', loadComponent: () => import('./pages/auth/login/login').then(m => m.Login) },
   { path: 'register', loadComponent: () => import('./pages/auth/register/register').then(m => m.Register) },
   // Perfil
   {path: 'perfil', loadComponent: () => import('./pages/perfil/perfil').then(m => m.Perfil) },
-  { path: 'panel', loadComponent: () => import('./pages/panel/panel').then(m => m.Panel) },
-  { path: 'panel', loadComponent: () => import('./pages/panel/panel').then(m => m.Panel) },
+  {path: 'panel', loadComponent: () => import('./pages/panel/panel').then(m => m.Panel) },
+  
 
 
   // IMPORTS DE ADMIN
