@@ -1,0 +1,151 @@
+.universal-card {
+  width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  transition: background-color var(--transition-base),
+              box-shadow var(--transition-base),
+              border-color var(--transition-base),
+              transform var(--transition-base);
+}
+
+.variant-default {
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-primary);
+}
+
+.variant-gradient {
+  background: var(--card-gradient);
+  box-shadow: var(--shadow-md);
+}
+
+.variant-glass {
+  background: var(--bg-card-secondary);
+  border: var(--border-subtle);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+}
+
+.variant-transparent {
+  background: transparent;
+  border: var(--border-thin);
+  box-shadow: none;
+}
+
+.size-sm {
+  max-width: var(--card-max-width-sm);
+}
+
+.size-md {
+  max-width: var(--card-max-width-md);
+}
+
+.size-lg {
+  max-width: var(--card-max-width-lg);
+}
+
+.size-xl {
+  max-width: var(--card-max-width-xl);
+}
+
+.size-full {
+  max-width: 100%;
+}
+
+.padding-xs {
+  padding: var(--spacing-xs);
+}
+
+.padding-sm {
+  padding: var(--spacing-sm);
+}
+
+.padding-md {
+  padding: var(--spacing-md);
+}
+
+.padding-lg {
+  padding: var(--spacing-lg);
+}
+
+.padding-xl {
+  padding: var(--spacing-xl);
+}
+
+.padding-2xl {
+  padding: var(--spacing-2xl);
+}
+
+.radius-sm {
+  border-radius: var(--radius-sm);
+}
+
+.radius-md {
+  border-radius: var(--radius-md);
+}
+
+.radius-lg {
+  border-radius: var(--radius-lg);
+}
+
+.radius-xl {
+  border-radius: var(--radius-xl);
+}
+
+.radius-2xl {
+  border-radius: var(--radius-2xl);
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hoverable {
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+
+.hoverable.variant-default:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.hoverable.variant-glass:hover {
+  border-color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+  .universal-card {
+    max-width: 100% !important;
+  }
+
+  .padding-lg,
+  .padding-xl,
+  .padding-2xl {
+    padding: var(--spacing-md);
+  }
+}
+
+.universal-card h1,
+.universal-card h2,
+.universal-card h3,
+.universal-card h4,
+.universal-card h5,
+.universal-card h6 {
+  color: var(--text-white);
+  margin-top: 0;
+}
+
+.universal-card h2 {
+  font-weight: var(--font-bold);
+  font-size: var(--font-xl);
+}
+
+.universal-card p {
+  color: var(--text-secondary);
+}
