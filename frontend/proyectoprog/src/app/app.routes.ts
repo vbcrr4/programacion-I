@@ -8,6 +8,10 @@ export const routes: Routes = [
   { path: 'register', loadComponent: () => import('./pages/auth/register/register').then(m => m.Register) },
   // Perfil
   {path: 'perfil', loadComponent: () => import('./pages/perfil/perfil').then(m => m.Perfil) },
+  { path: 'panel', loadComponent: () => import('./pages/panel/panel').then(m => m.Panel) },
+  { path: 'panel', loadComponent: () => import('./pages/panel/panel').then(m => m.Panel) },
+
+
   // IMPORTS DE ADMIN
   { path: 'admin-menu', loadComponent: () => import('./pages/admin/admin-menu/admin-menu').then(m => m.AdminMenu) },
   {path:'gestion-menu-admin', loadComponent: ()=> import('./pages/admin/gestion-menu/gestion-menu').then(m=> m.GestionMenu)},
