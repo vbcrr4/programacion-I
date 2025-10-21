@@ -41,7 +41,12 @@
           </app-action-bttn>
         </div>
         <div class="col">
-          <app-action-bttn label="Usuarios" link="/panel" bttn_icon="bi bi-person-lines-fill"></app-action-bttn>
+          <app-action-bttn 
+            label="Usuarios" 
+            link="/panel" 
+            bttn_icon="bi bi-person-lines-fill"
+            (buttonClick)="tabseleccionada = 'Usuarios'">
+          </app-action-bttn>
         </div>
         <div class="col">
           <app-action-bttn label="Promociones" link="/panel" bttn_icon="bi bi-gift-fill"></app-action-bttn>
@@ -142,6 +147,7 @@
             </app-universal-card>
           </section>
         }
+        
 
         @case("Pedidos") {
           <h2 class="text-center mt-4">Pedidos</h2>
@@ -237,7 +243,77 @@
           </div>
         }
 
+        @case("Usuarios") {
+          <h2 class="text-center mt-4">Usuarios</h2>
+
+          <!-- Cards resumen superior -->
+          <div class="d-flex justify-content-between mb-4">
+            <app-universal-card
+              variant="glass"
+              size="md"
+              padding="lg"
+              borderRadius="lg"
+            >
+              <h3>Usuarios Activos</h3>
+              <p class="display-4">125</p>
+            </app-universal-card>
+
+            <app-universal-card
+              variant="glass"
+              size="md"
+              padding="lg"
+              borderRadius="lg"
+            >
+              <h3>Nuevos Usuarios</h3>
+              <p class="display-4">23</p>
+            </app-universal-card>
+          </div>
+
+          <!-- Lista de usuarios -->
+          <div class="cards-scrollable-container d-flex flex-column gap-3">
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="lg"
+              borderRadius="lg"
+            >
+              <div>
+                <h5>Juan Pérez</h5>
+                <p><strong>Email:</strong> juanperez@gmail.com</p>
+                <p><strong>Rol:</strong> Cliente</p>
+              </div>
+            </app-universal-card>
+
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="lg"
+              borderRadius="lg"
+            >
+              <div>
+                <h5>María López</h5>
+                <p><strong>Email:</strong> marialopez@gmail.com</p>
+                <p><strong>Rol:</strong> Cliente</p>
+              </div>
+            </app-universal-card>
+
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="lg"
+              borderRadius="lg"
+            >
+              <div>
+                <h5>Pedro Gómez</h5>
+                <p><strong>Email:</strong> pedrogomez@gmail.com</p>
+                <p><strong>Rol:</strong> Empleado</p>
+              </div>
+            </app-universal-card>
+          </div>
+        }
+
       }
+      
 
     }
 

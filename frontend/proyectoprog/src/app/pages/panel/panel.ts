@@ -22,5 +22,12 @@ export class Panel {
   cambiarRol() {
     this.rol = this.rol === 'admin' ? 'empleado' : 'admin';
   }
+
+  usuarios = [
+    { nombre: 'Juan Pérez', email: 'juanperez@gmail.com', rol: 'Cliente' },
+    { nombre: 'María Gómez', email: 'maria.gomez@gmail.com', rol: 'Empleado' },
+    { nombre: 'Lucas Díaz', email: 'lucasdiaz@gmail.com', rol: 'Cliente' },
+    { nombre: 'Sofía Fernández', email: 'sofiaf@gmail.com', rol: 'Administrador' },
+  ];
 }
 
