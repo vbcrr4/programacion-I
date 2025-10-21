@@ -10,7 +10,7 @@ import { InputField } from '../../components/input/input';
 
 @Component({
   selector: 'app-panel',
-  imports: [Navbar, CardContenedora, Card, ActionBttn, TextArea,CalifiEstrellas,UniversalCard,InputField],
+  imports: [Navbar, CardContenedora, Card, ActionBttn, TextArea,UniversalCard,InputField],
   templateUrl: './panel.html',
   styleUrl: './panel.css'
 })
