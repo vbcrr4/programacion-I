@@ -4,13 +4,13 @@ import { UniversalCard } from "../../components/universal-card/universal-card";
 import { Card } from "../../components/card/card";
 import { ActionBttn } from '../../components/action-bttn/action-bttn';
 import { TextArea } from "../../components/textarea/textarea";
-import { CalifiEstrellas } from '../../components/calfiestrellas/calfiestrellas';
+
 
 
 @Component({
   selector: 'app-carrito',
   standalone: true,
-  imports: [Navbar, UniversalCard, Card, ActionBttn, TextArea, CalifiEstrellas],
+  imports: [Navbar, UniversalCard, Card, ActionBttn, TextArea, ],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css'
 })

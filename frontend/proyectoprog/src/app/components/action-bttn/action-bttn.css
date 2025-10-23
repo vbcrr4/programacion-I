@@ -1,9 +1,12 @@
 .action-btn {
     background-color: var(--bg-card-secondary);
     width: 100%;
-    /* width: clamp(250px, 100%, 400px); */
-    border: none;
-    border-radius: var(--border-radius-md);
+    
+    border: var(--border-subtle);
+    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-md);
+    backdrop-filter: var(--blur-md);
+    -webkit-backdrop-filter: var(--blur-md);
     padding: 1rem 0.5rem;
     color: var(--text-white);
     text-align: center;
@@ -18,7 +21,6 @@
     min-height: 70px;
     
   }
-  
   .action-btn:hover {
     background-color: rgba(155, 77, 255, 0.2);
     transform: translateY(-3px);
@@ -34,4 +36,8 @@
   .action-text {
     font-size: 0.85rem;
   }
+
   
+  
+
+ 

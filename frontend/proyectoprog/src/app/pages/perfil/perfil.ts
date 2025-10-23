@@ -3,11 +3,12 @@ import { Navbar } from "../../components/navbar/navbar";
 import { Card } from "../../components/card/card";
 import { ButtonField } from "../../components/button/button";
 import { UniversalCard } from "../../components/universal-card/universal-card";
+  
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [Navbar, Card, UniversalCard, ButtonField],
+  imports: [Navbar, Card, UniversalCard, ButtonField,],
   templateUrl: './perfil.html',
   styleUrl: './perfil.css'
 })

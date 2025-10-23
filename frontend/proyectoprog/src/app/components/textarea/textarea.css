@@ -1,100 +1,118 @@
 .textfield-container {
-    width: 100%;
-  }
-  
-  /* Estilos para BÚSQUEDA */
+  width: 100%;
+}
+
+/* Estilos para BÚSQUEDA */
+.search-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--bg-card-secondary);
+  border: var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-sm);
+  transition: background-color var(--transition-base),
+              box-shadow var(--transition-base),
+              border-color var(--transition-base);
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.search-field:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.search-icon {
+  color: var(--text-secondary);
+  margin-right: var(--spacing-sm);
+  font-size: 1.1rem;
+}
+
+/* Estilos para COMENTARIOS */
+.comment-field {
+  background: var(--bg-card-secondary);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Textarea común */
+.expandible-textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  background: transparent;
+  color: var(--text-white);
+}
+
+.expandible-textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Textarea específico para comentarios */
+.comment-textarea {
+  padding: var(--spacing-md);
+  min-height: 60px;
+}
+
+/* Botones de búsqueda */
+.clear-btn, .search-btn {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--transition-base);
+  margin-left: 5px;
+}
+
+.clear-btn:hover {
+  color: #dc3545;
+}
+
+.search-btn:hover {
+  color: var(--color-primary);
+}
+
+/* Footer de comentarios */
+.comment-footer {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--card-gradient);
+  text-align: right;
+}
+
+.char-counter {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .search-field {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: #2b0040;
-    border: 1px solid #e0e0e0;
-    border-radius: 25px;
-    padding: 8px 15px;
-    transition: all 0.3s ease;
+    padding: var(--spacing-xs) var(--spacing-sm);
   }
   
-  .search-field:focus-within {
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-  }
-  
-  .search-icon {
-    color: #6c757d;
-    margin-right: 10px;
-    font-size: 1.1rem;
-  }
-  
-  /* Estilos para COMENTARIOS */
-  .comment-field {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background: #2b0040;
-    overflow: hidden;
-  }
-  
-  /* Textarea común */
-  .expandible-textarea {
-    width: 100%;
-    border: none;
-    outline: none;
-    resize: none;
-    font-family: inherit;
-    font-size: 1rem;
-    line-height: 1.5;
-    background: transparent;
-    color: white;
-  }
-  
-  .expandible-textarea::placeholder {
-    color: #6c757d;
-  }
-  
-  /* Textarea específico para comentarios */
   .comment-textarea {
-    padding: 15px;
-    min-height: 60px;
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .search-field,
+  .comment-field {
+    max-width: 100% !important;
   }
   
-  /* Botones de búsqueda */
-  .clear-btn, .search-btn {
-    background: none;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    color: #6c757d;
-    transition: color 0.2s;
-    margin-left: 5px;
+  .comment-textarea {
+    padding: var(--spacing-sm);
   }
-  
-  .clear-btn:hover {
-    color: #dc3545;
-  }
-  
-  .search-btn:hover {
-    color: #007bff;
-  }
-  
-  /* Footer de comentarios */
-  .comment-footer {
-    padding: 8px 15px;
-    background: linear-gradient(90deg, var(--bg-gradient-end),var(--bg-gradient-start));
-    /* border-top: 1px solid #e9ecef; */
-    text-align: right;
-  }
-  
-  .char-counter {
-    font-size: 0.8rem;
-    color: #6c757d;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .search-field {
-      padding: 6px 12px;
-    }
-    
-    .comment-textarea {
-      padding: 10px;
-    }
-  }
+}
