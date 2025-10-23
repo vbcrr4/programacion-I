@@ -1,32 +1,104 @@
 <app-navbar></app-navbar>
 
-<div class="container">
-    <app-card-contenedora>
-        <app-card    
-    imgSrc="assets/imagenpollo.jpg"
-    title="Nombre de Usuario"
-    >
-    <p class="description-style">
-    <br>Número de telefono: {{cellphone}}  <br><br>
-    E-mail: {{email}} <br><br>
-    Dirección Física: {{address}} <br><br>
-    Estás registrado como: {{role}} <br><br>
-    Tu cuenta está en estado: {{state}}; <br><br>
-    Tu cuenta fue creada en: {{created_at}} .
-</p>
-    </app-card>
-    <!-- Si el role == cliente ignorar este botón (con ngif)-->
-    <app-action-bttn link="/admin-menu" label="Ir a panel de {{role}}" bttn_icon="bi bi-person-circle"></app-action-bttn>
-    Tus pedidos:
-    <!-- Lista de pedidos acá  (con un ngfor)-->
-    <div class="cards-scrollable-container">
-    <app-card 
-    imgSrc="assets/pizzas-muzzarella.jpg"
-    title="Pizza Muzza"
-    description="Clásica pizza de muzzarella con salsa de tomate y orégano."
-    price="$10.000">
-  </app-card>
-  </div>
-    </app-card-contenedora>
-    
-</div>
+<section class="profile-section">
+  <app-universal-card
+    variant="glass"
+    size="lg"
+    padding="xl"
+    borderRadius="xl"
+    customClass="profile-card">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="avatar">
+        <img [src]="profileImage" alt="Foto de perfil" class="profile-image">
+      </div>
+      <h1 class="profile-name">Nombre de Usuario</h1>
+      <p class="profile-subtitle">Miembro desde {{created_at}}</p>
+    </div>
+
+    <!-- Profile Info Grid -->
+    <div class="profile-info-grid">
+      <div class="info-card">
+        <i class="bi bi-telephone-fill info-icon"></i>
+        <div class="info-content">
+          <span class="info-label">Teléfono</span>
+          <span class="info-value">{{cellphone}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <i class="bi bi-envelope-fill info-icon"></i>
+        <div class="info-content">
+          <span class="info-label">Email</span>
+          <span class="info-value">{{email}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <i class="bi bi-geo-alt-fill info-icon"></i>
+        <div class="info-content">
+          <span class="info-label">Dirección</span>
+          <span class="info-value">{{address}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <i class="bi bi-person-badge-fill info-icon"></i>
+        <div class="info-content">
+          <span class="info-label">Rol</span>
+          <span class="info-value role-badge">{{role}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <i class="bi bi-check-circle-fill info-icon success"></i>
+        <div class="info-content">
+          <span class="info-label">Estado</span>
+          <span class="info-value">{{state}}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <i class="bi bi-calendar-check-fill info-icon"></i>
+        <div class="info-content">
+          <span class="info-label">Registrado</span>
+          <span class="info-value">{{created_at}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Panel Button (conditional) -->
+    @if (role !== 'cliente') {
+      <div class="action-container">
+        <app-button
+          variant="primary"
+          size="lg"
+          routerLink="/admin-menu"
+          label="Ir a panel de {{role}}"
+          iconStart="bi bi-person-circle"
+          [fullWidth]="true">
+        </app-button>
+      </div>
+    }
+
+    <!-- Orders Section -->
+    <div class="orders-section">
+      <h2 class="section-title">
+        <i class="bi bi-bag-check-fill"></i>
+        Tus Pedidos
+      </h2>
+
+      <div class="orders-container">
+        <!-- Lista de pedidos (usar ngFor cuando haya datos reales) -->
+        <app-card
+          imgSrc="assets/pizzas-muzzarella.jpg"
+          title="Pizza Muzza"
+          description="Clásica pizza de muzzarella con salsa de tomate y orégano."
+          price="$10.000">
+        </app-card>
+      </div>
+    </div>
+
+  </app-universal-card>
+</section>

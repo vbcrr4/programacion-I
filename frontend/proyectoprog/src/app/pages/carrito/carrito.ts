@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Navbar } from "../../components/navbar/navbar";
-import { CardContenedora } from "../../components/card-contenedora/card-contenedora";
+import { UniversalCard } from "../../components/universal-card/universal-card";
 import { Card } from "../../components/card/card";
 import { ActionBttn } from '../../components/action-bttn/action-bttn';
 import { TextArea } from "../../components/textarea/textarea";
@@ -9,7 +9,8 @@ import { CalifiEstrellas } from '../../components/calfiestrellas/calfiestrellas'
 
 @Component({
   selector: 'app-carrito',
-  imports: [Navbar, CardContenedora, Card, ActionBttn, TextArea,CalifiEstrellas],
+  standalone: true,
+  imports: [Navbar, UniversalCard, Card, ActionBttn, TextArea, CalifiEstrellas],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css'
 })
