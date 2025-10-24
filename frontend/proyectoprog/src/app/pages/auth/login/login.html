@@ -31,17 +31,22 @@
 
       <app-button
         routerLink="/menu"
-        variant="primary"
+        variant="secondary"
         [fullWidth]="true"
         size="lg"
         class="mt-5"
         label="Ingresar"
-      >
-      </app-button>
+      ></app-button>
+      <app-action-bttn 
+      label="Iniciar Sesión"
+      link="/menu"  
 
+      (buttonClick)="''">
+    </app-action-bttn> 
       <div class="text-center mt-4 extra-links">
         <small>¿No tenés cuenta? <a routerLink="/register">Creá tu cuenta</a></small>
       </div>
+
     </form>
   </app-universal-card>
 </section>
