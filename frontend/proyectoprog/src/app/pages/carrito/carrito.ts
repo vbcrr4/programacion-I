@@ -10,7 +10,7 @@ import { TextArea } from "../../components/textarea/textarea";
 @Component({
   selector: 'app-carrito',
   standalone: true,
-  imports: [Navbar, UniversalCard, Card, ActionBttn, TextArea, ],
+  imports: [Navbar, UniversalCard, ActionBttn, TextArea, ],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css'
 })
