@@ -14,7 +14,7 @@ class User(db.Model):
     #Agregar un Default al rol, para poder usarlo más adelante con la seguridad
     role=db.Column(db.Enum('Client','Admin'), default='Client') #######ELEGIDO UN DEFAULT PARA ESTE COMMIT
     is_active = db.Column(db.Boolean, default=True)
-    created_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
 
     orders = db.relationship("Order", back_populates="user",cascade="all, delete-orphan")
     """Se utilizan tokens de cookies en el front, para enviar usuario contraseña
@@ -78,8 +78,8 @@ class User(db.Model):
         address = user_json.get('address')
         role = user_json.get('role')
         is_active = user_json.get('is_active')
-        created_at = user_json.get('created_at')
+        #created_at = user_json.get('created_at')
         #No devolver al crear la contraseña en texto plano
         return User(id=id,name=name,cellphone=cellphone,email=email,password=password,address=address,role=role,is_active=is_active,
-                    created_at=created_at
+    
                     )

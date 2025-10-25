@@ -3,7 +3,7 @@ from .. import db
 from main.models import UserModel
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token,set_access_cookies,get_jwt
 #importar funcion de envio de mail
-from main.mail.functions import sendMail
+#from main.mail.functions import sendMail   #linea comentada para poder levantar la API aca habia un error
 #datetime para el refresh del token
 from datetime import datetime,timedelta
 
@@ -67,7 +67,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             #Enviar mail de bienvenida
-            send = sendMail([user.email],"Bienvenido/a", 'register', user = user)
+            #send = sendMail([user.email],"Bienvenido/a", 'register', user = user)  #linea comentada para poder levantar la API aca habia un error
         except Exception as error:
             db.session.rollback()
             return str(error), 409

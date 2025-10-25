@@ -1,10 +1,10 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
-
+from flask_mail import Mail
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
-
+from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 
@@ -14,11 +14,13 @@ api = Api()
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
+sendMail = Mail()
 
 
 def create_app():
     app = Flask(__name__)
     load_dotenv()
+    CORS(app)
 
 
     if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
@@ -52,7 +54,7 @@ def create_app():
     api.init_app(app)
 
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
-    app.config['JWT_ACCES_TOKEN_EXPIRES'] = os.getenv['JWT_ACCES_TOKEN_EXPIRES']
+    app.config['JWT_ACCES_TOKEN_EXPIRES'] = os.getenv('JWT_ACCES_TOKEN_EXPIRES')
     jwt.init_app(app)
     from main.auth import routes
 

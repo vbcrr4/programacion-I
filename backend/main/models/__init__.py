@@ -1,5 +1,5 @@
 
-from .animal import Animal as AnimalModel
+
 
 from .user import User as UserModel
 from .notification import Notification as NotificationModel
