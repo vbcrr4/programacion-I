@@ -71,6 +71,7 @@ class Notification_List(Resource):
                          'page' : page
         })
     
+
     def post(self):
         rating = NotificationModel.from_json(request.get_json())
         db.session.add(rating)

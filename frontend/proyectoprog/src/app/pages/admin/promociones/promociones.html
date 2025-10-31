@@ -1,0 +1,37 @@
+<app-back-button routerLink="/admin-menu"></app-back-button>
+  <div class="stats-card">
+    <h3 class="text-center mb-4">Promociones</h3>
+
+    <form>
+      <div class="mb-3">
+        <label for="asuntoEmail" class="form-label">Asunto del email</label>
+        <input type="text" class="form-control" id="asuntoEmail" placeholder="¡Oferta especial en pizzas!">
+      </div>
+
+      <div class="mb-3">
+        <label for="destinatarios" class="form-label">Destinatarios</label>
+        <select id="destinatarios" class="form-select">
+          <option>Todos los usuarios</option>
+          <option>Clientes frecuentes</option>
+          <option>Nuevos clientes</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="mensaje" class="form-label">Mensaje</label>
+        <textarea id="mensaje" class="form-control" rows="4" placeholder="Escribe tu mensaje promocional aquí..."></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="codigoDescuento" class="form-label">Código de descuento (opcional)</label>
+        <input type="text" class="form-control" id="codigoDescuento" placeholder="PIZZA2X1">
+      </div>
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="enviarUsuarios" checked>
+        <label class="form-check-label" for="enviarUsuarios">Se enviará a 156 usuarios</label>
+      </div>
+
+      <button type="submit" class="btn btn-purple w-100 py-2">Enviar Promoción</button>
+    </form>
+  </div>

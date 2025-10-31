@@ -1,0 +1,80 @@
+.menu-header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.app-title {
+  font-size: var(--font-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-white);
+}
+
+.app-title .highlight {
+  color: var(--color-primary);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: var(--font-lg);
+}
+
+.menu-section {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-card {
+  min-width: 700px;
+}
+
+.search-container {
+  margin-bottom: var(--spacing-lg);
+}
+
+.search-container ::ng-deep app-input,
+.search-container ::ng-deep .input-wrapper,
+.search-container ::ng-deep .input-container,
+.search-container ::ng-deep .app-input {
+  width: 100%;
+  max-width: 100%;
+}
+
+
+
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: var(--font-2xl);
+  }
+
+  .subtitle {
+    font-size: var(--font-base);
+  }
+
+  .menu-card {
+    min-width: auto;
+  }
+
+  .products-container {
+    max-height: 400px;
+  }
+
+  .product-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .product-title {
+    font-size: var(--font-base);
+  }
+
+  .product-description {
+    font-size: var(--font-xs);
+  }
+
+  .product-price {
+    font-size: var(--font-base);
+  }
+}

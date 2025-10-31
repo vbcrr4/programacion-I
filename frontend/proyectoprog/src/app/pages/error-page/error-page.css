@@ -1,0 +1,47 @@
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1e003e, #000020);
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+.error-container {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.error-code {
+  font-size: 5rem;
+  font-weight: bold;
+  color: #e63946;
+  margin: 0;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  color: #bbb;
+}
+
+.home-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  background-color: rgba(155, 77, 255, 0.2);
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.home-btn:hover {
+  background-color: rgba(155, 77, 255, 0.4);
+  color: #fff;
+}

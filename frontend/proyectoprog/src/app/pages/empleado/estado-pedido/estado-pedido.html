@@ -1,0 +1,69 @@
+
+  <title>Estado de Pedidos - Rotisería UM</title>
+  <div class="main-container">
+    <app-back-button routerLink="/empleado-panel"></app-back-button>
+    <div class="card">
+      <div class="card-header">
+        Estado de Pedidos
+      </div>
+      <div class="card-body">
+
+        <div class="filter-tabs">
+          <div class="filter-tab active">Todos</div>
+          <div class="filter-tab">Pendiente</div>
+          <div class="filter-tab">Preparando</div>
+          <div class="filter-tab">Listo</div>
+        </div>
+
+
+
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-title">Pedido #1240</div>
+            <span class="order-status status-pending">Pendiente</span>
+          </div>
+          <div class="order-details">
+            <div class="order-info">1x Napolitana, 12x Empanadas</div>
+            <div class="order-info">Carlos López - Zona Centro</div>
+            <div class="order-time">Hace 5 min</div>
+          </div>
+          <div class="order-actions">
+            <button class="btn-action btn-primary">Iniciar Preparación</button>
+          </div>
+        </div>
+        
+
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-title">Pedido #1250</div>
+            <span class="order-status status-preparing">En Preparación</span>
+          </div>
+          <div class="order-details">
+            <div class="order-info">2x Supremas, 1x Papas Fritas</div>
+            <div class="order-info">María González - Zona Norte</div>
+            <div class="order-time">Hace 8 min</div>
+          </div>
+          <div class="order-actions">
+            <button class="btn-action btn-primary">Marcar Listo</button>
+          </div>
+        </div>
+        
+
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-title">Pedido #1260</div>
+            <span class="order-status status-ready">Listo</span>
+          </div>
+          <div class="order-details">
+            <div class="order-info">3x Hamburguesas, 2x Gaseosas</div>
+            <div class="order-info">Juan Pérez - Zona Sur</div>
+            <div class="order-time">Hace 3 min</div>
+          </div>
+          <div class="order-actions">
+            <button class="btn-action btn-primary">Notificar Cliente</button>
+            <button class="btn-action btn-success">Entregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

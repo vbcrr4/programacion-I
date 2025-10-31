@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+
+<app-universal-card
+  variant="glass"
+  size="xl"
+  padding="2xl"
+  borderRadius="xl"
+  customClass="menu-card"
+>
+  <header class="menu-header text-center">
+    <h1 class="app-title">Nuestro <span class="highlight">Menú</span></h1>
+    <p class="subtitle">Descubrí tus platos favoritos</p>
+  </header>
+
+  <div class="search-container mb-4 w-full">
+    <app-input type="search" placeholder="Buscar productos..." iconStart="bi bi-search">
+    </app-input>
+  </div>
+
+  <div class="products-container">
+    <app-universal-card
+      variant="glass"
+      padding="xs"
+      [hoverable]="true"
+      borderRadius="md"
+      customClass="product-card"
+    >
+      <div class="product-content">
+        <img src="assets/pizzas-muzzarella.jpg" alt="Pizza Muzza" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Pizza Muzza</h3>
+          <p class="product-description">
+            Clásica pizza de muzzarella con salsa de tomate y orégano.
+          </p>
+          <span class="product-price">$10.000</span>
+        </div>
+      </div>
+    </app-universal-card>
+
+    <app-universal-card
+      variant="glass"
+      padding="xs"
+      [hoverable]="true"
+      borderRadius="md"
+      customClass="product-card"
+    >
+      <div class="product-content">
+        <img src="assets/sintitulo.jpeg" alt="Empanadas de Carne" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Empanadas de Carne</h3>
+          <p class="product-description">Docena de empanadas mendocinas al horno.</p>
+          <span class="product-price">$8.500</span>
+        </div>
+      </div>
+    </app-universal-card>
+
+    <app-universal-card
+      variant="glass"
+      padding="xs"
+      [hoverable]="true"
+      borderRadius="md"
+      customClass="product-card"
+    >
+      <div class="product-content">
+        <img src="assets/pizzas-muzzarella.jpg" alt="Pizza Fugazzeta" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Pizza Fugazzeta</h3>
+          <p class="product-description">Cebolla, queso, y un toque de orégano.</p>
+          <span class="product-price">$12.000</span>
+        </div>
+      </div>
+    </app-universal-card>
+
+    <app-universal-card
+      variant="glass"
+      padding="xs"
+      [hoverable]="true"
+      borderRadius="md"
+      customClass="product-card"
+    >
+      <div class="product-content">
+        <img src="assets/pizzas-muzzarella.jpg" alt="Pizza Napolitana" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Pizza Napolitana</h3>
+          <p class="product-description">Tomate, mozzarella, albahaca y aceitunas.</p>
+          <span class="product-price">$11.500</span>
+        </div>
+      </div>
+    </app-universal-card>
+
+    <app-universal-card
+      variant="glass"
+      padding="xs"
+      [hoverable]="true"
+      borderRadius="md"
+      customClass="product-card"
+    >
+      <div class="product-content">
+        <img src="assets/pizzas-muzzarella.jpg" alt="Pizza Especial" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Pizza Especial</h3>
+          <p class="product-description">Jamón, morrones, champiñones y aceitunas.</p>
+          <span class="product-price">$13.000</span>
+        </div>
+      </div>
+    </app-universal-card>
+  </div>
+</app-universal-card>

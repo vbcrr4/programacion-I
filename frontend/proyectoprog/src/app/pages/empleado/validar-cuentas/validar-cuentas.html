@@ -1,0 +1,85 @@
+<main class="main">
+  <section class="panel">
+
+    <!-- Header con botón de volver -->
+    <div class="panel-header">
+      <app-back-button routerLink="/empleado-panel"></app-back-button>
+      <div class="title">Validar cuentas</div>
+    </div>
+
+    <!-- Contadores -->
+    <div class="row g-2 px-3 mb-3">
+      <div class="col">
+        <div class="stats-card">
+          <div class="fs-5 fw-bold" id="count-pendientes">5</div>
+          <small>Pendientes</small>
+        </div>
+      </div>
+      <div class="col">
+        <div class="stats-card">
+          <div class="fs-5 fw-bold" id="count-validadas">23</div>
+          <small>Validadas hoy</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de usuarios -->
+    <div class="list-card" id="users-list">
+
+      <!-- Usuario pendiente -->
+      <div class="user-item" data-status="pending">
+        <div class="avatar">JP</div>
+        <div class="user-info">
+          <p class="user-name">Juan Pérez</p>
+          <p class="user-meta">juan.perez@mail.com<br>Tel: +54 9 261 123-4567</p>
+          <div class="label-pending">Pendiente verificación</div>
+        </div>
+        <div class="controls">
+          <button class="btn-circle btn-accept" title="Aceptar" data-action="accept">
+            <i class="bi bi-check-lg"></i>
+          </button>
+          <button class="btn-reject" title="Rechazar" data-action="reject">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Otro usuario pendiente -->
+      <div class="user-item" data-status="pending">
+        <div class="avatar">MG</div>
+        <div class="user-info">
+          <p class="user-name">María González</p>
+          <p class="user-meta">maria.g@mail.com<br>Tel: +54 261 987-6543</p>
+          <div class="label-pending">Pendiente verificación</div>
+        </div>
+        <div class="controls">
+          <button class="btn-circle btn-accept" title="Aceptar" data-action="accept">
+            <i class="bi bi-check-lg"></i>
+          </button>
+          <button class="btn-reject" title="Rechazar" data-action="reject">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Usuario validado -->
+      <div class="user-item" data-status="validated">
+        <div class="avatar">AS</div>
+        <div class="user-info">
+          <p class="user-name">
+            Ana Silva <span class="validated-check"><i class="bi bi-check-circle-fill"></i></span>
+          </p>
+          <p class="user-meta">ana.silva@mail.com<br>Tel: +54 261 456-7890</p>
+          <div class="label-pending" style="background:#198754; color:#fff;">Verificada</div>
+        </div>
+        <div class="controls">
+          <button class="btn-circle" style="background:transparent; box-shadow:none; color:#1cc88a;" title="Validada">
+            <i class="bi bi-check-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">Pulse ✓ para validar o ✕ para rechazar una cuenta.</div>
+  </section>
+</main>

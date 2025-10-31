@@ -1,0 +1,68 @@
+<!-- Contenedor rectangular del formulario -->
+<section class="register-section d-flex justify-content-center align-items-center">
+  <app-universal-card
+    variant="glass"
+    size="xl"
+    padding="2xl"
+    borderRadius="xl"
+    class="register-card"
+  >
+    <!-- Banner superior (ahora dentro de la tarjeta) -->
+    <header class="register-header text-center">
+      <h1 class="app-title">Unite a <span class="highlight">Rotisería UM</span></h1>
+      <p class="subtitle">Creá tu cuenta y pedí tus platos favoritos</p>
+    </header>
+
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">Crear Cuenta</h2>
+    </div>
+
+    <form>
+      <app-input
+        type="text"
+        label="Nombre completo"
+        placeholder="Ej: Juan Pérez"
+        iconStart="bi bi-person-fill"
+      >
+      </app-input>
+
+      <app-input
+        type="email"
+        label="Correo electrónico"
+        placeholder="ejemplo@gmail.com"
+        iconStart="bi bi-envelope-fill"
+      >
+      </app-input>
+
+      <app-input
+        type="password"
+        label="Contraseña"
+        placeholder="********"
+        iconStart="bi bi-lock-fill"
+      >
+      </app-input>
+
+      <app-input
+        type="password"
+        label="Confirmar contraseña"
+        placeholder="********"
+        iconStart="bi bi-lock-fill"
+      >
+      </app-input>
+
+      <app-button
+        routerLink="/menu"
+        variant="primary"
+        [fullWidth]="true"
+        size="lg"
+        class="mt-5"
+        label="Registrarse"
+      >
+      </app-button>
+
+      <div class="text-center mt-4 extra-links">
+        <small>¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></small>
+      </div>
+    </form>
+  </app-universal-card>
+</section>

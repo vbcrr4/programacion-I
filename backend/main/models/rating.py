@@ -42,6 +42,20 @@ class Rating(db.Model):
         'product':self.product.to_json_short(),
         }
         return rating_json
+
+    def to_json_complete(self):
+
+        rating_json = {
+        'id': self.id,
+        'user_id':self.user_id,
+        'product_id':self.product_id,
+        'rating':int(self.rating) if self.rating is not None else None,
+        'comment':self.comment,
+        'created_at':self.created_at.isoformat() if self.created_at else None,
+        'user':self.user.to_json_short(),
+        'product':self.product.to_json_short(),
+        }
+        return rating_json
     
     def to_json_short(self):
         rating_json = {

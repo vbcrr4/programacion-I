@@ -25,8 +25,8 @@ class Order(Resource):
         
         order = db.session.query(OrderModel).get_or_404(order_id)
         data = request.get_json().items()
-        for key, value in data:
-            setattr(order, key, value)
+        for key,value in data :
+            setattr (order, key, value)
         db.session.add(order)
         db.session.commit()
         return order.to_json(), 201
@@ -80,4 +80,4 @@ class OrderList(Resource):
         order = OrderModel.from_json(request.get_json())
         db.session.add(order)
         db.session.commit()
-        return order.to_json(), 201
+        return order.to_json,201

@@ -1,0 +1,55 @@
+.register-header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.app-title {
+  font-size: var(--font-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-white);
+}
+
+.app-title .highlight {
+  color: var(--color-primary);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: var(--font-lg);
+}
+
+.register-section {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-card {
+  min-width: 600px;
+}
+
+.extra-links a {
+  color: var(--color-primary);
+  font-weight: var(--font-bold);
+  text-decoration: none;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+  color: var(--color-primary-hover);
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    font-size: var(--font-2xl);
+  }
+
+  .register-card {
+    min-width: auto;
+  }
+
+  .subtitle {
+    font-size: var(--font-base);
+  }
+}

@@ -1,0 +1,135 @@
+    :host {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #1e003e, #000020);
+      color: #fff;
+      padding: 1rem;
+    }
+
+    .stats-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 1.2rem;
+      padding: 1rem;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+          /* IGUAL EN EMPLEADO PANEL Y ADMIN MENU */
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin: 0.2rem 0;
+      color: #9b4dff;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #bbb;
+      margin-top: 0.3rem;
+    }
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL  */
+    }
+    .action-btn {
+      background-color: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 0.75rem;
+      padding: 1rem 0.5rem;
+      color: #fff;
+      text-align: center;
+      transition: all 0.3s ease;
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none; 
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .action-btn:hover {
+      background-color: rgba(155, 77, 255, 0.2);
+      transform: translateY(-3px);
+      color: #fff;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .action-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #9b4dff;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .action-text {
+      font-size: 0.85rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+
+    .urgent-order {
+      background-color: rgba(230, 57, 70, 0.15);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      border-left: 4px solid #e63946;
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .order-title {
+      font-weight: bold;
+      color: #e63946;
+      font-size: 0.9rem;
+    }
+    .order-time {
+      background-color: #e63946;
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+    }
+    .order-details {
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+    .order-client {
+      color: #bbb;
+      font-size: 0.8rem;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .back-btn:hover { 
+      color: #9b4dff; 
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .title-container {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .main-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }

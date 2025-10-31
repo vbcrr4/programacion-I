@@ -40,5 +40,4 @@ class Notification(db.Model):
         sent_date = datetime.strptime(product_json.get('sent_date'),"%H:%M%S %d-%m-%Y")
         status = product_json.get('status')
 
-        return Notification(id=id,user_id=user_id,message=message,sent_date=sent_date,status=status
-                    )
+        return Notification(id=id,user_id=user_id,message=message,sent_date=sent_date,status=status)

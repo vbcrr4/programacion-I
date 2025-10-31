@@ -43,7 +43,6 @@ class Rating(Resource):
 class RatingList(Resource):
     @role_required(roles = ["Admin"])
     def get(self):
-
         page =1 
         per_page=10
         rating = db.session.query(RatingModel)

@@ -1,10 +1,20 @@
 /bin
+<<<<<<< HEAD
 */include
 */lib*
 */lib64/
 pyvenv.cfg
 .env
 lib64
+=======
+/include
+/lib
+/lib64
+*/entorno*
+pyvenv.cfg
+.env
+/frontend/pruebas_n
+>>>>>>> refact-nehuen
 # Node y Angular
 node_modules/
 dist/
@@ -47,3 +57,7 @@ Thumbs.db
 *entorno
 
 .vscode
+
+#Apuntes mios
+/clase1
+/clase2
