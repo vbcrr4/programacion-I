@@ -50,9 +50,7 @@ def create_app():
     #Cargar la secret key de jwt
     app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
     #cargar el tiempo de expiración del token
-    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES'))
-    app.config['JWT_REFRESH_TOKEN_EXPIRES'] = int(os.getenv('JWT_REFRESH_TOKEN_EXPIRES'))
-    
+    app.config['JWT_ACCES_TOKEN_EXPIRES'] = os.getenv('JWT_ACCES_TOKEN_EXPIRES')    
     ##Configuración de cookies para refresh de JWTs (Por defecto esto)
     #app.config['JWT_REFRESH_TOKEN_IN_COOKIES'] = True
     ##app.config['JWT_TOKEN_LOCATION'] = ['cookies']
