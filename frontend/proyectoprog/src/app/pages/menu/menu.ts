@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Navbar } from "../../components/navbar/navbar";
 import { UniversalCard } from "../../components/universal-card/universal-card";
 import { InputField } from '../../components/input/input';
+import { ButtonField } from '../../components/button/button';
 import { ProductService } from '../../services/product.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [Navbar, UniversalCard, InputField, ReactiveFormsModule, CommonModule],
+  imports: [Navbar, UniversalCard, InputField, ButtonField, ReactiveFormsModule, CommonModule],
   templateUrl: './menu.html',
   styleUrls: ['./menu.css']
 })
