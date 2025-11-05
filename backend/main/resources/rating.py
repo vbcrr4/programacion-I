@@ -78,7 +78,9 @@ class RatingList(Resource):
                         'page':page})
     @jwt_required()
     def post(self):
+        user_id = get_jwt_identity()
         rating = RatingModel.from_json(request.get_json())
+        rating.user_id = user_id
         db.session.add(rating)
         db.session.commit()
         return rating.to_json(), 201
