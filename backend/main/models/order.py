@@ -25,6 +25,7 @@ class Order(db.Model):
     
     def to_json_complete(self):
         user_json = self.user.to_json() if self.user else None
+        order_details = [order_detail.to_json() for order_detail in self.order_details]
         order_json={
         'id': self.id,
         'user_id':int(self.user_id),
@@ -32,6 +33,7 @@ class Order(db.Model):
         'status':str(self.status),
         'total':float(self.total),
         'user':user_json,
+        'order_details': order_details
         }
 
         return order_json

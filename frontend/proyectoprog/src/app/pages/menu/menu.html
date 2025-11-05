@@ -39,6 +39,7 @@
               {{ product.description }}
             </p>
             <span class="product-price">${{ product.price }}</span>
+            <app-button label="Add to cart" (buttonClick)="addToCart(product.id)"></app-button>
           </div>
         </div>
       </app-universal-card>

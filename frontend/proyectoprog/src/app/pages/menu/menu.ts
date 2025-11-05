@@ -4,6 +4,7 @@ import { UniversalCard } from "../../components/universal-card/universal-card";
 import { InputField } from '../../components/input/input';
 import { ButtonField } from '../../components/button/button';
 import { ProductService } from '../../services/product.service';
+import { OrderService } from '../../services/order.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -21,7 +22,7 @@ export class Menu implements OnInit {
   perPage: number = 5;
   searchForm: FormGroup;
 
-  constructor(private productService: ProductService, private fb: FormBuilder) {
+  constructor(private productService: ProductService, private orderService: OrderService, private fb: FormBuilder) {
     this.searchForm = this.fb.group({
       name: [''],
       category: ['']
@@ -74,5 +75,18 @@ export class Menu implements OnInit {
 
   getPagesArray(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  addToCart(productId: number): void {
+    this.orderService.addProductToOrder(productId, 1).subscribe({
+      next: (response) => {
+        console.log('Product added to cart', response);
+        alert('Producto agregado al carrito');
+      },
+      error: (err) => {
+        console.error('Error adding product to cart', err);
+        alert('Error al agregar el producto al carrito');
+      }
+    });
   }
 }
