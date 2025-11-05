@@ -46,7 +46,7 @@
 
 
       <app-input
-        type="text"
+        type="number"
         label="Teléfono"
         placeholder="261..."
         iconStart="bi bi-phone-fill"
@@ -67,6 +67,7 @@
         buttonType="button"
         class="mt-5"
         label="Registrarse"
+        [disabled]="registerForm.invalid"
         (buttonClick)="onSubmit()"
       >
       </app-action-bttn>
