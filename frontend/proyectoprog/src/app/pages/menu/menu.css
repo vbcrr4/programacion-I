@@ -29,18 +29,9 @@
   min-width: 700px;
 }
 
-.search-container {
+.search-inputs {
   margin-bottom: var(--spacing-lg);
 }
-
-.search-container ::ng-deep app-input,
-.search-container ::ng-deep .input-wrapper,
-.search-container ::ng-deep .input-container,
-.search-container ::ng-deep .app-input {
-  width: 100%;
-  max-width: 100%;
-}
-
 
 
 

@@ -83,28 +83,36 @@
 
       <div class="d-flex justify-content-center gap-3 mt-4">
         @if (editMode) {
-          <button type="submit" class="btn btn-success" [disabled]="profileForm.invalid">Guardar Cambios</button>
-          <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
+          <app-button
+            label="Guardar Cambios"
+            variant="success"
+            type="submit"
+            [disabled]="profileForm.invalid">
+          </app-button>
+          <app-button
+            label="Cancelar"
+            variant="secondary"
+            type="button"
+            (buttonClick)="toggleEditMode()">
+          </app-button>
         } @else {
-          <button type="button" class="btn btn-primary" (click)="toggleEditMode()">Editar Perfil</button>
+          <app-button
+            label="Editar Perfil"
+            variant="primary"
+            type="button"
+            (buttonClick)="toggleEditMode()">
+          </app-button>
         }
-        <button type="button" class="btn btn-danger" (click)="deleteAccount()">Desactivar Cuenta</button>
+        <app-button
+          label="Desactivar Cuenta"
+          variant="danger"
+          type="button"
+          (buttonClick)="deleteAccount()">
+        </app-button>
       </div>
     </form>
 
-    <!-- Admin Panel Button (conditional) -->
-    @if (user?.role === 'Admin') {
-      <div class="action-container mt-4">
-        <app-button
-          variant="primary"
-          size="lg"
-          routerLink="/admin-menu"
-          label="Ir a panel de Admin"
-          iconStart="bi bi-person-circle"
-          [fullWidth]="true">
-        </app-button>
-      </div>
-    }
+    
 
     <!-- Orders Section -->
     <div class="orders-section">
