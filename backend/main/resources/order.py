@@ -33,7 +33,6 @@ class Order(Resource):
         
 class OrderList(Resource):
     @role_required(roles = ["Admin"])
-    @jwt_required()
     def get(self):
         page = 1
         per_page = 10

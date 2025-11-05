@@ -18,14 +18,14 @@ class User(Resource):
             return user.to_json_complete()
         else: return user.to_json()
         
-    @role_required(roles = ["Admin","Users"])
+    @role_required(roles = ["Admin","Client","Empleado"])
     def delete(self, user_id):
         
         user = db.session.query(UserModel).get_or_404(user_id)
         role = get_jwt().get('role')
-        if role == 'Users' and user.id != get_jwt_identity():
+        if role == 'Client' and user.id != get_jwt_identity():
             return 'No tiene permisos para eliminar este recurso', 403
-        elif role == 'Users' and user.id == get_jwt_identity():
+        elif role == 'Client' and user.id == get_jwt_identity():
             user.is_active = False #Desactiva el usuario
             return 'Usuario desactivado', 200
         
@@ -51,7 +51,6 @@ class User(Resource):
 
 class UserList(Resource):
     @role_required(roles = ["Admin"])
-    @jwt_required()
     def  get(self):
         page =1 
         per_page=10

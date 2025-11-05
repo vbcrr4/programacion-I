@@ -7,7 +7,7 @@ from main.auth.decorators import role_required
 
 
 class Product(Resource):
-    @role_required(roles = ["Admin",'Users'])
+    @role_required(roles = ["Admin",'Client','Empleado'])
     def get(self, product_id):
         product = db.session.query(ProductModel).get_or_404(product_id)
         return product.to_json()
@@ -32,7 +32,7 @@ class Product(Resource):
 
 
 class ProductList(Resource):
-    @role_required(roles = ["Admin",'Users'])
+    @role_required(roles = ["Admin",'Client','Empleado'])
     def get(self):
         page = 1
         per_page = 10
