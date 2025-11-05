@@ -12,12 +12,13 @@
       <h2 class="fw-bold">Iniciar Sesión</h2>
     </div>
 
-    <form>
+    <form [formGroup]="loginForm">
       <app-input
         type="email"
         label="Correo Electrónico"
         placeholder="ejemplo@gmail.com"
         iconStart="bi bi-envelope-fill"
+        formControlName="email"
       >
       </app-input>
 
@@ -26,22 +27,17 @@
         label="Contraseña"
         placeholder="********"
         iconStart="bi bi-lock-fill"
+        formControlName="password"
       >
       </app-input>
 
-      <app-button
-        routerLink="/menu"
-        variant="secondary"
-        [fullWidth]="true"
-        size="lg"
-        class="mt-5"
-        label="Ingresar"
-      ></app-button>
       <app-action-bttn 
-      label="Iniciar Sesión"
-      link="/menu"  
-
-      (buttonClick)="''">
+      label="Ingresar"
+      buttonType="button"
+      class="mt-5"
+      [disabled]="loginForm.invalid"
+      (buttonClick)="onSubmit()"
+      >
     </app-action-bttn> 
       <div class="text-center mt-4 extra-links">
         <small>¿No tenés cuenta? <a routerLink="/register">Creá tu cuenta</a></small>

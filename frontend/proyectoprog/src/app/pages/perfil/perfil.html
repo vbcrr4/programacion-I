@@ -13,69 +13,93 @@
       <div class="avatar">
         <img [src]="profileImage" alt="Foto de perfil" class="profile-image">
       </div>
-      <h1 class="profile-name">Nombre de Usuario</h1>
-      <p class="profile-subtitle">Miembro desde {{created_at}}</p>
+      <h1 class="profile-name">{{ user?.name }}</h1>
+      <p class="profile-subtitle">Miembro desde {{ user?.created_at }}</p>
     </div>
 
-    <!-- Profile Info Grid -->
-    <div class="profile-info-grid">
-      <div class="info-card">
-        <i class="bi bi-telephone-fill info-icon"></i>
-        <div class="info-content">
-          <span class="info-label">Teléfono</span>
-          <span class="info-value">{{cellphone}}</span>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Profile Info Grid -->
+      <div class="profile-info-grid">
+        <div class="info-card">
+          <i class="bi bi-telephone-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Teléfono</span>
+            @if (editMode) {
+              <app-input type="text" formControlName="cellphone"></app-input>
+            } @else {
+              <span class="info-value">{{ user?.cellphone }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-envelope-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Email</span>
+            @if (editMode) {
+              <app-input type="email" formControlName="email"></app-input>
+            } @else {
+              <span class="info-value">{{ user?.email }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-geo-alt-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Dirección</span>
+            @if (editMode) {
+              <app-input type="text" formControlName="address"></app-input>
+            } @else {
+              <span class="info-value">{{ user?.address }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-person-badge-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Rol</span>
+            <span class="info-value role-badge">{{ user?.role }}</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-check-circle-fill info-icon success"></i>
+          <div class="info-content">
+            <span class="info-label">Estado</span>
+            <span class="info-value">{{ user?.is_active ? 'Activo' : 'Inactivo' }}</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-calendar-check-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Registrado</span>
+            <span class="info-value">{{ user?.created_at }}</span>
+          </div>
         </div>
       </div>
 
-      <div class="info-card">
-        <i class="bi bi-envelope-fill info-icon"></i>
-        <div class="info-content">
-          <span class="info-label">Email</span>
-          <span class="info-value">{{email}}</span>
-        </div>
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        @if (editMode) {
+          <button type="submit" class="btn btn-success" [disabled]="profileForm.invalid">Guardar Cambios</button>
+          <button type="button" class="btn btn-secondary" (click)="toggleEditMode()">Cancelar</button>
+        } @else {
+          <button type="button" class="btn btn-primary" (click)="toggleEditMode()">Editar Perfil</button>
+        }
+        <button type="button" class="btn btn-danger" (click)="deleteAccount()">Desactivar Cuenta</button>
       </div>
-
-      <div class="info-card">
-        <i class="bi bi-geo-alt-fill info-icon"></i>
-        <div class="info-content">
-          <span class="info-label">Dirección</span>
-          <span class="info-value">{{address}}</span>
-        </div>
-      </div>
-
-      <div class="info-card">
-        <i class="bi bi-person-badge-fill info-icon"></i>
-        <div class="info-content">
-          <span class="info-label">Rol</span>
-          <span class="info-value role-badge">{{role}}</span>
-        </div>
-      </div>
-
-      <div class="info-card">
-        <i class="bi bi-check-circle-fill info-icon success"></i>
-        <div class="info-content">
-          <span class="info-label">Estado</span>
-          <span class="info-value">{{state}}</span>
-        </div>
-      </div>
-
-      <div class="info-card">
-        <i class="bi bi-calendar-check-fill info-icon"></i>
-        <div class="info-content">
-          <span class="info-label">Registrado</span>
-          <span class="info-value">{{created_at}}</span>
-        </div>
-      </div>
-    </div>
+    </form>
 
     <!-- Admin Panel Button (conditional) -->
-    @if (role !== 'cliente') {
-      <div class="action-container">
+    @if (user?.role === 'Admin') {
+      <div class="action-container mt-4">
         <app-button
           variant="primary"
           size="lg"
           routerLink="/admin-menu"
-          label="Ir a panel de {{role}}"
+          label="Ir a panel de Admin"
           iconStart="bi bi-person-circle"
           [fullWidth]="true">
         </app-button>

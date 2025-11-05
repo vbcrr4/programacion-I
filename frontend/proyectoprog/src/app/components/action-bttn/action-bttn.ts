@@ -12,6 +12,8 @@ export class ActionBttn {
 @Input() link: string=""
 @Input() bttn_icon: string=""
 @Input() label: string = 'Acción';
+@Input() buttonType: 'link' | 'submit' | 'button' = 'link';
+@Input() disabled: boolean = false;
 @Output() buttonClick = new EventEmitter<void>();
 
 onClick() {

@@ -1,4 +1,3 @@
-<!-- Contenedor rectangular del formulario -->
 <section class="register-section d-flex justify-content-center align-items-center">
   <app-universal-card
     variant="glass"
@@ -17,12 +16,13 @@
       <h2 class="fw-bold">Crear Cuenta</h2>
     </div>
 
-    <form>
+    <form [formGroup]="registerForm">
       <app-input
         type="text"
         label="Nombre completo"
         placeholder="Ej: Juan Pérez"
         iconStart="bi bi-person-fill"
+        formControlName="name"
       >
       </app-input>
 
@@ -31,6 +31,7 @@
         label="Correo electrónico"
         placeholder="ejemplo@gmail.com"
         iconStart="bi bi-envelope-fill"
+        formControlName="email"
       >
       </app-input>
 
@@ -39,26 +40,36 @@
         label="Contraseña"
         placeholder="********"
         iconStart="bi bi-lock-fill"
+        formControlName="password"
+      >
+      </app-input>
+
+
+      <app-input
+        type="text"
+        label="Teléfono"
+        placeholder="261..."
+        iconStart="bi bi-phone-fill"
+        formControlName="cellphone"
       >
       </app-input>
 
       <app-input
-        type="password"
-        label="Confirmar contraseña"
-        placeholder="********"
-        iconStart="bi bi-lock-fill"
+        type="text"
+        label="Dirección"
+        placeholder="Av. Siempre Viva 123"
+        iconStart="bi bi-geo-alt-fill"
+        formControlName="address"
       >
       </app-input>
 
-      <app-button
-        routerLink="/menu"
-        variant="primary"
-        [fullWidth]="true"
-        size="lg"
+      <app-action-bttn
+        buttonType="button"
         class="mt-5"
         label="Registrarse"
+        (buttonClick)="onSubmit()"
       >
-      </app-button>
+      </app-action-bttn>
 
       <div class="text-center mt-4 extra-links">
         <small>¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></small>

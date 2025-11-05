@@ -13,7 +13,7 @@ class User(db.Model):
     password = db.Column(db.String(255),nullable=False)
     address = db.Column(db.String(255),)
     #Agregar un Default al rol, para poder usarlo más adelante con la seguridad
-    role=db.Column(db.Enum('Client','Admin'), default='Client') #######ELEGIDO UN DEFAULT PARA ESTE COMMIT
+    role=db.Column(db.Enum('Client','Admin', 'Empleado'), default='Client') #######ELEGIDO UN DEFAULT PARA ESTE COMMIT
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.now())
 
@@ -89,10 +89,9 @@ class User(db.Model):
         email = user_json.get('email')
         password = user_json.get('password')
         address = user_json.get('address')
-        role = user_json.get('role')
-        is_active = user_json.get('is_active')
+        role = user_json.get('role') or 'Client'
+        is_active = user_json.get('is_active') if user_json.get('is_active') is not None else True
 
-        created_at = datetime.strptime(user_json.get('created_at'),'%d-%m-%Y') #ESTO NO FUNCIONA AL HACER POST CON USUARIO NUEVO; POSIBLEMENTE EL DEFAULT NO FUNCIONA?
         #No devolver al crear la contraseña en texto plano
         return User(id=id
                     ,name=name
@@ -101,6 +100,5 @@ class User(db.Model):
                     plain_password=password,
                     address=address
                     ,role=role,
-                    is_active=is_active,
-                    created_at=created_at
+                    is_active=is_active
                     )

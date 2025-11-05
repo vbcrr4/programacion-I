@@ -134,6 +134,23 @@
   font-weight: var(--font-semibold);
 }
 
+.info-card ::ng-deep app-input .input-container {
+  width: 100%;
+}
+
+.info-card ::ng-deep app-input .app-input {
+  background-color: transparent;
+  border: none;
+  color: var(--text-white);
+  padding: 0;
+  font-size: var(--font-base);
+  font-weight: var(--font-semibold);
+}
+
+.info-card ::ng-deep app-input .input-icon {
+  color: var(--text-muted);
+}
+
 /* Action Container */
 .action-container {
   margin-bottom: var(--spacing-2xl);

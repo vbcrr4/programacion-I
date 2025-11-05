@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
@@ -24,6 +25,7 @@ mailsender = Mail()
 def create_app():
     app = Flask(__name__)
     load_dotenv()
+    CORS(app, supports_credentials=True)
 
 
     if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
