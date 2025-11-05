@@ -18,7 +18,7 @@ customClass="menu-card">
             label="Gestión de Menú"
             link="/panel"
             bttn_icon="bi bi-journal-text"
-            (buttonClick)="tabseleccionada = 'Gestion de menu'">
+            (buttonClick)="selectTab('Gestion de menu')">
           </app-action-bttn>
         </div>
         <div class="col">
@@ -26,7 +26,7 @@ customClass="menu-card">
             label="Nuevo Producto" 
             link="/panel" 
             bttn_icon="bi bi-plus-square-fill"
-            (buttonClick)="tabseleccionada = 'Nuevo producto'">
+            (buttonClick)="selectTab('Nuevo producto')">
           </app-action-bttn>
         </div>
         <div class="col">
@@ -34,7 +34,7 @@ customClass="menu-card">
             label="Pedidos"
             link="/panel" 
             bttn_icon="bi bi-cart-check-fill"
-            (buttonClick)="tabseleccionada = 'Pedidos'">
+            (buttonClick)="selectTab('Pedidos')">
           </app-action-bttn>
         </div>
         <div class="col">
@@ -42,7 +42,7 @@ customClass="menu-card">
             label="Usuarios" 
             link="/panel" 
             bttn_icon="bi bi-person-lines-fill"
-            (buttonClick)="tabseleccionada = 'Usuarios'">
+            (buttonClick)="selectTab('Usuarios')">
           </app-action-bttn>
         </div>
         <div class="col">
@@ -50,7 +50,7 @@ customClass="menu-card">
             label="Promociones" 
             link="/panel" 
             bttn_icon="bi bi-gift-fill"
-            (buttonClick)="tabseleccionada = 'Promociones'">
+            (buttonClick)="selectTab('Promociones')">
           </app-action-bttn>
         </div>
       </div>
@@ -60,27 +60,32 @@ customClass="menu-card">
 
         @case("Gestion de menu") {
           <h2 class="text-center mt-4">Gestión de Menú</h2>
-          <div class="cards-scrollable-container d-flex justify-content-center mt-4">
+          <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
             @for (product of products; track product.id) {
-              <app-card
-                [imgSrc]="product.image_url"
-                [title]="product.name"
-                [description]="product.description"
-                [price]="(product.price | currency) ?? ''">
-                
-                <div class="d-flex justify-content-center gap-3 mt-3">
-                  <app-action-bttn 
-                    label="Editar" 
-                    link="/panel" 
-                    bttn_icon="bi bi-pencil-square">
-                  </app-action-bttn>
-                  <app-action-bttn 
-                    label="Dar de baja" 
-                    (buttonClick)="deleteProduct(product.id)" 
-                    bttn_icon="bi bi-trash-fill">
-                  </app-action-bttn>
-                </div>
-              </app-card>
+              <div class="col">
+                <app-universal-card variant="glass" padding="lg" borderRadius="lg" customClass="h-100">
+                  <div class="d-flex gap-3">
+                    <img [src]="product.image_url" [alt]="product.name" class="rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                    <div class="flex-grow-1">
+                      <h5 class="mb-1">{{ product.name }}</h5>
+                      <p class="mb-1 text-secondary" style="font-size: 0.9rem;">{{ product.description }}</p>
+                      <div class="fw-bold" style="color: #f5a623;">{{ (product.price | currency) ?? '' }}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end gap-2 mt-3">
+                    <app-action-bttn 
+                      label="Editar" 
+                      link="/panel" 
+                      bttn_icon="bi bi-pencil-square">
+                    </app-action-bttn>
+                    <app-action-bttn 
+                      label="Borrar"
+                      (buttonClick)="deleteProduct(product.id)"
+                      bttn_icon="bi bi-trash-fill">
+                    </app-action-bttn>
+                  </div>
+                </app-universal-card>
+              </div>
             }
           </div>
         }
@@ -111,7 +116,7 @@ customClass="menu-card">
                 <app-input
                   type="text"
                   label="Precio"
-                  placeholder="Ej: $12.000"
+                  placeholder="Ej: 2.000"
                   iconStart="bi bi-currency-dollar"
                 ></app-input>
 
@@ -148,14 +153,34 @@ customClass="menu-card">
         @case("Pedidos") {
           <h2 class="text-center mt-4">Pedidos</h2>
 
-          <div class="cards-scrollable-container d-flex flex-column gap-3">
-      <div *ngFor="let order of orders">
-        <h3>Pedido #{{ order.id }}</h3>
-        <p>Usuario: {{ order.user?.name }}</p>
-        <p>Total: {{ order.total | currency }}</p>
-        <p>Fecha: {{ order.created_at }}</p>
-        <hr>
-      </div>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (order of orders; track order.id) {
+              <app-universal-card variant="glass" padding="lg" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h5 class="mb-1">Pedido #{{ order.id }}</h5>
+                    <p class="mb-1"><strong>Usuario:</strong> {{ order.user?.name }}</p>
+                    <p class="mb-1"><strong>Total:</strong> {{ order.total | currency }}</p>
+                    <p class="text-secondary" style="font-size: 0.9rem;"><strong>Fecha:</strong> {{ order.created_at }}</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge" [ngClass]="getBadgeClass(order.status)">{{ order.status }}</span>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                  <app-action-bttn
+                    label="Ver Detalle"
+                    bttn_icon="bi bi-eye-fill">
+                  </app-action-bttn>
+                  <app-action-bttn
+                    label="Confirmar"
+                    bttn_icon="bi bi-check-lg">
+                  </app-action-bttn>
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay pedidos para mostrar.</p>
+            }
           </div>
         }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Navbar } from "../../components/navbar/navbar";
 import { CardContenedora } from "../../components/card-contenedora/card-contenedora";
 import { Card } from "../../components/card/card";
@@ -7,6 +7,7 @@ import { TextArea } from "../../components/textarea/textarea";
 import { CalifiEstrellas } from '../../components/calfiestrellas/calfiestrellas';
 import { UniversalCard } from '../../components/universal-card/universal-card';
 import { InputField } from '../../components/input/input';
+import { ButtonField } from '../../components/button/button';
 import { AuthService } from '../../services/auth.service';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
@@ -17,7 +18,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 
 @Component({
   selector: 'app-panel',
-  imports: [Navbar, CardContenedora, Card, ActionBttn, TextArea,UniversalCard,InputField, CommonModule, ReactiveFormsModule],
+  imports: [Navbar, CardContenedora, Card, ActionBttn, TextArea,UniversalCard,InputField, ButtonField, CommonModule, ReactiveFormsModule],
   templateUrl: './panel.html',
   styleUrl: './panel.css'
 })
@@ -37,7 +38,9 @@ export class Panel implements OnInit {
     private orderService: OrderService,
     private userService: UserService,
     private promotionService: PromotionService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
   ) {
     this.promotionForm = this.fb.group({
       from: ['', [Validators.required, Validators.email]],
@@ -54,37 +57,63 @@ export class Panel implements OnInit {
     this.loadUsers();
   }
 
+  selectTab(tabName: string) {
+    this.tabseleccionada = tabName;
+  }
+
+  getBadgeClass(status: string): string {
+    if (!status) {
+      return 'bg-secondary';
+    }
+    const cleanStatus = status.trim().toLowerCase();
+    switch (cleanStatus) {
+      case 'entregado':
+      case 'ready':
+        return 'bg-success';
+      case 'en preparación':
+      case 'preparing':
+        return 'bg-warning text-dark';
+      case 'cancelado':
+      case 'canceled':
+        return 'bg-danger';
+      case 'pendiente':
+      case 'pending':
+        return 'bg-info text-dark';
+      default:
+        return 'bg-secondary';
+    }
+  }
+
   loadProducts(): void {
     this.productService.getProducts().subscribe({
       next: (response) => {
-        this.products = response.products;
+        this.zone.run(() => {
+          this.products = response.products || [];
+        });
       },
-      error: (err: any) => {
-        console.error('Error loading products', err);
-      }
+      error: (err: any) => { console.error('Error loading products', err); }
     });
   }
 
   loadOrders(): void {
     this.orderService.getOrders().subscribe({
       next: (response) => {
-        console.log('Orders response:', response);
-        this.orders = response.orders;
+        this.zone.run(() => {
+          this.orders = response.orders || [];
+        });
       },
-      error: (err: any) => {
-        console.error('Error loading orders', err);
-      }
+      error: (err: any) => { console.error('Error loading orders', err); }
     });
   }
 
   loadUsers(): void {
     this.userService.getUsers().subscribe({
       next: (response) => {
-        this.users = response.users;
+        this.zone.run(() => {
+          this.users = response.users || [];
+        });
       },
-      error: (err: any) => {
-        console.error('Error loading users', err);
-      }
+      error: (err: any) => { console.error('Error loading users', err); }
     });
   }
 
