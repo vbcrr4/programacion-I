@@ -39,7 +39,7 @@ export class Usuarios implements OnInit {
         this.totalPages = response.pages;
         this.currentPage = response.page;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error loading users', err);
       }
     });
@@ -82,7 +82,7 @@ export class Usuarios implements OnInit {
           alert('Usuario eliminado con éxito.');
           this.loadUsers(); // Reload users after deletion
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Error eliminando usuario', err);
           alert('Error al eliminar el usuario.');
         }

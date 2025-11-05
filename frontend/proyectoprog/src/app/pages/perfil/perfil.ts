@@ -47,11 +47,11 @@ export class Perfil implements OnInit {
     const userId = this.authService.getUserId(); // Assuming you have a getUserId method in AuthService
     if (userId) {
       this.userService.getUser(userId).subscribe({
-        next: (data) => {
+        next: (data: any) => {
           this.user = data;
           this.profileForm.patchValue(data);
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Error loading user profile', err);
           this.authService.logout();
           this.router.navigate(['/login']);
@@ -67,12 +67,12 @@ export class Perfil implements OnInit {
   onSubmit(): void {
     if (this.profileForm.valid && this.user) {
       this.userService.updateUser(this.user.id, this.profileForm.value).subscribe({
-        next: (data) => {
+        next: (data: any) => {
           this.user = data;
           this.editMode = false;
           alert('Perfil actualizado con éxito!');
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Error updating profile', err);
           alert('Error al actualizar el perfil.');
         }
@@ -89,7 +89,7 @@ export class Perfil implements OnInit {
             this.authService.logout();
             this.router.navigate(['/login']);
           },
-          error: (err) => {
+          error: (err: any) => {
             console.error('Error desactivando cuenta', err);
             alert('Error al desactivar la cuenta.');
           }

@@ -27,7 +27,13 @@
           }
           @if (isAdmin() || isEmpleado()) {
             <li class="nav-item">
-              <a class="nav-link" routerLink="/empleado-panel"><i class="bi bi-briefcase-fill"></i> Panel de Empleado</a>
+              <a class="nav-link" routerLink="/panel"><i class="bi bi-briefcase-fill"></i>
+                @if (isAdmin()) {
+                  Panel de Admin
+                } @else if (isEmpleado()) {
+                  Panel de Empleado
+                }
+              </a>
             </li>
           }
           <li class="nav-item">

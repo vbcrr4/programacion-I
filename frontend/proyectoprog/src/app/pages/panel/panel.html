@@ -1,13 +1,5 @@
 <app-navbar></app-navbar>
 
-<!-- esto despues lo cambiamos cuando hagamos lo de auth -->
-<div class="text-center mt-4">
-  <!-- botón temporal para cambiar entre roles -->
-  <button class="btn btn-primary" (click)="cambiarRol()">
-    Cambiar a {{ rol === 'admin' ? 'Empleado' : 'Administrador' }}
-  </button>
-</div>
-
 <app-universal-card
 variant="glass"
 size="xl"
@@ -17,7 +9,7 @@ customClass="menu-card">
   <!-- Estructura principal con el switch -->
   @switch (rol) {
 
-    @case('admin') {
+    @case('Admin') {
       <h2 class="text-center">Panel Administrador</h2>
 
       <div class="row align-items-start">
@@ -69,25 +61,27 @@ customClass="menu-card">
         @case("Gestion de menu") {
           <h2 class="text-center mt-4">Gestión de Menú</h2>
           <div class="cards-scrollable-container d-flex justify-content-center mt-4">
-            <app-card
-              imgSrc="assets/pizzas-muzzarella.jpg"
-              title="Pizza Muzza"
-              description="Clásica pizza de muzzarella con salsa de tomate y orégano."
-              price="$10.000">
-              
-              <div class="d-flex justify-content-center gap-3 mt-3">
-                <app-action-bttn 
-                  label="Editar" 
-                  link="/panel"
-                  bttn_icon="bi bi-pencil-square">
-                </app-action-bttn>
-                <app-action-bttn 
-                  label="Dar de baja" 
-                  link="/panel"
-                  bttn_icon="bi bi-trash-fill">
-                </app-action-bttn>
-              </div>
-            </app-card>
+            @for (product of products; track product.id) {
+              <app-card
+                [imgSrc]="product.image_url"
+                [title]="product.name"
+                [description]="product.description"
+                [price]="(product.price | currency) ?? ''">
+                
+                <div class="d-flex justify-content-center gap-3 mt-3">
+                  <app-action-bttn 
+                    label="Editar" 
+                    link="/panel" 
+                    bttn_icon="bi bi-pencil-square">
+                  </app-action-bttn>
+                  <app-action-bttn 
+                    label="Dar de baja" 
+                    (buttonClick)="deleteProduct(product.id)" 
+                    bttn_icon="bi bi-trash-fill">
+                  </app-action-bttn>
+                </div>
+              </app-card>
+            }
           </div>
         }
 
@@ -151,70 +145,17 @@ customClass="menu-card">
             </app-universal-card>
           </section>
         }
-
         @case("Pedidos") {
           <h2 class="text-center mt-4">Pedidos</h2>
 
           <div class="cards-scrollable-container d-flex flex-column gap-3">
-            <app-universal-card
-              variant="glass"
-              size="xl"
-              padding="lg"
-              borderRadius="lg"
-              customClass="pedido-card"
-            >
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <h5>Pedido #001</h5>
-                  <p><strong>Usuario:</strong> Juan Pérez</p>
-                  <p><strong>Contenido:</strong> Pizza Muzza x2, Fainá x1</p>
-                  <p><strong>Hace:</strong> 30 min</p>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-warning text-dark">En preparación</span>
-                </div>
-              </div>
-            </app-universal-card>
-
-            <app-universal-card
-              variant="glass"
-              size="xl"
-              padding="lg"
-              borderRadius="lg"
-              customClass="pedido-card"
-            >
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <h5>Pedido #002</h5>
-                  <p><strong>Usuario:</strong> María López</p>
-                  <p><strong>Contenido:</strong> Pizza Napolitana x1, Coca-Cola x2</p>
-                  <p><strong>Hace:</strong> 45 min</p>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-success">Entregado</span>
-                </div>
-              </div>
-            </app-universal-card>
-
-            <app-universal-card
-              variant="glass"
-              size="xl"
-              padding="lg"
-              borderRadius="lg"
-              customClass="pedido-card"
-            >
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <h5>Pedido #003</h5>
-                  <p><strong>Usuario:</strong> Pedro Gómez</p>
-                  <p><strong>Contenido:</strong> Pizza Fugazza x1</p>
-                  <p><strong>Hace:</strong> 1 h</p>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-danger">Cancelado</span>
-                </div>
-              </div>
-            </app-universal-card>
+      <div *ngFor="let order of orders">
+        <h3>Pedido #{{ order.id }}</h3>
+        <p>Usuario: {{ order.user?.name }}</p>
+        <p>Total: {{ order.total | currency }}</p>
+        <p>Fecha: {{ order.created_at }}</p>
+        <hr>
+      </div>
           </div>
         }
 
@@ -222,15 +163,13 @@ customClass="menu-card">
           <h2 class="text-center mt-4">Usuarios</h2>
 
           <div class="cards-scrollable-container d-flex flex-column gap-3">
-            <app-universal-card variant="glass" size="xl" padding="lg" borderRadius="lg" customClass="usuario-card">
-              <p><strong>Nombre:</strong> Juan Pérez</p>
-              <p><strong>Email:</strong> juan.perez@email.com</p>
-            </app-universal-card>
-
-            <app-universal-card variant="glass" size="xl" padding="lg" borderRadius="lg" customClass="usuario-card">
-              <p><strong>Nombre:</strong> María López</p>
-              <p><strong>Email:</strong> maria.lopez@email.com</p>
-            </app-universal-card>
+            @for (user of users; track user.id) {
+              <app-universal-card variant="glass" size="xl" padding="lg" borderRadius="lg" customClass="usuario-card">
+                <p><strong>Nombre:</strong> {{ user.name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Rol:</strong> {{ user.role }}</p>
+              </app-universal-card>
+            }
           </div>
         }
 
@@ -248,8 +187,9 @@ customClass="menu-card">
                 <p class="subtitle">Completá los datos para enviar una promoción</p>
               </header>
 
-              <form>
+              <form [formGroup]="promotionForm" (ngSubmit)="sendPromotion()">
                 <app-input
+                  formControlName="from"
                   type="email"
                   label="Email de origen"
                   placeholder="ejemplo@empresa.com"
@@ -257,6 +197,7 @@ customClass="menu-card">
                 ></app-input>
 
                 <app-input
+                  formControlName="to"
                   type="text"
                   label="Destinatario"
                   placeholder="Nombre del cliente"
@@ -264,6 +205,7 @@ customClass="menu-card">
                 ></app-input>
 
                 <app-input
+                  formControlName="message"
                   type="text"
                   label="Mensaje"
                   placeholder="Mensaje de promoción"
@@ -271,6 +213,7 @@ customClass="menu-card">
                 ></app-input>
 
                 <app-input
+                  formControlName="discountCode"
                   type="text"
                   label="Código de descuento"
                   placeholder="PROMO2025"
@@ -280,7 +223,7 @@ customClass="menu-card">
                 <div class="text-center mt-4">
                   <app-action-bttn
                     label="Enviar Promoción"
-                    link="/panel"
+                    (buttonClick)="sendPromotion()"
                     bttn_icon="bi bi-send"
                   ></app-action-bttn>
                 </div>
@@ -293,7 +236,7 @@ customClass="menu-card">
 
     }
 
-    @case('empleado') {
+    @case('Empleado') {
       <h2 class="text-center">Panel Empleado</h2>
 
       <div class="row align-items-start">
@@ -407,6 +350,6 @@ customClass="menu-card">
 
       }
     }
-
+    
   }
 </app-universal-card>

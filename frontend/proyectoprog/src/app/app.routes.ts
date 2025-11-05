@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: 'register', loadComponent: () => import('./pages/auth/register/register').then(m => m.Register) },
   // Perfil
   {path: 'perfil', loadComponent: () => import('./pages/perfil/perfil').then(m => m.Perfil), canActivate: [AuthGuard] },
-  {path: 'panel', loadComponent: () => import('./pages/panel/panel').then(m => m.Panel), canActivate: [AuthGuard, RoleGuard], data: { expectedRoles: ['Admin'] } },
+  {path: 'panel', loadComponent: () => import('./pages/panel/panel').then(m => m.Panel), canActivate: [AuthGuard, RoleGuard], data: { expectedRoles: ['Admin', 'Empleado'] } },
   
 
 

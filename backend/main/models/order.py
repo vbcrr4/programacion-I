@@ -24,13 +24,14 @@ class Order(db.Model):
         return order_json
     
     def to_json_complete(self):
+        user_json = self.user.to_json() if self.user else None
         order_json={
         'id': self.id,
         'user_id':int(self.user_id),
         'created_at':str(self.created_at.strftime("%d-%m-%Y")),
         'status':str(self.status),
         'total':float(self.total),
-        'user':self.user.to_json(),
+        'user':user_json,
         }
 
         return order_json

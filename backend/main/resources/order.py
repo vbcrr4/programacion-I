@@ -33,11 +33,12 @@ class Order(Resource):
         
 class OrderList(Resource):
     @role_required(roles = ["Admin"])
+    @jwt_required()
     def get(self):
         page = 1
         per_page = 10
 
-        orders = db.session.query(OrderModel)
+        orders = db.session.query(OrderModel).order_by(OrderModel.created_at.desc())
         
         #paginacion
         if request.args.get('page'):
@@ -69,7 +70,7 @@ class OrderList(Resource):
         #fin filtros
         orders = orders.paginate(page=page, per_page=per_page, error_out=True)
 
-        return jsonify({'orders': [order.to_json() for order in orders],
+        return jsonify({'orders': [order.to_json_complete() for order in orders.items],
             'total': orders.total,
             'pages': orders.pages,
             'page': page
@@ -80,4 +81,4 @@ class OrderList(Resource):
         order = OrderModel.from_json(request.get_json())
         db.session.add(order)
         db.session.commit()
-        return order.to_json,201
+        return order.to_json(),201
