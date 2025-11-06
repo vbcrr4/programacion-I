@@ -58,7 +58,7 @@
     <app-universal-card padding="lg" borderRadius="md" customClass="menu-card">
     <h2 class="text-center">Envío</h2>
     <h6 class="text-left">Estado del envío: {{del_status}}</h6>
-    <h6 class="text-left">Precio del envío: {{del_price}}</h6>
+    <h6 class="text-left">Precio total: {{del_price | currency}}</h6>
     <h6 class="text-left">Dirección del envío: {{del_address}}</h6>
 
 </app-universal-card>
@@ -67,20 +67,22 @@
     <h2 class="text-center">Calificar pedido</h2>
     <div class="products-container" *ngIf="orders.length > 0 && orders[0].order_details.length > 0">
         <h6 class="text-left">Último Pedido:</h6>
-        <div *ngFor="let detail of orders[0].order_details">
+        <div *ngFor="let detail of orders[0].order_details" class="product-rating-item" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
             <app-card
                 [imgSrc]="detail.product?.image_url || 'assets/pizzas-muzzarella.jpg'"
                 [title]="detail.product?.name || 'Producto'"
                 [description]="detail.product?.description || 'Descripción no disponible'"
                 [price]="(detail.product?.price | currency) ?? ''"
             ></app-card>
+            <div class="rating-controls" style="margin-top: 10px;">
+              <app-calfiestrellas [(calificacion)]="ratings[detail.product.id]"></app-calfiestrellas>
+              <app-textarea placeholder="Escribe tu comentario aquí" type="comment" [(value)]="comments[detail.product.id]"></app-textarea>
+              <div style="margin-top: 10px;">
+                <app-button (buttonClick)="submitRating(detail.product.id)" label="Enviar comentario"></app-button>
+              </div>
+            </div>
         </div>
-    </div> <br>
-        <app-textarea placeholder="Escribe tu comentario aquí" type="comment"></app-textarea><br>
-        <app-calfiestrellas></app-calfiestrellas>
-
-
-
+    </div>
 }
 }
 </app-universal-card>
