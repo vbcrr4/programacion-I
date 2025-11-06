@@ -21,6 +21,10 @@
         formControlName="email"
       >
       </app-input>
+      <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+        <span *ngIf="loginForm.get('email')?.errors?.['required']">El correo es obligatorio</span>
+        <span *ngIf="loginForm.get('email')?.errors?.['email']">Correo inválido</span>
+      </small>
 
       <app-input
         type="password"
@@ -30,6 +34,9 @@
         formControlName="password"
       >
       </app-input>
+      <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+        La contraseña es obligatoria
+      </small>
 
       <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
         {{ errorMessage }}
@@ -38,7 +45,7 @@
       <app-action-bttn 
       label="Ingresar"
       buttonType="button"
-      class="mt-5"
+      class="mt-4"
       [disabled]="loginForm.invalid"
       (buttonClick)="onSubmit()"
       >

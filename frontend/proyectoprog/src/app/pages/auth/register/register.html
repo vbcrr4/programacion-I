@@ -25,6 +25,9 @@
         formControlName="name"
       >
       </app-input>
+      <small *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-danger">
+        El nombre es obligatorio
+      </small>
 
       <app-input
         type="email"
@@ -34,6 +37,10 @@
         formControlName="email"
       >
       </app-input>
+      <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
+        <span *ngIf="registerForm.get('email')?.errors?.['required']">El correo es obligatorio</span>
+        <span *ngIf="registerForm.get('email')?.errors?.['email']">Correo inválido</span>
+      </small>
 
       <app-input
         type="password"
@@ -43,7 +50,10 @@
         formControlName="password"
       >
       </app-input>
-
+      <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger">
+        <span *ngIf="registerForm.get('password')?.errors?.['required']">La contraseña es obligatoria</span>
+        <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Mínimo 6 caracteres</span>
+      </small>
 
       <app-input
         type="number"
@@ -53,6 +63,9 @@
         formControlName="cellphone"
       >
       </app-input>
+      <small *ngIf="registerForm.get('cellphone')?.invalid && registerForm.get('cellphone')?.touched" class="text-danger">
+        El teléfono es obligatorio
+      </small>
 
       <app-input
         type="text"
@@ -62,6 +75,9 @@
         formControlName="address"
       >
       </app-input>
+      <small *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched" class="text-danger">
+        La dirección es obligatoria
+      </small>
 
       <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
         {{ errorMessage }}
