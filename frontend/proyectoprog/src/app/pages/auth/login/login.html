@@ -31,6 +31,10 @@
       >
       </app-input>
 
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+        {{ errorMessage }}
+      </div>
+
       <app-action-bttn 
       label="Ingresar"
       buttonType="button"
