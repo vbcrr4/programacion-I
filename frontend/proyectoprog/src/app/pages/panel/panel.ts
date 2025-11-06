@@ -158,14 +158,20 @@ export class Panel implements OnInit {
   }
 
   updateOrderStatus(orderId: number, status: string): void {
-    console.log(`Updating order ${orderId} to status ${status}`);
-    // TODO: Implement this.orderService.updateOrder(orderId, { status: status }) when available in the service.
-    const order = this.orders.find(o => o.id === orderId);
-    if (order) {
-      order.status = status;
-      this.cdr.detectChanges(); // Refresh view after local change
-    }
-    alert(`El estado del pedido #${orderId} se cambió a "${status}" (simulación).`);
+    this.orderService.updateOrder(orderId, { status }).subscribe({
+      next: (updatedOrder: any) => {
+        const index = this.orders.findIndex(o => o.id === orderId);
+        if (index !== -1) {
+          this.orders[index] = updatedOrder;
+          this.cdr.detectChanges();
+        }
+        alert('Estado del pedido actualizado.');
+      },
+      error: (err: any) => {
+        console.error(`Error updating order ${orderId}`, err);
+        alert('Error al actualizar el pedido.');
+      }
+    });
   }
 
   validateUser(userId: number): void {
@@ -199,9 +205,20 @@ export class Panel implements OnInit {
   createOrder(): void {
     if (this.newOrderForm.valid) {
       console.log('Creating order with:', this.newOrderForm.value);
-      // TODO: Implement this.orderService.createOrder(...) when available in the service.
-      alert('Pedido creado (simulación).');
-      this.newOrderForm.reset();
+      // Note: This is a simplified implementation. A real-world scenario would likely require
+      // resolving clientName to a user ID and products to a structured list of product IDs.
+      this.orderService.createOrder(this.newOrderForm.value).subscribe({
+        next: () => {
+          alert('Pedido creado con éxito.');
+          this.newOrderForm.reset();
+          this.selectTab('Pedidos'); // Switch to orders tab to see the new order
+          this.loadOrders();
+        },
+        error: (err: any) => {
+          console.error('Error creating order', err);
+          alert('Error al crear el pedido.');
+        }
+      });
     }
   }
 

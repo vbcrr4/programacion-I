@@ -20,7 +20,7 @@ class Notification(db.Model):
         'id': self.id,
         'user_id':self.user_id,
         'message':str(self.message),
-        'created_at':str(self.sent_date.strftime("%H:%M%S %d-%m-%Y")),
+        'sent_date': self.sent_date.isoformat() if self.sent_date else None,
         'status':str(self.status),
 
     }

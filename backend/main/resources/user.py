@@ -39,18 +39,27 @@ class User(Resource):
     @jwt_required()
     def put(self, user_id):
         user = db.session.query(UserModel).get_or_404(user_id)
+        claims = get_jwt()
+        role = claims.get('role')
         current_identity = get_jwt_identity()
-        if current_identity == user.id:
+
+        # Allow Admin/Empleado to edit any user, but Client can only edit self
+        if role in ['Admin', 'Empleado'] or str(current_identity) == str(user.id):
             data = request.get_json().items()
             for key, value in data:
+                # Prevent non-admins from changing roles
+                if key == 'role' and role != 'Admin':
+                    continue
                 setattr(user, key, value)
-        db.session.add(user)
-        db.session.commit()
-        return user.to_json(), 201
+            db.session.add(user)
+            db.session.commit()
+            return user.to_json(), 201
+        else:
+            return 'No tiene permisos para modificar este usuario', 403
     
 
 class UserList(Resource):
-    @role_required(roles = ["Admin"])
+    @role_required(roles = ["Admin", "Empleado"])
     def  get(self):
         page =1 
         per_page=10

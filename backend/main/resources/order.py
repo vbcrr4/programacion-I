@@ -20,19 +20,18 @@ class Order(Resource):
         db.session.commit()
         return order.to_json(), 200        
     
-    @jwt_required()
-    def put(self, order_id):
-        
+    @role_required(roles=["Admin", "Empleado"])
+    def patch(self, order_id):
         order = db.session.query(OrderModel).get_or_404(order_id)
         data = request.get_json().items()
-        for key,value in data :
-            setattr (order, key, value)
+        for key, value in data:
+            setattr(order, key, value)
         db.session.add(order)
         db.session.commit()
         return order.to_json(), 201
         
 class OrderList(Resource):
-    @role_required(roles = ["Admin", "Client"])
+    @role_required(roles = ["Admin", "Client", "Empleado"])
     def get(self):
         claims = get_jwt()
         page = 1

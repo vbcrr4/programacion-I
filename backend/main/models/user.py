@@ -53,8 +53,7 @@ class User(db.Model):
         'address':str(self.address),
         'role': str(self.role),
         'is_active':self.is_active,
-        'created_at':str(self.created_at.strftime("%d-%m-%Y")),
-        #'created_at':self.created_at.isoformat() if self.created_at else None,
+        'created_at': self.created_at.isoformat() if self.created_at else None,
     }
         return user_json
     
@@ -68,8 +67,7 @@ class User(db.Model):
         'address':str(self.address),
         'role': str(self.role),
         'is_active':self.is_active,
-        'created_at':str(self.created_at.strftime("%d-%m-%Y")),
-        #'created_at':self.created_at.isoformat() if self.created_at else None,
+        'created_at': self.created_at.isoformat() if self.created_at else None,
         'orders':orders,}
         return user_json
 

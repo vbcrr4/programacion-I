@@ -72,6 +72,7 @@ class Notification_List(Resource):
         })
     
 
+    @role_required(roles=["Admin"])
     def post(self):
         rating = NotificationModel.from_json(request.get_json())
         db.session.add(rating)

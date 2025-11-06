@@ -12,11 +12,16 @@ def role_required(roles):
             verify_jwt_in_request()
             #Obtener claims de adentro del JWT
             claims = get_jwt()
+            # LOGGING: Print claims and required roles
+            print(f"JWT Claims: {claims}", flush=True)
+            print(f"Required Roles: {roles}", flush=True)
             #Verificar que el role sea uno de los permitidos por la ruta
             if claims['role'] in roles :
                 #Ejecutar función
+                print("Permission GRANTED", flush=True)
                 return fn(*args, **kwargs)
             else:
+                print("Permission DENIED", flush=True)
                 return 'Rol sin permisos de acceso al recurso', 403
         return wrapper
     return decorator
