@@ -5,6 +5,7 @@ import { ButtonField } from "../../components/button/button";
 import { UniversalCard } from "../../components/universal-card/universal-card";
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { OrderService } from '../../services/order.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -22,10 +23,12 @@ export class Perfil implements OnInit {
   user: any;
   profileForm: FormGroup;
   editMode: boolean = false;
+  userOrders: any[] = [];
 
   constructor(
     private userService: UserService,
     private authService: AuthService,
+    private orderService: OrderService,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -41,10 +44,11 @@ export class Perfil implements OnInit {
 
   ngOnInit(): void {
     this.loadUserProfile();
+    this.loadUserOrders();
   }
 
   loadUserProfile(): void {
-    const userId = this.authService.getUserId(); // Assuming you have a getUserId method in AuthService
+    const userId = this.authService.getUserId();
     if (userId) {
       this.userService.getUser(userId).subscribe({
         next: (data: any) => {
@@ -57,6 +61,47 @@ export class Perfil implements OnInit {
           this.router.navigate(['/login']);
         }
       });
+    }
+  }
+
+  loadUserOrders(): void {
+    const userId = this.authService.getUserId();
+    if (userId) {
+      this.orderService.getOrders().subscribe({
+        next: (response: any) => {
+          if (response && response.orders) {
+            this.userOrders = response.orders.filter((order: any) => order.user_id === userId);
+          }
+        },
+        error: (err: any) => {
+          console.error('Error loading user orders', err);
+        }
+      });
+    } else {
+      this.userOrders = [];
+    }
+  }
+
+  getBadgeClass(status: string): string {
+    if (!status) {
+      return 'bg-secondary';
+    }
+    const cleanStatus = status.trim().toLowerCase();
+    switch (cleanStatus) {
+      case 'entregado':
+      case 'ready':
+        return 'bg-success';
+      case 'en preparación':
+      case 'preparing':
+        return 'bg-warning text-dark';
+      case 'cancelado':
+      case 'canceled':
+        return 'bg-danger';
+      case 'pendiente':
+      case 'pending':
+        return 'bg-info text-dark';
+      default:
+        return 'bg-secondary';
     }
   }
 

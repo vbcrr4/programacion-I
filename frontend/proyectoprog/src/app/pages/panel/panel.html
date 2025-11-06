@@ -264,115 +264,165 @@ customClass="menu-card">
     @case('Empleado') {
       <h2 class="text-center">Panel Empleado</h2>
 
-      <div class="row align-items-start">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3 align-items-start">
         <div class="col">
           <app-action-bttn 
             label="Ver Pedidos" 
-            link="/panel" 
             bttn_icon="bi bi-clipboard-check-fill"
-            (buttonClick)="tabseleccionada='Pedidos'">
+            (buttonClick)="selectTab('Pedidos')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Cargar Pedido" 
+            bttn_icon="bi bi-plus-circle-dotted"
+            (buttonClick)="selectTab('Cargar Pedido')">
           </app-action-bttn>
         </div>
         <div class="col">
           <app-action-bttn 
             label="Verificar Stock" 
-            link="/panel" 
             bttn_icon="bi bi-box-seam"
-            (buttonClick)="tabseleccionada='Stock'">
+            (buttonClick)="selectTab('Stock')">
           </app-action-bttn>
         </div>
-        
+        <div class="col">
+          <app-action-bttn 
+            label="Validar Cuentas" 
+            bttn_icon="bi bi-person-check-fill"
+            (buttonClick)="selectTab('Validar Cuentas')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Gestionar Clientes" 
+            bttn_icon="bi bi-people-fill"
+            (buttonClick)="selectTab('Gestionar Clientes')">
+          </app-action-bttn>
+        </div>
       </div>
 
       @switch(tabseleccionada) {
 
         @case("Pedidos") {
-          <h2 class="text-center mt-4">Pedidos</h2>
-
-          <div class="cards-scrollable-container d-flex flex-column gap-3">
-            <app-universal-card
-              variant="glass"
-              size="xl"
-              padding="lg"
-              borderRadius="lg"
-              customClass="pedido-card"
-            >
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <h5>Pedido #001</h5>
-                  <p><strong>Usuario:</strong> Juan Pérez</p>
-                  <p><strong>Contenido:</strong> Pizza Muzza x2, Fainá x1</p>
-                  <p><strong>Hace:</strong> 30 min</p>
+          <h2 class="text-center mt-4">Estado de Pedidos</h2>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (order of orders; track order.id) {
+              <app-universal-card variant="glass" padding="lg" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h5 class="mb-1">Pedido #{{ order.id }}</h5>
+                    <p class="mb-1"><strong>Usuario:</strong> {{ order.user?.name }}</p>
+                    <p class="mb-1"><strong>Total:</strong> {{ order.total | currency }}</p>
+                    <p class="text-secondary" style="font-size: 0.9rem;"><strong>Fecha:</strong> {{ order.created_at | date:'short' }}</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge" [ngClass]="getBadgeClass(order.status)">{{ order.status }}</span>
+                  </div>
                 </div>
-                <div class="text-end">
-                  <span class="badge bg-warning text-dark">En preparación</span>
+                <div class="d-flex justify-content-end flex-wrap gap-2 mt-3">
+                  <app-button size="sm" variant="outline" label="Pendiente" (buttonClick)="updateOrderStatus(order.id, 'pendiente')"></app-button>
+                  <app-button size="sm" variant="primary" label="En Preparación" (buttonClick)="updateOrderStatus(order.id, 'en preparación')"></app-button>
+                  <app-button size="sm" variant="secondary" label="Listo" (buttonClick)="updateOrderStatus(order.id, 'listo')"></app-button>
+                  <app-button size="sm" variant="success" label="Entregado" (buttonClick)="updateOrderStatus(order.id, 'entregado')"></app-button>
                 </div>
-              </div>
-            </app-universal-card>
-
-            <app-universal-card
-              variant="glass"
-              size="xl"
-              padding="lg"
-              borderRadius="lg"
-              customClass="pedido-card"
-            >
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <h5>Pedido #002</h5>
-                  <p><strong>Usuario:</strong> María López</p>
-                  <p><strong>Contenido:</strong> Pizza Napolitana x1, Coca-Cola x2</p>
-                  <p><strong>Hace:</strong> 45 min</p>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-success">Entregado</span>
-                </div>
-              </div>
-            </app-universal-card>
-
-            <app-universal-card
-              variant="glass"
-              size="xl"
-              padding="lg"
-              borderRadius="lg"
-              customClass="pedido-card"
-            >
-              <div class="d-flex justify-content-between align-items-start">
-                <div>
-                  <h5>Pedido #003</h5>
-                  <p><strong>Usuario:</strong> Pedro Gómez</p>
-                  <p><strong>Contenido:</strong> Pizza Fugazza x1</p>
-                  <p><strong>Hace:</strong> 1 h</p>
-                </div>
-                <div class="text-end">
-                  <span class="badge bg-danger">Cancelado</span>
-                </div>
-              </div>
-            </app-universal-card>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay pedidos para mostrar.</p>
+            }
           </div>
+        }
+
+        @case("Cargar Pedido") {
+          <h2 class="text-center mt-4">Cargar Nuevo Pedido</h2>
+          <app-universal-card variant="glass" padding="xl" borderRadius="lg" size="md" customClass="mt-3">
+            <form [formGroup]="newOrderForm" (ngSubmit)="createOrder()">
+              <app-input 
+                formControlName="clientName"
+                type="text" 
+                label="Nombre del Cliente" 
+                placeholder="Buscar cliente...">
+              </app-input>
+              <app-input 
+                formControlName="products"
+                type="text" 
+                label="Productos" 
+                placeholder="Añadir productos...">
+              </app-input>
+              <app-input 
+                formControlName="total"
+                type="number" 
+                label="Total" 
+                placeholder="$0.00">
+              </app-input>
+              <app-button 
+                label="Crear Pedido" 
+                type="submit"
+                variant="primary" 
+                customClass="w-100 mt-3"
+                [disabled]="newOrderForm.invalid">
+              </app-button>
+            </form>
+          </app-universal-card>
         }
 
         @case("Stock") {
           <h2 class="text-center mt-4">Stock de productos</h2>
-
-          <div class="cards-scrollable-container d-flex flex-column gap-3">
-            <app-universal-card variant="glass" size="md" padding="lg" borderRadius="lg" customClass="stock-card">
-              <h5>Napolitanas disponibles:</h5>
-              <p>12 unidades</p>
-            </app-universal-card>
-
-            <app-universal-card variant="glass" size="md" padding="lg" borderRadius="lg" customClass="stock-card">
-              <h5>Muzarellas disponibles:</h5>
-              <p>8 unidades</p>
-            </app-universal-card>
-
-            <app-universal-card variant="glass" size="md" padding="lg" borderRadius="lg" customClass="stock-card">
-              <h5>Empanadas disponibles:</h5>
-              <p>20 unidades</p>
-            </app-universal-card>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (product of products; track product.id) {
+              <app-universal-card variant="glass" padding="md" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>{{ product.name }}</span>
+                  <!-- Assuming 'stock' property exists on product -->
+                  <span class="fw-bold">{{ product.stock }} unidades</span> 
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay productos para mostrar.</p>
+            }
           </div>
         }
 
+        @case("Validar Cuentas") {
+          <h2 class="text-center mt-4">Cuentas Pendientes de Validación</h2>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (user of unvalidatedUsers; track user.id) {
+              <app-universal-card variant="glass" padding="lg" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="mb-1"><strong>Nombre:</strong> {{ user.name }}</p>
+                    <p class="mb-0 text-secondary"><strong>Email:</strong> {{ user.email }}</p>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <app-button size="sm" variant="success" label="Aprobar" (buttonClick)="validateUser(user.id)"></app-button>
+                    <app-button size="sm" variant="danger" label="Rechazar" (buttonClick)="deleteUser(user.id)"></app-button>
+                  </div>
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay cuentas para validar.</p>
+            }
+          </div>
+        }
+
+        @case("Gestionar Clientes") {
+          <h2 class="text-center mt-4">Gestionar Clientes</h2>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (user of clientUsers; track user.id) {
+              <app-universal-card variant="glass" padding="lg" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="mb-1"><strong>Nombre:</strong> {{ user.name }}</p>
+                    <p class="mb-0 text-secondary"><strong>Email:</strong> {{ user.email }}</p>
+                  </div>
+                  <app-button size="sm" variant="danger" label="Bloquear" (buttonClick)="blockUser(user.id)"></app-button>
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay clientes para mostrar.</p>
+            }
+          </div>
+        }
       }
     }
     
