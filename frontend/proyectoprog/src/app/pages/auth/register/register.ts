@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Register {
   registerForm: FormGroup;
+  errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
@@ -34,14 +35,14 @@ export class Register {
     console.log('form valid:', this.registerForm.valid);
     console.log('form value:', this.registerForm.value);
     if (this.registerForm.valid) {
+      this.errorMessage = '';
       this.authService.register(this.registerForm.value).subscribe({
         next: () => {
-          alert('Registro exitoso!');
           this.router.navigate(['/login']);
         },
         error: (err) => {
+          this.errorMessage = 'Ocurrió un error inesperado. Por favor, intente nuevamente';
           console.error('Registration failed', err);
-          alert('Error en el registro. Por favor, intente de nuevo.');
         }
       });
     }

@@ -63,6 +63,10 @@
       >
       </app-input>
 
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+        {{ errorMessage }}
+      </div>
+
       <app-action-bttn
         buttonType="button"
         class="mt-5"
