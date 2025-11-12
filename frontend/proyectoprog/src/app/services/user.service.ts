@@ -10,13 +10,14 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(page?: number, perPage?: number, address?: string, role?: string, nrOrders?: number): Observable<any> {
+  getUsers(page?: number, perPage?: number, address?: string, role?: string, nrOrders?: number, name?: string): Observable<any> {
     let params = new HttpParams();
     if (page) params = params.append('page', page.toString());
     if (perPage) params = params.append('per_page', perPage.toString());
     if (address) params = params.append('address', address);
     if (role) params = params.append('role', role);
     if (nrOrders) params = params.append('nrOrders', nrOrders.toString());
+    if (name) params = params.append('name', name);
 
     return this.http.get<any>(this.apiUrl, { params });
   }

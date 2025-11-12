@@ -60,6 +60,7 @@ customClass="menu-card">
 
         @case("Gestion de menu") {
           <h2 class="text-center mt-4">Gestión de Menú</h2>
+          <app-searchbar (searchSubmit)="onSearch($event)"></app-searchbar>
           <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
             @for (product of products; track product.id) {
               <div class="col">
@@ -87,6 +88,34 @@ customClass="menu-card">
                 </app-universal-card>
               </div>
             }
+          </div>
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevPage()"
+                [disabled]="currentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="currentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextPage()"
+                [disabled]="currentPage === totalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
           </div>
         }
 
@@ -152,6 +181,11 @@ customClass="menu-card">
         }
         @case("Pedidos") {
           <h2 class="text-center mt-4">Pedidos</h2>
+          <app-searchbar 
+            (searchSubmit)="onOrderSearch($event)"
+            namePlaceholder="Buscar por nombre de usuario..."
+            categoryPlaceholder="Buscar por estado...">
+          </app-searchbar>
 
           <div class="d-flex flex-column gap-3 mt-3">
             @for (order of orders; track order.id) {
@@ -182,10 +216,44 @@ customClass="menu-card">
               <p class="text-center text-secondary mt-4">No hay pedidos para mostrar.</p>
             }
           </div>
+
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevOrderPage()"
+                [disabled]="orderCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getOrderPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="orderCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToOrderPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextOrderPage()"
+                [disabled]="orderCurrentPage === orderTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
+          </div>
         }
 
         @case("Usuarios") {
           <h2 class="text-center mt-4">Usuarios</h2>
+          <app-searchbar
+            (searchSubmit)="onUserSearch($event)"
+            namePlaceholder="Buscar por nombre..."
+            categoryPlaceholder="Buscar por rol...">
+          </app-searchbar>
 
           <div class="cards-scrollable-container d-flex flex-column gap-3">
             @for (user of users; track user.id) {
@@ -195,6 +263,35 @@ customClass="menu-card">
                 <p><strong>Rol:</strong> {{ user.role }}</p>
               </app-universal-card>
             }
+          </div>
+
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevUserPage()"
+                [disabled]="userCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getUserPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="userCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToUserPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextUserPage()"
+                [disabled]="userCurrentPage === userTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
           </div>
         }
 

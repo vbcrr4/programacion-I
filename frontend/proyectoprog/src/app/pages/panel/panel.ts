@@ -15,10 +15,11 @@ import { UserService } from '../../services/user.service';
 import { PromotionService } from '../../services/promotion.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SearchbarComponent } from '../../components/searchbar/searchbar';
 
 @Component({
   selector: 'app-panel',
-  imports: [Navbar, CardContenedora, Card, ActionBttn, TextArea,UniversalCard,InputField, ButtonField, CommonModule, ReactiveFormsModule],
+  imports: [Navbar, CardContenedora, Card, ActionBttn, TextArea,UniversalCard,InputField, ButtonField, CommonModule, ReactiveFormsModule, SearchbarComponent],
   templateUrl: './panel.html',
   styleUrl: './panel.css'
 })
@@ -31,6 +32,22 @@ export class Panel implements OnInit {
   users: any[] = [];
   unvalidatedUsers: any[] = [];
   clientUsers: any[] = [];
+
+  currentPage: number = 1;
+  totalPages: number = 1;
+  perPage: number = 5;
+  searchTerms: { name: string, category: string } = { name: '', category: '' };
+
+  orderCurrentPage: number = 1;
+  orderTotalPages: number = 1;
+  orderPerPage: number = 5;
+  orderSearchTerms: { name: string, category: string } = { name: '', category: '' };
+  orderUserId: number | null = null;
+
+  userCurrentPage: number = 1;
+  userTotalPages: number = 1;
+  userPerPage: number = 5;
+  userSearchTerms: { name: string, category: string } = { name: '', category: '' };
 
   promotionForm: FormGroup;
   newOrderForm: FormGroup;
@@ -97,32 +114,119 @@ export class Panel implements OnInit {
   }
 
   loadProducts(): void {
-    this.productService.getProducts().subscribe({
+    this.productService.getProducts(this.currentPage, this.perPage, this.searchTerms.name, this.searchTerms.category).subscribe({
       next: (response: any) => {
         this.zone.run(() => {
           this.products = response.products || [];
+          this.totalPages = response.pages;
+          this.currentPage = response.page;
         });
       },
       error: (err: any) => { console.error('Error loading products', err); }
     });
   }
 
+  onSearch(searchTerms: any): void {
+    this.currentPage = 1;
+    this.searchTerms = searchTerms;
+    this.loadProducts();
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.loadProducts();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.loadProducts();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadProducts();
+    }
+  }
+
+  getPagesArray(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
   loadOrders(): void {
-    this.orderService.getOrders().subscribe({
+    this.orderService.getOrders(this.orderCurrentPage, this.orderPerPage, this.orderSearchTerms.category, this.orderUserId ?? undefined).subscribe({
       next: (response: any) => {
         this.zone.run(() => {
           this.orders = response.orders || [];
+          this.orderTotalPages = response.pages;
+          this.orderCurrentPage = response.page;
         });
       },
       error: (err: any) => { console.error('Error loading orders', err); }
     });
   }
 
+  onOrderSearch(searchTerms: any): void {
+    this.orderCurrentPage = 1;
+    this.orderSearchTerms = searchTerms;
+    if (searchTerms.name) {
+      this.userService.getUsers(1, 1, undefined, undefined, undefined, searchTerms.name).subscribe({
+        next: (response) => {
+          if (response.users && response.users.length > 0) {
+            this.orderUserId = response.users[0].id;
+          } else {
+            this.orderUserId = -1; // Use a non-existent ID to return no orders
+          }
+          this.loadOrders();
+        },
+        error: (err) => {
+          console.error('Error searching for user', err);
+          this.orderUserId = null;
+          this.loadOrders(); // Load orders without user filter
+        }
+      });
+    } else {
+      this.orderUserId = null;
+      this.loadOrders();
+    }
+  }
+
+  goToOrderPage(page: number): void {
+    if (page >= 1 && page <= this.orderTotalPages) {
+      this.orderCurrentPage = page;
+      this.loadOrders();
+    }
+  }
+
+  nextOrderPage(): void {
+    if (this.orderCurrentPage < this.orderTotalPages) {
+      this.orderCurrentPage++;
+      this.loadOrders();
+    }
+  }
+
+  prevOrderPage(): void {
+    if (this.orderCurrentPage > 1) {
+      this.orderCurrentPage--;
+      this.loadOrders();
+    }
+  }
+
+  getOrderPagesArray(): number[] {
+    return Array.from({ length: this.orderTotalPages }, (_, i) => i + 1);
+  }
+
   loadUsers(): void {
-    this.userService.getUsers().subscribe({
+    this.userService.getUsers(this.userCurrentPage, this.userPerPage, undefined, this.userSearchTerms.category, undefined, this.userSearchTerms.name).subscribe({
       next: (response: any) => {
         this.zone.run(() => {
           this.users = response.users || [];
+          this.userTotalPages = response.pages;
+          this.userCurrentPage = response.page;
           this.unvalidatedUsers = this.users.filter(u => u.role === 'Client' && !u.is_active);
           this.clientUsers = this.users.filter(u => u.role === 'Client');
         });
@@ -131,6 +235,37 @@ export class Panel implements OnInit {
     });
   }
 
+  onUserSearch(searchTerms: any): void {
+    this.userCurrentPage = 1;
+    this.userSearchTerms = searchTerms;
+    this.loadUsers();
+  }
+
+  goToUserPage(page: number): void {
+    if (page >= 1 && page <= this.userTotalPages) {
+      this.userCurrentPage = page;
+      this.loadUsers();
+    }
+  }
+
+  nextUserPage(): void {
+    if (this.userCurrentPage < this.userTotalPages) {
+      this.userCurrentPage++;
+      this.loadUsers();
+    }
+  }
+
+  prevUserPage(): void {
+    if (this.userCurrentPage > 1) {
+      this.userCurrentPage--;
+      this.loadUsers();
+    }
+  }
+
+  getUserPagesArray(): number[] {
+    return Array.from({ length: this.userTotalPages }, (_, i) => i + 1);
+  }
+  
   deleteProduct(id: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(id).subscribe({
@@ -143,6 +278,8 @@ export class Panel implements OnInit {
       });
     }
   }
+  
+  // ... rest of the file
 
   deleteUser(id: number): void {
     if (confirm('Are you sure you want to delete this user?')) {

@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Navbar } from "../../components/navbar/navbar";
 import { UniversalCard } from "../../components/universal-card/universal-card";
-import { InputField } from '../../components/input/input';
-import { ButtonField } from '../../components/button/button';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SearchbarComponent } from '../../components/searchbar/searchbar';
+import { ButtonField } from '../../components/button/button';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [Navbar, UniversalCard, InputField, ButtonField, ReactiveFormsModule, CommonModule],
+  imports: [Navbar, UniversalCard, CommonModule, SearchbarComponent, ButtonField],
   templateUrl: './menu.html',
   styleUrls: ['./menu.css']
 })
@@ -20,22 +19,16 @@ export class Menu implements OnInit {
   currentPage: number = 1;
   totalPages: number = 1;
   perPage: number = 5;
-  searchForm: FormGroup;
+  searchTerms: { name: string, category: string } = { name: '', category: '' };
 
-  constructor(private productService: ProductService, private orderService: OrderService, private fb: FormBuilder) {
-    this.searchForm = this.fb.group({
-      name: [''],
-      category: ['']
-    });
-  }
+  constructor(private productService: ProductService, private orderService: OrderService) {}
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
   loadProducts(): void {
-    const { name, category } = this.searchForm.value;
-    this.productService.getProducts(this.currentPage, this.perPage, name, category).subscribe({
+    this.productService.getProducts(this.currentPage, this.perPage, this.searchTerms.name, this.searchTerms.category).subscribe({
       next: (response) => {
         this.products = response.products;
         this.totalPages = response.pages;
@@ -47,8 +40,9 @@ export class Menu implements OnInit {
     });
   }
 
-  onSearch(): void {
+  onSearch(searchTerms: any): void {
     this.currentPage = 1;
+    this.searchTerms = searchTerms;
     this.loadProducts();
   }
 

@@ -70,6 +70,10 @@ class UserList(Resource):
         if request.args.get('per_page'):
             per_page=int(request.args.get('per_page'))
         
+        #Buscamos por nombre:
+        if request.args.get('name'):
+            users=users.filter(UserModel.name.like("%"+request.args.get('name')+"%"))
+
         #Buscamos por direccion:
         if request.args.get('address'):
             users=users.filter(UserModel.address.like("%"+request.args.get('address')+"%"))

@@ -12,15 +12,7 @@
     <p class="subtitle">Descubrí tus platos favoritos</p>
   </header>
 
-  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-    <div class="search-inputs mb-3 d-flex gap-2">
-      <app-input type="search" placeholder="Buscar por nombre..." iconStart="bi bi-search" formControlName="name" class="flex-grow-1"></app-input>
-      <app-input type="text" placeholder="Buscar por categoría..." iconStart="bi bi-tag" formControlName="category" class="flex-grow-1"></app-input>
-    </div>
-    <div class="d-flex justify-content-center">
-      <app-button type="submit" label="Buscar"></app-button>
-    </div>
-  </form>
+  <app-searchbar (searchSubmit)="onSearch($event)"></app-searchbar>
 
   <div class="products-container">
     @for (product of products; track product.id) {
