@@ -77,7 +77,13 @@ class UserList(Resource):
         #Buscamos por direccion:
         if request.args.get('address'):
             users=users.filter(UserModel.address.like("%"+request.args.get('address')+"%"))
-        
+        #Filtramos por email
+        if request.args.get('email'):
+            users=users.filter(UserModel.email.like("%"+request.args.get('email')+"%"))
+        #Vericamos si el usuario esta desactivado
+        if request.args.get('is_active'):
+            users=users.filter(UserModel.is_active == 0)
+
         #Buscamos usuarios por rol:
         if request.args.get('role'):
             users=users.filter(UserModel.role.like(request.args.get('role')))
