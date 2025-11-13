@@ -408,6 +408,11 @@ customClass="menu-card">
 
         @case("Pedidos") {
           <h2 class="text-center mt-4">Estado de Pedidos</h2>
+          <app-searchbar 
+            (searchSubmit)="onOrderSearch($event)"
+            namePlaceholder="Buscar por nombre de usuario..."
+            categoryPlaceholder="Buscar por estado...">
+          </app-searchbar>
           <div class="d-flex flex-column gap-3 mt-3">
             @for (order of orders; track order.id) {
               <app-universal-card variant="glass" padding="lg" borderRadius="lg">
@@ -432,6 +437,34 @@ customClass="menu-card">
             } @empty {
               <p class="text-center text-secondary mt-4">No hay pedidos para mostrar.</p>
             }
+          </div>
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevOrderPage()"
+                [disabled]="orderCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getOrderPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="orderCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToOrderPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextOrderPage()"
+                [disabled]="orderCurrentPage === orderTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
           </div>
         }
 
@@ -487,6 +520,11 @@ customClass="menu-card">
 
         @case("Validar Cuentas") {
           <h2 class="text-center mt-4">Cuentas Pendientes de Validación</h2>
+          <app-searchbar
+            (searchSubmit)="onUnvalidatedUserSearch($event)"
+            namePlaceholder="Buscar por nombre..."
+            categoryPlaceholder="Buscar por email...">
+          </app-searchbar>
           <div class="d-flex flex-column gap-3 mt-3">
             @for (user of unvalidatedUsers; track user.id) {
               <app-universal-card variant="glass" padding="lg" borderRadius="lg">
@@ -505,10 +543,43 @@ customClass="menu-card">
               <p class="text-center text-secondary mt-4">No hay cuentas para validar.</p>
             }
           </div>
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevUnvalidatedUserPage()"
+                [disabled]="unvalidatedUserCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getUnvalidatedUserPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="unvalidatedUserCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToUnvalidatedUserPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextUnvalidatedUserPage()"
+                [disabled]="unvalidatedUserCurrentPage === unvalidatedUserTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
+          </div>
         }
 
         @case("Gestionar Clientes") {
           <h2 class="text-center mt-4">Gestionar Clientes</h2>
+          <app-searchbar
+            (searchSubmit)="onClientUserSearch($event)"
+            namePlaceholder="Buscar por nombre..."
+            categoryPlaceholder="Buscar por email...">
+          </app-searchbar>
           <div class="d-flex flex-column gap-3 mt-3">
             @for (user of clientUsers; track user.id) {
               <app-universal-card variant="glass" padding="lg" borderRadius="lg">
@@ -523,6 +594,34 @@ customClass="menu-card">
             } @empty {
               <p class="text-center text-secondary mt-4">No hay clientes para mostrar.</p>
             }
+          </div>
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevClientUserPage()"
+                [disabled]="clientUserCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getClientUserPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="clientUserCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToClientUserPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextClientUserPage()"
+                [disabled]="clientUserCurrentPage === clientUserTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
           </div>
         }
       }

@@ -49,6 +49,16 @@ export class Panel implements OnInit {
   userPerPage: number = 5;
   userSearchTerms: { name: string, category: string } = { name: '', category: '' };
 
+  clientUserCurrentPage: number = 1;
+  clientUserTotalPages: number = 1;
+  clientUserPerPage: number = 5;
+  clientUserSearchTerms: { name: string, category: string } = { name: '', category: '' };
+
+  unvalidatedUserCurrentPage: number = 1;
+  unvalidatedUserTotalPages: number = 1;
+  unvalidatedUserPerPage: number = 5;
+  unvalidatedUserSearchTerms: { name: string, email: string } = { name: '', email: '' };
+
   promotionForm: FormGroup;
   newOrderForm: FormGroup;
 
@@ -88,6 +98,15 @@ export class Panel implements OnInit {
 
   selectTab(tabName: string) {
     this.tabseleccionada = tabName;
+    if (tabName === 'Gestionar Clientes') {
+      this.clientUserCurrentPage = 1;
+      this.clientUserSearchTerms = { name: '', category: '' };
+      this.loadClientUsers();
+    } else if (tabName === 'Validar Cuentas') {
+      this.unvalidatedUserCurrentPage = 1;
+      this.unvalidatedUserSearchTerms = { name: '', email: '' };
+      this.loadUnvalidatedUsers();
+    }
   }
 
   getBadgeClass(status: string): string {
@@ -227,7 +246,7 @@ export class Panel implements OnInit {
           this.users = response.users || [];
           this.userTotalPages = response.pages;
           this.userCurrentPage = response.page;
-          this.unvalidatedUsers = this.users.filter(u => u.role === 'Client' && !u.is_active);
+          // this.unvalidatedUsers = this.users.filter(u => u.role === 'Client' && !u.is_active); // Removed client-side filter
           this.clientUsers = this.users.filter(u => u.role === 'Client');
         });
       },
@@ -265,6 +284,104 @@ export class Panel implements OnInit {
   getUserPagesArray(): number[] {
     return Array.from({ length: this.userTotalPages }, (_, i) => i + 1);
   }
+
+  loadClientUsers(): void {
+    this.userService.getUsers(this.clientUserCurrentPage, this.clientUserPerPage, this.clientUserSearchTerms.category || undefined, 'Client', undefined, this.clientUserSearchTerms.name || undefined).subscribe({
+      next: (response: any) => {
+        this.zone.run(() => {
+          this.clientUsers = response.users || [];
+          this.clientUserTotalPages = response.pages;
+          this.clientUserCurrentPage = response.page;
+        });
+      },
+      error: (err: any) => { console.error('Error loading client users', err); }
+    });
+  }
+
+  onClientUserSearch(searchTerms: any): void {
+    this.clientUserCurrentPage = 1;
+    this.clientUserSearchTerms = searchTerms;
+    this.loadClientUsers();
+  }
+
+  goToClientUserPage(page: number): void {
+    if (page >= 1 && page <= this.clientUserTotalPages) {
+      this.clientUserCurrentPage = page;
+      this.loadClientUsers();
+    }
+  }
+
+  nextClientUserPage(): void {
+    if (this.clientUserCurrentPage < this.clientUserTotalPages) {
+      this.clientUserCurrentPage++;
+      this.loadClientUsers();
+    }
+  }
+
+  prevClientUserPage(): void {
+    if (this.clientUserCurrentPage > 1) {
+      this.clientUserCurrentPage--;
+      this.loadClientUsers();
+    }
+  }
+
+  getClientUserPagesArray(): number[] {
+    return Array.from({ length: this.clientUserTotalPages }, (_, i) => i + 1);
+  }
+
+  loadUnvalidatedUsers(): void {
+    this.userService.getUsers(
+      this.unvalidatedUserCurrentPage,
+      this.unvalidatedUserPerPage,
+      undefined, // address
+      'Client', // role
+      undefined, // nrOrders
+      this.unvalidatedUserSearchTerms.name || undefined, // name
+      this.unvalidatedUserSearchTerms.email || undefined, // email
+      false // is_active: we want unvalidated users where is_active is 0
+    ).subscribe({
+      next: (response: any) => {
+        this.zone.run(() => {
+          this.unvalidatedUsers = response.users || [];
+          this.unvalidatedUserTotalPages = response.pages;
+          this.unvalidatedUserCurrentPage = response.page;
+        });
+      },
+      error: (err: any) => { console.error('Error loading unvalidated users', err); }
+    });
+  }
+
+  onUnvalidatedUserSearch(searchTerms: any): void {
+    this.unvalidatedUserCurrentPage = 1;
+    this.unvalidatedUserSearchTerms.name = searchTerms.name;
+    this.unvalidatedUserSearchTerms.email = searchTerms.category; // searchbar uses category for second input
+    this.loadUnvalidatedUsers();
+  }
+
+  goToUnvalidatedUserPage(page: number): void {
+    if (page >= 1 && page <= this.unvalidatedUserTotalPages) {
+      this.unvalidatedUserCurrentPage = page;
+      this.loadUnvalidatedUsers();
+    }
+  }
+
+  nextUnvalidatedUserPage(): void {
+    if (this.unvalidatedUserCurrentPage < this.unvalidatedUserTotalPages) {
+      this.unvalidatedUserCurrentPage++;
+      this.loadUnvalidatedUsers();
+    }
+  }
+
+  prevUnvalidatedUserPage(): void {
+    if (this.unvalidatedUserCurrentPage > 1) {
+      this.unvalidatedUserCurrentPage--;
+      this.loadUnvalidatedUsers();
+    }
+  }
+
+  getUnvalidatedUserPagesArray(): number[] {
+    return Array.from({ length: this.unvalidatedUserTotalPages }, (_, i) => i + 1);
+  }
   
   deleteProduct(id: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
@@ -279,7 +396,7 @@ export class Panel implements OnInit {
     }
   }
   
-  // ... rest of the file
+
 
   deleteUser(id: number): void {
     if (confirm('Are you sure you want to delete this user?')) {
