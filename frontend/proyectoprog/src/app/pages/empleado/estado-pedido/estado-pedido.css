@@ -1,0 +1,173 @@
+    :root {
+      --color-primary: #8B45BD;
+      --color-primary-30: rgba(139, 69, 189, 0.3);
+      --color-primary-10: rgba(139, 69, 189, 0.1);
+      --color-text: rgba(255, 255, 255, 0.7);
+      --color-dark: #1a1a2e;
+      --color-darker: #0d0d1a;
+    }
+    
+    body {
+      background: linear-gradient(180deg, #1e003e, #000020);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 1rem;
+    }
+    
+    .main-container {
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .card-header {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color : #fff;
+      text-align: center;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+  
+    }
+    
+    .filter-tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      background: rgba(155, 77, 255, 0.1);
+      border-radius: 30px;
+      padding: 5px;
+    }
+    
+    .filter-tab {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: var(--color-text);
+      font-size: 0.85rem;
+    }
+    
+    .filter-tab.active {
+      background: #9b4dff;
+      color: white;
+    }
+    
+    .order-card {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid #9b4dff;
+    }
+    
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .order-title {
+      font-weight: bold;
+      color: #9b4dff;
+      margin: 0;
+      font-size: 1rem;
+    }
+    
+    .order-status {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    .status-pending {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+    
+    .status-preparing {
+      background: rgba(23, 162, 184, 0.2);
+      color: #17a2b8;
+    }
+    
+    .status-ready {
+      background: rgba(40, 167, 69, 0.2);
+      color: #28a745;
+    }
+    
+    .order-details {
+      margin-bottom: 10px;
+    }
+    
+    .order-info {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+      color: #bbb;
+    }
+    
+    .order-time {
+      font-size: 0.8rem;
+      color: #bbb;
+    }
+    
+    .order-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .btn-action {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      flex: 1;
+    }
+    
+    .btn-primary {
+      background: #9b4dff;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #7b3ce3;
+    }
+    
+    .btn-success {
+      background: #28a745;
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background: #218838;
+    }
+    
+    .btn-warning {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+    
+
+ 
+
+    .filter-tabs .filter-tab {
+      color: #fff;
+    }

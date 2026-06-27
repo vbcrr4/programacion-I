@@ -1,0 +1,33 @@
+
+<app-back-button routerLink="/menu"></app-back-button>
+<app-navbar></app-navbar>
+
+
+  <div class="card-carrito">
+    <h4 class="text-center mb-2">Carrito</h4>
+    
+
+    <div class="text-center">
+      <span class="header-badge">
+        <span class="badge">3</span> Items pedidos
+      </span>
+    </div>
+
+    <div class="marco-morado">
+
+      <ul class="nav nav-tabs justify-content-center">
+        <a routerLink="/carrito-pedido-cliente" class="tab-btn btn-dark">Pedido</a>
+        <a routerLink="/carrito-envio-cliente" class="tab-btn btn active">Envío</a>
+        <a routerLink="/carrito-calificacion-cliente" class="tab-btn btn-dark">Calificar</a>
+      </ul>
+  
+
+      <div class="info-envio text-start">
+        <p><strong>Precio del Envío:</strong> $5.000</p>
+        <p><strong>Estado del envío:</strong> En camino</p>
+      </div>
+      <div class="direccion text-start ">
+        <img src="/assets/" alt="*Imagen mapa de envío*">
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Empleado - Rotisería UM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background: linear-gradient(180deg, #1e003e, #000020);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 1rem;
+            /* IGUAL EN ADMIN MENU y EMPLEADO PANEL Y EMPLEADO PANEL */
+    }
+    .stats-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 1.2rem;
+      padding: 1rem;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+          /* IGUAL EN EMPLEADO PANEL Y ADMIN MENU */
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: bold;
+      margin: 0.2rem 0;
+      color: #9b4dff;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #bbb;
+      margin-top: 0.3rem;
+    }
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL  */
+    }
+    .action-btn {
+      background-color: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 0.75rem;
+      padding: 1rem 0.5rem;
+      color: #fff;
+      text-align: center;
+      transition: all 0.3s ease;
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none; 
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .action-btn:hover {
+      background-color: rgba(155, 77, 255, 0.2);
+      transform: translateY(-3px);
+      color: #fff;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .action-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #9b4dff;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .action-text {
+      font-size: 0.85rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+
+    .urgent-order {
+      background-color: rgba(230, 57, 70, 0.15);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      border-left: 4px solid #e63946;
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .order-title {
+      font-weight: bold;
+      color: #e63946;
+      font-size: 0.9rem;
+    }
+    .order-time {
+      background-color: #e63946;
+      padding: 0.2rem 0.6rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+    }
+    .order-details {
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+    .order-client {
+      color: #bbb;
+      font-size: 0.8rem;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: white;
+      font-size: 1.5rem;
+      text-decoration: none;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .back-btn:hover { 
+      color: #9b4dff; 
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .title-container {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+    .main-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      /* IGUAL EN ADMIN MENU Y EMPLEADO PANEL */
+    }
+
+  </style>
+</head>
+<body>
+
+
+
+  <div class="stats-card">
+    <div class="title-container">
+      <div class="main-title">Panel Empleado</div>
+    </div>
+    
+
+    <div class="stats-container">
+      <div class="action-btn">
+        <div class="stat-number">8</div>
+        <div class="stat-label">Pendientes</div>
+      </div>
+      <div class="action-btn">
+        <div class="stat-number">3</div>
+        <div class="stat-label">En preparación</div>
+      </div>
+    </div>
+    
+
+    <div class="actions-grid">
+      <a href="empleado_estado_pedido.html" class="action-btn">
+        <div class="action-icon"><i class="bi bi-list-check"></i></div>
+        <div class="action-text">Ver Pedidos</div>
+      </a>
+      <a href="empleado_stock_productos.html" class="action-btn">
+        <div class="action-icon"><i class="bi bi-box-seam"></i></div>
+        <div class="action-text">Verificar Stock</div>
+      </a>
+      <a href="empleado_validarcuentas.html" class="action-btn">
+        <div class="action-icon"><i class="bi bi-person-check"></i></div>
+        <div class="action-text">Validar Cuentas</div>
+      </a>
+      <a href="empleado_gestionclientes.html" class="action-btn">
+        <div class="action-icon"><i class="bi bi-people"></i></div>
+        <div class="action-text">Gestionar Clientes</div>
+      </a>
+    </div>
+    
+
+    <div class="urgent-section">
+      <div class="stats-container">Pedidos Urgentes</div>
+      
+
+      <div class="urgent-order">
+        <div class="order-header">
+          <div class="order-title">Pedido #1240</div>
+          <div class="order-time">24 min</div>
+        </div>
+        <div class="order-details">
+          <strong>x2 Napolitana</strong>
+        </div>
+        <div class="order-client">
+          Mesa González - Zona Centro
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

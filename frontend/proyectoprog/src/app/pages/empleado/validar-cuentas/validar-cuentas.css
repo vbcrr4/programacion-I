@@ -1,0 +1,141 @@
+:root {
+  --bg-top: #1e003e;
+  --bg-bottom: #0a0420;
+  --violet: #9d4edd;
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --muted: #bbb;
+}
+
+.main {
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+  padding: 1.2rem;
+  color: #fff;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.15));
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-right: 40px;
+}
+
+/* Tarjetas */
+.stats-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  text-align: center;
+  padding: 1rem;
+  color: #9b4dff;
+}
+
+.list-card {
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(157,78,221,0.12);
+}
+
+.user-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.08));
+}
+
+.avatar {
+  min-width: 46px;
+  min-height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(180deg, #6b2cc7, #3b0d74);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.35);
+  flex-shrink: 0;
+}
+
+.user-info { flex: 1; text-align: left; }
+.user-name { font-weight: 700; margin: 0; font-size: 0.96rem; }
+.user-meta { font-size: 0.78rem; color: var(--muted); margin: 2px 0; }
+
+.label-pending {
+  display: inline-block;
+  margin-top: 6px;
+  background: #ffc107;
+  color: black;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.btn-accept { background: #1cc88a; color: #fff; }
+.btn-reject { background: #ff5b5b; color: #fff; border-radius: 8px; }
+
+.validated-check {
+  color: #1cc88a;
+  font-size: 1.05rem;
+  margin-left: 6px;
+}
+
+.note {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: 6px;
+  text-align: center;
+}

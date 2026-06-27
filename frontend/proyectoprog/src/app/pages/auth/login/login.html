@@ -1,0 +1,59 @@
+<!-- Contenedor rectangular del formulario -->
+<section class="login-section d-flex justify-content-center align-items-center">
+  <app-universal-card variant="glass" size="xl" padding="2xl" borderRadius="xl" class="login-card">
+    <!-- Banner superior (ahora dentro de la tarjeta) -->
+    <header class="login-header text-center">
+      <h1 class="app-title">Bienvenido a <span class="highlight">Rotisería UM</span></h1>
+      <p class="subtitle">Tu sabor favorito, más cerca que nunca</p>
+    </header>
+
+    <div class="text-center mb-4">
+      <img src="assets/imagenpollo.jpg" alt="Logo Rotisería UM" class="login-logo mb-3" />
+      <h2 class="fw-bold">Iniciar Sesión</h2>
+    </div>
+
+    <form [formGroup]="loginForm">
+      <app-input
+        type="email"
+        label="Correo Electrónico"
+        placeholder="ejemplo@gmail.com"
+        iconStart="bi bi-envelope-fill"
+        formControlName="email"
+      >
+      </app-input>
+      <small *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+        <span *ngIf="loginForm.get('email')?.errors?.['required']">El correo es obligatorio</span>
+        <span *ngIf="loginForm.get('email')?.errors?.['email']">Correo inválido</span>
+      </small>
+
+      <app-input
+        type="password"
+        label="Contraseña"
+        placeholder="********"
+        iconStart="bi bi-lock-fill"
+        formControlName="password"
+      >
+      </app-input>
+      <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+        La contraseña es obligatoria
+      </small>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <app-action-bttn 
+      label="Ingresar"
+      buttonType="button"
+      class="mt-4"
+      [disabled]="loginForm.invalid"
+      (buttonClick)="onSubmit()"
+      >
+    </app-action-bttn> 
+      <div class="text-center mt-4 extra-links">
+        <small>¿No tenés cuenta? <a routerLink="/register">Creá tu cuenta</a></small>
+      </div>
+
+    </form>
+  </app-universal-card>
+</section>

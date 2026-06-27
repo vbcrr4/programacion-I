@@ -1,0 +1,80 @@
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stock de Productos</title>
+  <app-back-button routerLink="/empleado-panel"></app-back-button>  
+  <div class="main-container">
+      <div class="card">
+
+          <div class="d-flex align-items-center p-3">
+              
+              <h5 class="card-header fw-bold">Stock de Productos</h5>
+      </div>
+
+
+      <div class="row g-2 px-3 mb-3">
+        <div class="col">
+          <div class="stats-card">
+            <div class="fs-5  fw-bold">23</div>
+            <small>Productos</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="stats-card">
+            <div class="fs-5 fw-bold">4</div>
+            <small>Stock bajo</small>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="px-3 pb-3">
+
+        <div class="product-item">
+          <div class="d-flex align-items-center">
+            <div class="product-icon icon-purple"><i class="bi bi-box"></i></div>
+            <div class="product-info">
+              <p class="product-name">Napolitana</p>
+              <p class="product-stock">Stock 15 disponibles <span class="badge-status badge-ok">Stock OK</span></p>
+            </div>
+          </div>
+          <button class="action-btn btn-actualizar">Actualizar</button>
+        </div>
+
+
+        <div class="product-item">
+          <div class="d-flex align-items-center">
+            <div class="product-icon icon-purple"><i class="bi bi-box"></i></div>
+            <div class="product-info">
+              <p class="product-name">Muzzarella</p>
+              <p class="product-stock">Stock 3 disponibles <span class="badge-status badge-low">Stock Bajo</span></p>
+            </div>
+          </div>
+          <button class="action-btn btn-reponer">Reponer</button>
+        </div>
+
+
+        <div class="product-item">
+          <div class="d-flex align-items-center">
+            <div class="product-icon icon-purple"><i class="bi bi-box"></i></div>
+            <div class="product-info">
+              <p class="product-name">Empanada</p>
+              <p class="product-stock">Stock 0 disponibles <span class="badge-status badge-out">Sin Stock</span></p>
+            </div>
+          </div>
+          <button class="action-btn btn-agotado">Agotado</button>
+        </div>
+
+
+        <div class="product-item">
+          <div class="d-flex align-items-center">
+            <div class="product-icon icon-purple"><i class="bi bi-box"></i></div>
+            <div class="product-info">
+              <p class="product-name">Flan Casero</p>
+              <p class="product-stock">Stock 30 disponibles <span class="badge-status badge-ok">Stock OK</span></p>
+            </div>
+          </div>
+          <button class="action-btn btn-actualizar">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>

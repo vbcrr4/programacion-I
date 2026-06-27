@@ -4,7 +4,14 @@
 */lib64/
 pyvenv.cfg
 .env
-
+lib64
+/include
+/lib
+/lib64
+*/entorno*
+pyvenv.cfg
+.env
+/frontend/pruebas_n
 # Node y Angular
 node_modules/
 dist/
@@ -39,6 +46,7 @@ Thumbs.db
 
 # Carpetas específicas por proyecto
 /frontend/node_modules
+.geminiignore
 /frontend/dist
 
 /backend/__pycache__
@@ -47,3 +55,7 @@ Thumbs.db
 *entorno
 
 .vscode
+
+#Apuntes mios
+/clase1
+/clase2

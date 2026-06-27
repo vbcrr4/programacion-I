@@ -1,0 +1,133 @@
+body {
+      background: linear-gradient(180deg, #1e003e, #000020);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 1rem;
+    }
+
+    .main-container {
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+      padding: 1rem;
+      border: none;
+    }
+
+    .stats-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      text-align: center;
+      padding: 1rem;
+      color: #9b4dff;
+    }
+
+    .product-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+
+    .product-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      margin-right: 12px;
+    }
+
+    .icon-purple { background: #9b4dff; }
+    .icon-yellow { background: #ffc107; color: black; }
+    .icon-red { background: #dc3545; }
+    .icon-green { background: #198754; }
+
+    .product-info {
+      flex-grow: 1;
+    }
+
+    .product-name {
+      font-weight: bold;
+      color: #fff;
+      margin: 0;
+    }
+
+    .product-stock {
+      font-size: 0.9rem;
+      margin: 0;
+      color: #bbb;
+    }
+
+    .badge-status {
+      font-size: 0.75rem;
+      padding: 0.35em 0.6em;
+      border-radius: 6px;
+    }
+
+    .badge-ok { background: #198754; }
+    .badge-low { background: #ffc107; color: black; }
+    .badge-out { background: #dc3545; }
+
+    .action-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .btn-reponer {
+      background: #ffc107;
+      color: black;
+    }
+
+    .btn-actualizar {
+      background: #6f42c1;
+      color: white;
+    }
+
+    .btn-agotado {
+      background: #dc3545;
+      color: white;
+    }
+
+    .back-btn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: white;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background: rgba(255,255,255,0.25);
+    }
+

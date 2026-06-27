@@ -1,0 +1,9 @@
+<div class="producto-card">
+  <img [src]="imgSrc" [alt]="title">
+  <div class="producto-info">
+    <h5>{{ title }}</h5>
+    <p>{{ description }}</p>
+    <div class="precio">{{ price }}</div>
+    <ng-content></ng-content>
+  </div>
+</div>

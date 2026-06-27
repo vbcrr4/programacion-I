@@ -1,0 +1,15 @@
+  /* BOTÓN DE REGRESO COMÚN */
+  
+  .back-btn {
+    cursor: pointer;
+    position: left;
+    top: 1rem;
+    left: 1rem;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+  }
+   
+  .back-btn:hover { 
+    color: var(--color-primary); 
+  }

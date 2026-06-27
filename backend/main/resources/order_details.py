@@ -1,13 +1,18 @@
 from flask_restful import Resource
 from flask import request,jsonify
+from sqlalchemy import func
 from main.models import (OrderDetailsModel)
 from .. import db
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from main.auth.decorators import role_required
 
 class OrderDetails(Resource):
+    @jwt_required(optional=True)
     def get(self,orderdetails_id):
         order_details = db.session.query(OrderDetailsModel).get_or_404(orderdetails_id)
         return order_details.to_json()
     
+    @role_required(roles = ["Admin"])
     def delete(self,orderdetails_id):
         order_details = db.session.query(OrderDetailsModel).get_or_404(orderdetails_id)
         db.session.delete(order_details)
@@ -24,10 +29,45 @@ class OrderDetails(Resource):
         return order_details.to_json(), 201
     
 class OrderDetailsList(Resource):
+    @role_required(roles = ["Admin"])
     def get(self):
-        order_details = db.session.query(OrderDetailsModel).all()
-        return jsonify([order_details.to_json() for order_details in order_details])
+        page = 1
+        per_page = 10
+        order_details = db.session.query(OrderDetailsModel)
+        if request.args.get('page'):
+            page=int(request.args.get('page'))
+        if request.args.get('per_page'):
+            per_page=int(request.args.get('per_page'))
+        ##FILTROS
+        #Filtrar por id de orden
+        
+        order_id = request.args.get('order_id')
+        if order_id:
+            order_id=int(order_id)
+            order_details = order_details.filter(OrderDetailsModel.order_id == order_id)
+        #Filtrar por id de producto
+        product_id = request.args.get('product_id')
+        if product_id:
+            product_id=int(product_id)
+            order_details = order_details.filter(OrderDetailsModel.product_id == product_id)
+
+        # Filtrar por cantidad de productos o menos
+        nrquantity = request.args.get('nrquantity')
+        if nrquantity:
+            order_details=order_details.group_by(OrderDetailsModel.quantity).having(func.count(OrderDetailsModel.quantity)<= int(nrquantity))
+        #filtrar por
+        maxprice =request.args.get('price')
+        if maxprice:
+            order_details = order_details.order_by(OrderDetailsModel.price <= maxprice)
+
+        order_details = order_details.paginate(page=page, per_page=per_page, error_out=False)
+
+        return jsonify({'order_details':[order_detail.to_json() for order_detail in order_details],
+                        'total' : order_details.total,
+                        'pages' : order_details.pages,
+                        'page' : page})
     
+    @jwt_required(optional=True)
     def post(self):
         orders_details = OrderDetailsModel.from_json(request.get_json())
         db.session.add(orders_details)

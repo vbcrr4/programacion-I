@@ -1,0 +1,631 @@
+<app-navbar></app-navbar>
+
+<app-universal-card
+variant="glass"
+size="xl"
+padding="2xl"
+borderRadius="xl"
+customClass="menu-card">
+  <!-- Estructura principal con el switch -->
+  @switch (rol) {
+
+    @case('Admin') {
+      <h2 class="text-center">Panel Administrador</h2>
+
+      <div class="row align-items-start">
+        <div class="col">
+          <app-action-bttn 
+            label="Gestión de Menú"
+            link="/panel"
+            bttn_icon="bi bi-journal-text"
+            (buttonClick)="selectTab('Gestion de menu')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Nuevo Producto" 
+            link="/panel" 
+            bttn_icon="bi bi-plus-square-fill"
+            (buttonClick)="selectTab('Nuevo producto')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Pedidos"
+            link="/panel" 
+            bttn_icon="bi bi-cart-check-fill"
+            (buttonClick)="selectTab('Pedidos')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Usuarios" 
+            link="/panel" 
+            bttn_icon="bi bi-person-lines-fill"
+            (buttonClick)="selectTab('Usuarios')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Promociones" 
+            link="/panel" 
+            bttn_icon="bi bi-gift-fill"
+            (buttonClick)="selectTab('Promociones')">
+          </app-action-bttn>
+        </div>
+      </div>
+
+      <!-- Switch interno para las pestañas del admin -->
+      @switch(tabseleccionada) {
+
+        @case("Gestion de menu") {
+          <h2 class="text-center mt-4">Gestión de Menú</h2>
+          <app-searchbar (searchSubmit)="onSearch($event)"></app-searchbar>
+          <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+            @for (product of products; track product.id) {
+              <div class="col">
+                <app-universal-card variant="glass" padding="lg" borderRadius="lg" customClass="h-100">
+                  <div class="d-flex gap-3">
+                    <img [src]="product.image_url" [alt]="product.name" class="rounded" style="width: 80px; height: 80px; object-fit: cover;">
+                    <div class="flex-grow-1">
+                      <h5 class="mb-1">{{ product.name }}</h5>
+                      <p class="mb-1 text-secondary" style="font-size: 0.9rem;">{{ product.description }}</p>
+                      <div class="fw-bold" style="color: #f5a623;">{{ (product.price | currency) ?? '' }}</div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end gap-2 mt-3">
+                    <app-action-bttn 
+                      label="Editar" 
+                      link="/panel" 
+                      bttn_icon="bi bi-pencil-square">
+                    </app-action-bttn>
+                    <app-action-bttn 
+                      label="Borrar"
+                      (buttonClick)="deleteProduct(product.id)"
+                      bttn_icon="bi bi-trash-fill">
+                    </app-action-bttn>
+                  </div>
+                </app-universal-card>
+              </div>
+            }
+          </div>
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevPage()"
+                [disabled]="currentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="currentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextPage()"
+                [disabled]="currentPage === totalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
+          </div>
+        }
+
+        @case("Nuevo producto") {
+          <section class="register-section d-flex justify-content-center align-items-center mt-4">
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="2xl"
+              borderRadius="xl"
+              customClass="register-card"
+            >
+              <!-- Banner superior -->
+              <header class="register-header text-center mb-4">
+                <h1 class="app-title">Nuevo <span class="highlight">Producto</span></h1>
+                <p class="subtitle">Completá los datos para agregar un producto al menú</p>
+              </header>
+
+              <form>
+                <app-input
+                  type="text"
+                  label="Nombre del producto"
+                  placeholder="Ej: Pizza Napolitana"
+                  iconStart="bi bi-pencil-square"
+                ></app-input>
+
+                <app-input
+                  type="text"
+                  label="Precio"
+                  placeholder="Ej: 2.000"
+                  iconStart="bi bi-currency-dollar"
+                ></app-input>
+
+                <app-input
+                  type="text"
+                  label="Categoría"
+                  placeholder="Ej: Pizzas"
+                  iconStart="bi bi-tags-fill"
+                ></app-input>
+
+                <app-textarea
+                  placeholder="Descripción del producto"
+                  type="comment"
+                ></app-textarea>
+
+                <app-input
+                  type="url"
+                  label="Imagen del producto"
+                  placeholder=""
+                  iconStart="bi bi-image"
+                ></app-input>
+
+                <div class="text-center mt-4">
+                  <app-action-bttn
+                    label="Guardar"
+                    link="/panel"
+                    bttn_icon="bi bi-plus-lg"
+                  ></app-action-bttn>
+                </div>
+              </form>
+            </app-universal-card>
+          </section>
+        }
+        @case("Pedidos") {
+          <h2 class="text-center mt-4">Pedidos</h2>
+          <app-searchbar 
+            (searchSubmit)="onOrderSearch($event)"
+            namePlaceholder="Buscar por nombre de usuario..."
+            categoryPlaceholder="Buscar por estado...">
+          </app-searchbar>
+
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (order of orders; track order.id) {
+              <app-universal-card variant="glass" padding="lg" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h5 class="mb-1">Pedido #{{ order.id }}</h5>
+                    <p class="mb-1"><strong>Usuario:</strong> {{ order.user?.name }}</p>
+                    <p class="mb-1"><strong>Total:</strong> {{ order.total | currency }}</p>
+                    <p class="text-secondary" style="font-size: 0.9rem;"><strong>Fecha:</strong> {{ order.created_at }}</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge" [ngClass]="getBadgeClass(order.status)">{{ order.status }}</span>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end gap-2 mt-3">
+                  <app-action-bttn
+                    label="Ver Detalle"
+                    bttn_icon="bi bi-eye-fill">
+                  </app-action-bttn>
+                  <app-action-bttn
+                    label="Confirmar"
+                    bttn_icon="bi bi-check-lg">
+                  </app-action-bttn>
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay pedidos para mostrar.</p>
+            }
+          </div>
+
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevOrderPage()"
+                [disabled]="orderCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getOrderPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="orderCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToOrderPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextOrderPage()"
+                [disabled]="orderCurrentPage === orderTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
+          </div>
+        }
+
+        @case("Usuarios") {
+          <h2 class="text-center mt-4">Usuarios</h2>
+          <app-searchbar
+            (searchSubmit)="onUserSearch($event)"
+            namePlaceholder="Buscar por nombre..."
+            categoryPlaceholder="Buscar por rol...">
+          </app-searchbar>
+
+          <div class="cards-scrollable-container d-flex flex-column gap-3">
+            @for (user of users; track user.id) {
+              <app-universal-card variant="glass" size="xl" padding="lg" borderRadius="lg" customClass="usuario-card">
+                <p><strong>Nombre:</strong> {{ user.name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Rol:</strong> {{ user.role }}</p>
+              </app-universal-card>
+            }
+          </div>
+
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevUserPage()"
+                [disabled]="userCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getUserPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="userCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToUserPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextUserPage()"
+                [disabled]="userCurrentPage === userTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
+          </div>
+        }
+
+        @case("Promociones") {
+          <section class="register-section d-flex justify-content-center align-items-center mt-4">
+            <app-universal-card
+              variant="glass"
+              size="xl"
+              padding="2xl"
+              borderRadius="xl"
+              customClass="register-card"
+            >
+              <header class="register-header text-center mb-4">
+                <h1 class="app-title">Promociones</h1>
+                <p class="subtitle">Completá los datos para enviar una promoción</p>
+              </header>
+
+              <form [formGroup]="promotionForm" (ngSubmit)="sendPromotion()">
+                <app-input
+                  formControlName="from"
+                  type="email"
+                  label="Email de origen"
+                  placeholder="ejemplo@empresa.com"
+                  iconStart="bi bi-envelope"
+                ></app-input>
+
+                <app-input
+                  formControlName="to"
+                  type="text"
+                  label="Destinatario"
+                  placeholder="Nombre del cliente"
+                  iconStart="bi bi-person"
+                ></app-input>
+
+                <app-input
+                  formControlName="message"
+                  type="text"
+                  label="Mensaje"
+                  placeholder="Mensaje de promoción"
+                  iconStart="bi bi-chat-text"
+                ></app-input>
+
+                <app-input
+                  formControlName="discountCode"
+                  type="text"
+                  label="Código de descuento"
+                  placeholder="PROMO2025"
+                  iconStart="bi bi-gift"
+                ></app-input>
+
+                <div class="text-center mt-4">
+                  <app-action-bttn
+                    label="Enviar Promoción"
+                    (buttonClick)="sendPromotion()"
+                    bttn_icon="bi bi-send"
+                  ></app-action-bttn>
+                </div>
+              </form>
+            </app-universal-card>
+          </section>
+        }
+
+      }
+
+    }
+
+    @case('Empleado') {
+      <h2 class="text-center">Panel Empleado</h2>
+
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3 align-items-start">
+        <div class="col">
+          <app-action-bttn 
+            label="Ver Pedidos" 
+            link="/panel"
+            bttn_icon="bi bi-clipboard-check-fill"
+            (buttonClick)="selectTab('Pedidos')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Cargar Pedido" 
+            link="/panel"
+            bttn_icon="bi bi-plus-circle-dotted"
+            (buttonClick)="selectTab('Cargar Pedido')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Verificar Stock" 
+            link="/panel"
+            bttn_icon="bi bi-box-seam"
+            (buttonClick)="selectTab('Stock')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Validar Cuentas" 
+            link="/panel"
+            bttn_icon="bi bi-person-check-fill"
+            (buttonClick)="selectTab('Validar Cuentas')">
+          </app-action-bttn>
+        </div>
+        <div class="col">
+          <app-action-bttn 
+            label="Gestionar Clientes" 
+            link="/panel"
+            bttn_icon="bi bi-people-fill"
+            (buttonClick)="selectTab('Gestionar Clientes')">
+          </app-action-bttn>
+        </div>
+      </div>
+
+      @switch(tabseleccionada) {
+
+        @case("Pedidos") {
+          <h2 class="text-center mt-4">Estado de Pedidos</h2>
+          <app-searchbar 
+            (searchSubmit)="onOrderSearch($event)"
+            namePlaceholder="Buscar por nombre de usuario..."
+            categoryPlaceholder="Buscar por estado...">
+          </app-searchbar>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (order of orders; track order.id) {
+              <app-universal-card variant="glass" padding="lg" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h5 class="mb-1">Pedido #{{ order.id }}</h5>
+                    <p class="mb-1"><strong>Usuario:</strong> {{ order.user?.name }}</p>
+                    <p class="mb-1"><strong>Total:</strong> {{ order.total | currency }}</p>
+                    <p class="text-secondary" style="font-size: 0.9rem;"><strong>Fecha:</strong> {{ order.created_at | date:'short' }}</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge" [ngClass]="getBadgeClass(order.status)">{{ order.status }}</span>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end flex-wrap gap-2 mt-3">
+                  <app-button size="sm" variant="outline" label="Pendiente" (buttonClick)="updateOrderStatus(order.id, 'pendiente')"></app-button>
+                  <app-button size="sm" variant="primary" label="En Preparación" (buttonClick)="updateOrderStatus(order.id, 'en preparación')"></app-button>
+                  <app-button size="sm" variant="secondary" label="Listo" (buttonClick)="updateOrderStatus(order.id, 'listo')"></app-button>
+                  <app-button size="sm" variant="success" label="Entregado" (buttonClick)="updateOrderStatus(order.id, 'entregado')"></app-button>
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay pedidos para mostrar.</p>
+            }
+          </div>
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevOrderPage()"
+                [disabled]="orderCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getOrderPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="orderCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToOrderPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextOrderPage()"
+                [disabled]="orderCurrentPage === orderTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
+          </div>
+        }
+
+        @case("Cargar Pedido") {
+          <h2 class="text-center mt-4">Cargar Nuevo Pedido</h2>
+          <app-universal-card variant="glass" padding="xl" borderRadius="lg" size="md" customClass="mt-3">
+            <form [formGroup]="newOrderForm" (ngSubmit)="createOrder()">
+              <app-input 
+                formControlName="clientName"
+                type="text" 
+                label="Nombre del Cliente" 
+                placeholder="Buscar cliente...">
+              </app-input>
+              <app-input 
+                formControlName="products"
+                type="text" 
+                label="Productos" 
+                placeholder="Añadir productos...">
+              </app-input>
+              <app-input 
+                formControlName="total"
+                type="number" 
+                label="Total" 
+                placeholder="$0.00">
+              </app-input>
+              <app-button 
+                label="Crear Pedido" 
+                type="submit"
+                variant="primary" 
+                customClass="w-100 mt-3"
+                [disabled]="newOrderForm.invalid">
+              </app-button>
+            </form>
+          </app-universal-card>
+        }
+
+        @case("Stock") {
+          <h2 class="text-center mt-4">Stock de productos</h2>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (product of products; track product.id) {
+              <app-universal-card variant="glass" padding="md" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span>{{ product.name }}</span>
+                  <!-- Assuming 'stock' property exists on product -->
+                  <span class="fw-bold">{{ product.stock }} unidades</span> 
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay productos para mostrar.</p>
+            }
+          </div>
+        }
+
+        @case("Validar Cuentas") {
+          <h2 class="text-center mt-4">Cuentas Pendientes de Validación</h2>
+          <app-searchbar
+            (searchSubmit)="onUnvalidatedUserSearch($event)"
+            namePlaceholder="Buscar por nombre..."
+            categoryPlaceholder="Buscar por email...">
+          </app-searchbar>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (user of unvalidatedUsers; track user.id) {
+              <app-universal-card variant="glass" padding="lg" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="mb-1"><strong>Nombre:</strong> {{ user.name }}</p>
+                    <p class="mb-0 text-secondary"><strong>Email:</strong> {{ user.email }}</p>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <app-button size="sm" variant="success" label="Aprobar" (buttonClick)="validateUser(user.id)"></app-button>
+                    <app-button size="sm" variant="danger" label="Rechazar" (buttonClick)="deleteUser(user.id)"></app-button>
+                  </div>
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay cuentas para validar.</p>
+            }
+          </div>
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevUnvalidatedUserPage()"
+                [disabled]="unvalidatedUserCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getUnvalidatedUserPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="unvalidatedUserCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToUnvalidatedUserPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextUnvalidatedUserPage()"
+                [disabled]="unvalidatedUserCurrentPage === unvalidatedUserTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
+          </div>
+        }
+
+        @case("Gestionar Clientes") {
+          <h2 class="text-center mt-4">Gestionar Clientes</h2>
+          <app-searchbar
+            (searchSubmit)="onClientUserSearch($event)"
+            namePlaceholder="Buscar por nombre..."
+            categoryPlaceholder="Buscar por email...">
+          </app-searchbar>
+          <div class="d-flex flex-column gap-3 mt-3">
+            @for (user of clientUsers; track user.id) {
+              <app-universal-card variant="glass" padding="lg" borderRadius="lg">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <p class="mb-1"><strong>Nombre:</strong> {{ user.name }}</p>
+                    <p class="mb-0 text-secondary"><strong>Email:</strong> {{ user.email }}</p>
+                  </div>
+                  <app-button size="sm" variant="danger" label="Bloquear" (buttonClick)="blockUser(user.id)"></app-button>
+                </div>
+              </app-universal-card>
+            } @empty {
+              <p class="text-center text-secondary mt-4">No hay clientes para mostrar.</p>
+            }
+          </div>
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <app-button
+                label="Anterior"
+                variant="outline"
+                size="sm"
+                (buttonClick)="prevClientUserPage()"
+                [disabled]="clientUserCurrentPage === 1"
+                iconStart="bi bi-arrow-left">
+            </app-button>
+
+            @for (page of getClientUserPagesArray(); track page) {
+                <app-button
+                    [label]="page.toString()"
+                    [variant]="clientUserCurrentPage === page ? 'primary' : 'outline'"
+                    size="sm"
+                    (buttonClick)="goToClientUserPage(page)">
+                </app-button>
+            }
+
+            <app-button
+                label="Siguiente"
+                variant="outline"
+                size="sm"
+                (buttonClick)="nextClientUserPage()"
+                [disabled]="clientUserCurrentPage === clientUserTotalPages"
+                iconEnd="bi bi-arrow-right">
+            </app-button>
+          </div>
+        }
+      }
+    }
+    
+  }
+</app-universal-card>

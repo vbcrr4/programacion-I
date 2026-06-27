@@ -1,0 +1,100 @@
+<section class="register-section d-flex justify-content-center align-items-center">
+  <app-universal-card
+    variant="glass"
+    size="xl"
+    padding="2xl"
+    borderRadius="xl"
+    class="register-card"
+  >
+    <!-- Banner superior (ahora dentro de la tarjeta) -->
+    <header class="register-header text-center">
+      <h1 class="app-title">Unite a <span class="highlight">Rotisería UM</span></h1>
+      <p class="subtitle">Creá tu cuenta y pedí tus platos favoritos</p>
+    </header>
+
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">Crear Cuenta</h2>
+    </div>
+
+    <form [formGroup]="registerForm">
+      <app-input
+        type="text"
+        label="Nombre completo"
+        placeholder="Ej: Juan Pérez"
+        iconStart="bi bi-person-fill"
+        formControlName="name"
+      >
+      </app-input>
+      <small *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-danger">
+        El nombre es obligatorio
+      </small>
+
+      <app-input
+        type="email"
+        label="Correo electrónico"
+        placeholder="ejemplo@gmail.com"
+        iconStart="bi bi-envelope-fill"
+        formControlName="email"
+      >
+      </app-input>
+      <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
+        <span *ngIf="registerForm.get('email')?.errors?.['required']">El correo es obligatorio</span>
+        <span *ngIf="registerForm.get('email')?.errors?.['email']">Correo inválido</span>
+      </small>
+
+      <app-input
+        type="password"
+        label="Contraseña"
+        placeholder="********"
+        iconStart="bi bi-lock-fill"
+        formControlName="password"
+      >
+      </app-input>
+      <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger">
+        <span *ngIf="registerForm.get('password')?.errors?.['required']">La contraseña es obligatoria</span>
+        <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Mínimo 6 caracteres</span>
+      </small>
+
+      <app-input
+        type="number"
+        label="Teléfono"
+        placeholder="261..."
+        iconStart="bi bi-phone-fill"
+        formControlName="cellphone"
+      >
+      </app-input>
+      <small *ngIf="registerForm.get('cellphone')?.invalid && registerForm.get('cellphone')?.touched" class="text-danger">
+        El teléfono es obligatorio
+      </small>
+
+      <app-input
+        type="text"
+        label="Dirección"
+        placeholder="Av. Siempre Viva 123"
+        iconStart="bi bi-geo-alt-fill"
+        formControlName="address"
+      >
+      </app-input>
+      <small *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched" class="text-danger">
+        La dirección es obligatoria
+      </small>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <app-action-bttn
+        buttonType="button"
+        class="mt-5"
+        label="Registrarse"
+        [disabled]="registerForm.invalid"
+        (buttonClick)="onSubmit()"
+      >
+      </app-action-bttn>
+
+      <div class="text-center mt-4 extra-links">
+        <small>¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></small>
+      </div>
+    </form>
+  </app-universal-card>
+</section>

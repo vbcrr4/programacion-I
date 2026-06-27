@@ -1,0 +1,48 @@
+<app-back-button routerLink="/menu"></app-back-button>
+    
+<app-navbar></app-navbar>
+
+  <div class="card-carrito text-center">
+    <h2>Carrito</h2>
+
+    <div class="header-carrito">
+      <span class="badge">3</span>
+      <span>Items pedidos</span>
+    </div>
+
+    <div class="marco-morado">
+
+      <div class="d-flex justify-content-center my-3 gap-2">
+        <a routerLink="/carrito-pedido-cliente" class="tab-btn active">Pedido</a>
+        <a routerLink="/carrito-envio-cliente" class="tab-btn btn-dark">Envío</a>
+        <a routerLink="/carrito-calificacion-cliente" class="tab-btn btn-dark">Calificar</a>
+      </div>
+
+
+      <div class="item d-flex align-items-center producto-card">
+        <img src="/assets/pizzas-muzzarella.jpg" alt="Pizza">
+        <div class="text-start">
+          <div>Muzza <span class="precio">$10.000,98</span></div>
+          <small>1 Unidad/es</small>
+        </div>
+      </div>
+      <div class="item d-flex align-items-center producto-card">
+        <img src="/assets/pizzas-muzzarella.jpg" alt="Pizza">
+        <div class="text-start">
+          <div>Muzza <span class="precio">$10.000,98</span></div>
+          <small>1 Unidad/es</small>
+        </div>
+      </div>
+      <div class="item d-flex align-items-center producto-card">
+        <img src="/assets/pizzas-muzzarella.jpg" alt="Pizza">
+        <div class="text-start">
+          <div>Muzza <span class="precio">$10.000,98</span></div>
+          <small>1 Unidad/es</small>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <button class="btn-primary">Total Pedido: $100.000</button>
+      </div>
+    </div>
+  </div>

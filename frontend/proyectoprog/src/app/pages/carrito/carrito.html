@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+
+<app-universal-card variant="glass" size="xl" padding="2xl" borderRadius="xl" customClass="menu-card">
+    <div class="row align-items-start">
+        <div class="col">
+
+            <app-action-bttn  (buttonClick)="tabseleccionada = 'pedido'" label="Pedido" link="/carrito"
+            bttn_icon="bi bi-cart-fill"></app-action-bttn>
+        </div>
+        <div class="col">
+            <app-action-bttn link="/carrito" label="Envío"
+            bttn_icon="bi bi-car-front-fill"(buttonClick)="tabseleccionada = 'envio'"
+            ></app-action-bttn>
+        </div>
+        <div class="col">
+    <app-action-bttn link="/carrito" label="Calificar"
+    bttn_icon="bi bi-star-fill" (buttonClick)="tabseleccionada = 'calificar'"></app-action-bttn>
+</div>
+</div> <br>
+
+@switch (tabseleccionada) {
+
+    @case ("pedido") {
+
+
+
+        <h2 class="text-center">Pedido</h2>
+
+        <h6 class="text-center">Estado del pedido: {{orders[0]?.status}}</h6>
+
+
+
+        <div class="products-container" *ngIf="orders.length > 0">
+
+          <div *ngFor="let order of orders">
+
+            <div *ngFor="let detail of order.order_details">
+
+              <app-card
+
+              [imgSrc]="detail.product?.image_url || 'assets/pizzas-muzzarella.jpg'"
+
+              [title]="detail.product?.name || 'Producto'"
+
+              [description]="detail.product?.description || 'Descripción no disponible'"
+
+              [price]="(detail.product?.price | currency) ?? ''"
+
+            ></app-card>
+
+            </div>
+
+          </div>
+
+        </div>
+
+}@case ("envio") {
+    <app-universal-card padding="lg" borderRadius="md" customClass="menu-card">
+    <h2 class="text-center">Envío</h2>
+    <h6 class="text-left">Estado del envío: {{del_status}}</h6>
+    <h6 class="text-left">Precio total: {{del_price | currency}}</h6>
+    <h6 class="text-left">Dirección del envío: {{del_address}}</h6>
+
+</app-universal-card>
+}
+@case("calificar"){
+    <h2 class="text-center">Calificar pedido</h2>
+    <div class="products-container" *ngIf="orders.length > 0 && orders[0].order_details.length > 0">
+        <h6 class="text-left">Último Pedido:</h6>
+        <div *ngFor="let detail of orders[0].order_details" class="product-rating-item" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+            <app-card
+                [imgSrc]="detail.product?.image_url || 'assets/pizzas-muzzarella.jpg'"
+                [title]="detail.product?.name || 'Producto'"
+                [description]="detail.product?.description || 'Descripción no disponible'"
+                [price]="(detail.product?.price | currency) ?? ''"
+            ></app-card>
+            <div class="rating-controls" style="margin-top: 10px;">
+              <app-calfiestrellas [(calificacion)]="ratings[detail.product.id]"></app-calfiestrellas>
+              <app-textarea placeholder="Escribe tu comentario aquí" type="comment" [(value)]="comments[detail.product.id]"></app-textarea>
+              <div style="margin-top: 10px;">
+                <app-button (buttonClick)="submitRating(detail.product.id)" label="Enviar comentario"></app-button>
+              </div>
+            </div>
+        </div>
+    </div>
+}
+}
+</app-universal-card>

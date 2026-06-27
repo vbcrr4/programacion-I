@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+
+<app-universal-card
+  variant="glass"
+  size="xl"
+  padding="2xl"
+  borderRadius="xl"
+  customClass="menu-card"
+>
+  <header class="menu-header text-center">
+    <h1 class="app-title">Nuestro <span class="highlight">Menú</span></h1>
+    <p class="subtitle">Descubrí tus platos favoritos</p>
+  </header>
+
+  <app-searchbar (searchSubmit)="onSearch($event)"></app-searchbar>
+
+  <div class="products-container">
+    @for (product of products; track product.id) {
+      <app-universal-card
+        variant="glass"
+        padding="xs"
+        [hoverable]="true"
+        borderRadius="md"
+        customClass="product-card"
+      >
+        <div class="product-content">
+          <img [src]="product.image_url" [alt]="product.name" class="product-image" />
+          <div class="product-info">
+            <h3 class="product-title">{{ product.name }}</h3>
+            <p class="product-description">
+              {{ product.description }}
+            </p>
+            <span class="product-price">${{ product.price }}</span>
+            <app-button label="Add to cart" (buttonClick)="addToCart(product.id)"></app-button>
+          </div>
+        </div>
+      </app-universal-card>
+    }
+    @empty {
+      <p>No hay productos disponibles.</p>
+    }
+  </div>
+
+  <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+    <app-button
+        label="Anterior"
+        variant="outline"
+        size="sm"
+        (buttonClick)="prevPage()"
+        [disabled]="currentPage === 1"
+        iconStart="bi bi-arrow-left">
+    </app-button>
+
+    @for (page of getPagesArray(); track page) {
+        <app-button
+            [label]="page.toString()"
+            [variant]="currentPage === page ? 'primary' : 'outline'"
+            size="sm"
+            (buttonClick)="goToPage(page)">
+        </app-button>
+    }
+
+    <app-button
+        label="Siguiente"
+        variant="outline"
+        size="sm"
+        (buttonClick)="nextPage()"
+        [disabled]="currentPage === totalPages"
+        iconEnd="bi bi-arrow-right">
+    </app-button>
+  </div>
+</app-universal-card>

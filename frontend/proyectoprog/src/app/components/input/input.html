@@ -1,0 +1,31 @@
+<div class="input-wrapper">
+  @if (label) {
+    <label [for]="inputId" class="input-label">{{ label }}</label>
+  }
+
+  <div class="input-container">
+    @if (iconStart) {
+      <i [class]="'input-icon input-icon-start ' + iconStart"></i>
+    }
+
+    <input
+      [id]="inputId"
+      [type]="type"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [readonly]="readonly"
+      [class]="inputClasses"
+      [value]="value"
+      (input)="onInputChange($event)"
+      (blur)="onBlur()"
+    />
+
+    @if (iconEnd) {
+      <i [class]="'input-icon input-icon-end ' + iconEnd"></i>
+    }
+  </div>
+
+  @if (error && errorMessage) {
+    <span class="error-message">{{ errorMessage }}</span>
+  }
+</div>
