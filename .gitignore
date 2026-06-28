@@ -52,7 +52,6 @@ Thumbs.db
 /backend/__pycache__
 /backend/env
 /backend/instance
-*basedatos.db
 *entorno
 
 .vscode
