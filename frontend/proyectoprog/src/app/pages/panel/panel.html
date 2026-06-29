@@ -70,6 +70,7 @@ customClass="menu-card">
                     <div class="flex-grow-1">
                       <h5 class="mb-1">{{ product.name }}</h5>
                       <p class="mb-1 text-secondary" style="font-size: 0.9rem;">{{ product.description }}</p>
+                      <p class="fw-bold" style="font-size:0.9rem;color:#f5a623;">{{ product.category }}</p>
                       <div class="fw-bold" style="color: #f5a623;">{{ (product.price | currency) ?? '' }}</div>
                     </div>
                   </div>
