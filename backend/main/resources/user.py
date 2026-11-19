@@ -23,11 +23,17 @@ class User(Resource):
         
         user = db.session.query(UserModel).get_or_404(user_id)
         role = get_jwt().get('role')
-        if role == 'Client' and user.id != get_jwt_identity():
-            return 'No tiene permisos para eliminar este recurso', 403
-        elif role == 'Client' and user.id == get_jwt_identity():
-            user.is_active = False #Desactiva el usuario
-            return 'Usuario desactivado', 200
+        # get_jwt_identify() devuelve String, por eso se compara contra str(user.id)
+
+        if role == 'Client' and str(user.id) != get_jwt_identity():
+            return "No tenes permisos para eliminar este recurso", 403
+        elif role == 'Client':
+            user.is_active = False #Desactivar el usuario
+            db.session.commit()
+            return "Usuario desactivado", 200
+
+
+        
         
         db.session.delete(user)
         db.session.commit()
