@@ -7,7 +7,7 @@ class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)#Aca tiene que haber una llave externa con el id del user, no se como hacerlo
     message=db.Column(db.Text)
-    sent_date=db.Column(db.DateTime, nullable=False,default=datetime.now())
+    sent_date=db.Column(db.DateTime, nullable=False,default=datetime.now)
     status = db.Column(db.Enum('pending','sent','failed'))
 
 
