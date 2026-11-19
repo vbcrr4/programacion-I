@@ -41,21 +41,27 @@ class User(Resource):
         user = db.session.query(UserModel).get_or_404(user_id)
         claims = get_jwt()
         role = claims.get('role')
-        current_identity = get_jwt_identity()
+        is_self = str(get_jwt_identity()) == str(user.id)
 
         # Allow Admin/Empleado to edit any user, but Client can only edit self
-        if role in ['Admin', 'Empleado'] or str(current_identity) == str(user.id):
+        if role in ['Admin', 'Empleado'] or is_self:
             data = request.get_json().items()
-            for key, value in data:
-                # Prevent non-admins from changing roles
-                if key == 'role' and role != 'Admin':
-                    continue
-                setattr(user, key, value)
+            for key, value in request.get_json().items():
+                if key in ['name','cellphone','email','address']:
+                    setattr(user,key,value)
+                elif key == 'password' and (is_self or role == 'Admin'):
+                    user.plain_password = value # el setter hashea
+                elif key == 'is_active' and role in ['Admin','Empleado']:
+                    user.is_active = value
+                elif key == 'role' and role == 'Admin':
+                    user.role = value
             db.session.add(user)
             db.session.commit()
             return user.to_json(), 201
         else:
-            return 'No tiene permisos para modificar este usuario', 403
+            return 'No tenes permisos para modificar este usuario ', 403
+                
+            
     
 
 class UserList(Resource):
