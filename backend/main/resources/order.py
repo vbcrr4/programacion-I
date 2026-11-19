@@ -8,9 +8,11 @@ from main.auth.decorators import role_required
 
 
 class Order(Resource):
-    @jwt_required(optional=True)
-    def get(self, order_id):
+    @jwt_required()
+    def get(self,order_id):
         order = db.session.query(OrderModel).get_or_404(order_id)
+        if get_jwt().get('role') == 'Client' and str(order.user_id) != get_jwt_identity():
+            return "No tenes permiso para ver este pedido", 403
         return order.to_json()
     
     @role_required(roles = ["Admin"])
@@ -60,14 +62,19 @@ class OrderList(Resource):
         if request.args.get('status'):
             status = request.args.get('status')
             orders = orders.filter(OrderModel.status == status)
-        #filtro por mayor subtotal
-        if request.args.get('total'):
-            total = float(request.args.get('total'))
-            orders = orders.filter(OrderModel.total >= total)
-        #filtro por menor subtotal
+
+
+        # Filtro por subtotal minimo
         if request.args.get('total_min'):
             total_min = float(request.args.get('total_min'))
-            orders = orders.filter(OrderModel.total <= total_min)
+            orders = orders.filter(OrderModel.total >= total_min)
+
+        # Filtro por subtotal maximo
+
+        if request.args.get('total_max'):
+            total_max = float(request.args.get('total_max'))
+            orders = orders.filter(OrderModel.total <= total_max)
+
         
         #fin filtros
         orders = orders.paginate(page=page, per_page=per_page, error_out=True)
