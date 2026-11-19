@@ -1,0 +1,30 @@
+<div class="calificacion-container">
+    <div class="estrellas-wrapper" 
+         [class.no-editable]="!editable"
+         [class.con-hover]="editable">
+      
+      <span 
+        *ngFor="let estrella of estrellas"
+        class="estrella"
+        [class]="getTamanoClase()"
+        [class.activa]="estrella <= calificacionTemporal"
+        [class.seleccionada]="estrella <= calificacion"
+        (click)="calificar(estrella)"
+        (mouseenter)="hoverStar(estrella)"
+        (mouseleave)="resetTemporal()">
+        <i class="bi" 
+           [class.bi-star-fill]="estrella <= calificacionTemporal || estrella <= calificacion"
+           [class.bi-star]="estrella > calificacionTemporal && estrella > calificacion">
+        </i>
+      </span>
+      
+    </div>
+    
+    <!-- Texto descriptivo opcional -->
+     @if (editable) {
+    <div class="texto-calificacion">
+      <small class="text-muted">
+        {{ getTextoCalificacion() }}
+      </small>
+    </div>}
+  </div>

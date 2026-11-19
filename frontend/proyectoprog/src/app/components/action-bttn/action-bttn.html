@@ -1,0 +1,22 @@
+
+
+@if (buttonType === 'link') {
+  <a [routerLink]="link" class="action-btn" (click)="onClick()" role="button">
+    @if (bttn_icon !== ""){
+      <div class="action-icon">
+        <i [class]="bttn_icon" aria-hidden="true"></i>
+      </div>
+      }
+      <div class="action-text">{{ label }}</div>
+    </a>
+  } @else {
+    <button [type]="buttonType" class="action-btn" (click)="onClick()" [disabled]="disabled">
+      @if (bttn_icon !== ""){
+        <div class="action-icon">
+          <i [class]="bttn_icon" aria-hidden="true"></i>
+        </div>
+        }
+        <div class="action-text">{{ label }}</div>
+    </button>
+  }
+  

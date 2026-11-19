@@ -1,33 +1,13 @@
 from flask import request, jsonify, Blueprint
 from .. import db
 from main.models import UserModel
-from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token,set_access_cookies,get_jwt
+from flask_jwt_extended import create_access_token,set_access_cookies,create_refresh_token,get_jwt_identity,jwt_required,get_jwt
+from datetime import datetime,timedelta
 #importar funcion de envio de mail
 from main.mail.functions import sendMail
-#datetime para el refresh del token
-from datetime import datetime,timedelta
 
 #Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
-
-#Método de logueo
-@auth.after_request
-def refresh_expiring_jwts(response):
-    try:
-        #solo refresca si la ruta es /auth/refresh
-        if request.path != '/auth/refresh':
-            exp_timestamp = get_jwt()["exp"]
-            now = datetime.now()
-            target_timestamp = datetime.timestamp(now+timedelta(minutes=3))
-
-
-            if target_timestamp > exp_timestamp:
-                access_token = create_access_token(identity=get_jwt_identity())
-                set_access_cookies(response, access_token)
-        return response
-    except(RuntimeError,KeyError):
-        return response
-
 
 @auth.route('/login', methods=['POST'])
 def login():
@@ -35,28 +15,44 @@ def login():
     user = db.session.query(UserModel).filter(UserModel.email == request.get_json().get("email")).first()
     ## Devuelvo error si no existe el user o si la contraseña no coincide
     if (user is None) or not (user.validate_pass(request.get_json().get("password"))):
-        #print(user.validate_pass(request.get_json().get("password"))) DEBUGGEO
-        return 'Invalid user or password', 401 
-    #Valida la contraseña
-    # if user.validate_pass(request.get_json().get("password")):
+        return 'Invalid user or password', 401
+    if not user.is_active:
+        return 'User is not active, 403' 
     #Genera un nuevo token
     access_token = create_access_token(identity=user)
+    refresh_token = create_refresh_token(identity=user)
+
     #Pasa el objeto user como identidad
     data = {
-        'id': str(user.id),
+        'id': user.id,
         'email': user.email,
-        'access_token': access_token
+        'access_token': access_token,
+        'refresh_token': refresh_token
     }
     response = jsonify(data)
     set_access_cookies(response, access_token)
+
     #Devolver valores y token
     return response, 200
+
+
+@auth.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    jwt_data= get_jwt()
+    user = {'role':jwt_data['role'],
+            'id':jwt_data['id'],
+            'email':jwt_data['email']}    
+    access_token = create_access_token(identity=user)
+    return jsonify(access_token=access_token)
+
 
 #Método de registro
 @auth.route('/register', methods=['POST'])
 def register():
     #Obtener user
     user = UserModel.from_json(request.get_json())
+    user.role = 'Client'
     #Verificar si el mail ya existe en la db, scalar() para saber la cantidad de ese email
     exists = db.session.query(UserModel).filter(UserModel.email == user.email).scalar() is not None
     if exists:

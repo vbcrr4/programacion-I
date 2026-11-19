@@ -1,4 +1,10 @@
 /bin
+*/include
+*/lib*
+*/lib64/
+pyvenv.cfg
+.env
+lib64
 /include
 /lib
 /lib64
@@ -25,7 +31,7 @@ instance/
 *.pyvenv.cfg
 bin/
 lib/
-
+backend/DB/*.db
 
 
 # Entornos y configuraciones sensibles
@@ -40,15 +46,15 @@ Thumbs.db
 
 # Carpetas específicas por proyecto
 /frontend/node_modules
+.geminiignore
 /frontend/dist
 
 /backend/__pycache__
 /backend/env
 /backend/instance
-
+*entorno
 
 .vscode
-
 #Apuntes mios
 /clase1
 /clase2

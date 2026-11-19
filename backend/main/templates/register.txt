@@ -1,0 +1,18 @@
+¡Bienvenido/a a Rotisería La Esquina!
+
+Hola {{ user.nombre }},
+
+Gracias por registrarte en nuestro servicio. Para celebrar, tienes un 15% de descuento en tu primer pedido con el código: BIENVENIDO15
+
+🌟 Lo que dicen nuestros clientes:
+"El mejor pollo al horno de la ciudad, siempre crujiente y jugoso." - Carlos M.
+"Las empanadas son una delicia, ¡piden 12 y terminamos pidiendo 24!" - Ana L.
+
+🍗 Ordena ahora: {{ url_pedidos }}
+(Envío gratis en pedidos mayores a $5.000)
+
+📍 Av. Siempre Viva 123, Mendoza
+📞 261 123 4567
+
+Políticas: {{ politica_privacidad }}
+Para dejar de recibir correos: {{ desuscribirse }}

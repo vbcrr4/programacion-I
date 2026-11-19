@@ -1,7 +1,8 @@
   /* BOTÓN DE REGRESO COMÚN */
+  
   .back-btn {
     cursor: pointer;
-    position: absolute;
+    position: left;
     top: 1rem;
     left: 1rem;
     color: white;

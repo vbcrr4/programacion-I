@@ -1,0 +1,147 @@
+<app-navbar></app-navbar>
+
+<section class="profile-section">
+  <app-universal-card
+    variant="glass"
+    size="lg"
+    padding="xl"
+    borderRadius="xl"
+    customClass="profile-card">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="avatar">
+        <img [src]="profileImage" alt="Foto de perfil" class="profile-image">
+      </div>
+      <h1 class="profile-name">{{ user?.name }}</h1>
+      <p class="profile-subtitle">Miembro desde {{ user?.created_at }}</p>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Profile Info Grid -->
+      <div class="profile-info-grid">
+        <div class="info-card">
+          <i class="bi bi-telephone-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Teléfono</span>
+            @if (editMode) {
+              <app-input type="text" formControlName="cellphone"></app-input>
+            } @else {
+              <span class="info-value">{{ user?.cellphone }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-envelope-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Email</span>
+            @if (editMode) {
+              <app-input type="email" formControlName="email"></app-input>
+            } @else {
+              <span class="info-value">{{ user?.email }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-geo-alt-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Dirección</span>
+            @if (editMode) {
+              <app-input type="text" formControlName="address"></app-input>
+            } @else {
+              <span class="info-value">{{ user?.address }}</span>
+            }
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-person-badge-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Rol</span>
+            <span class="info-value role-badge">{{ user?.role }}</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-check-circle-fill info-icon success"></i>
+          <div class="info-content">
+            <span class="info-label">Estado</span>
+            <span class="info-value">{{ user?.is_active ? 'Activo' : 'Inactivo' }}</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <i class="bi bi-calendar-check-fill info-icon"></i>
+          <div class="info-content">
+            <span class="info-label">Registrado</span>
+            <span class="info-value">{{ user?.created_at }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        @if (editMode) {
+          <app-button
+            label="Guardar Cambios"
+            variant="success"
+            type="submit"
+            [disabled]="profileForm.invalid">
+          </app-button>
+          <app-button
+            label="Cancelar"
+            variant="secondary"
+            type="button"
+            (buttonClick)="toggleEditMode()">
+          </app-button>
+        } @else {
+          <app-button
+            label="Editar Perfil"
+            variant="primary"
+            type="button"
+            (buttonClick)="toggleEditMode()">
+          </app-button>
+        }
+        <app-button
+          label="Desactivar Cuenta"
+          variant="danger"
+          type="button"
+          (buttonClick)="deleteAccount()">
+        </app-button>
+      </div>
+    </form>
+
+    
+
+    <!-- Orders Section -->
+    <div class="orders-section">
+      <h2 class="section-title">
+        <i class="bi bi-bag-check-fill"></i>
+        Tus Pedidos
+      </h2>
+
+      <div class="orders-container">
+        @for (order of userOrders; track order.id) {
+          <app-universal-card variant="glass" padding="md" borderRadius="lg">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="info-value mb-1">Pedido #{{ order.id }}</h5>
+                <p class="info-label mb-1">Total: {{ order.total | currency }}</p>
+                <p class="info-label" style="font-size: 0.8rem;">Fecha: {{ order.created_at | date:'shortDate' }}</p>
+              </div>
+              <div class="text-end">
+                <span class="badge" [ngClass]="getBadgeClass(order.status)">{{ order.status }}</span>
+              </div>
+            </div>
+          </app-universal-card>
+        } @empty {
+          <div class="text-center p-4">
+            <p class="text-secondary">No has realizado ningún pedido todavía.</p>
+          </div>
+        }
+      </div>
+    </div>
+
+  </app-universal-card>
+</section>

@@ -1,0 +1,43 @@
+@if (isLink) {
+  <a
+    [routerLink]="routerLink"
+    [class]="buttonClasses"
+    [attr.aria-disabled]="disabled || loading"
+    (click)="onClick($event)">
+
+    @if (loading) {
+      <span class="spinner"></span>
+    } @else {
+      @if (iconStart) {
+        <i [class]="'icon-start ' + iconStart"></i>
+      }
+
+      <span class="button-text">{{ label }}</span>
+
+      @if (iconEnd) {
+        <i [class]="'icon-end ' + iconEnd"></i>
+      }
+    }
+  </a>
+} @else {
+  <button
+    [type]="type"
+    [disabled]="disabled || loading"
+    [class]="buttonClasses"
+    (click)="onClick($event)">
+
+    @if (loading) {
+      <span class="spinner"></span>
+    } @else {
+      @if (iconStart) {
+        <i [class]="'icon-start ' + iconStart"></i>
+      }
+
+      <span class="button-text">{{ label }}</span>
+
+      @if (iconEnd) {
+        <i [class]="'icon-end ' + iconEnd"></i>
+      }
+    }
+  </button>
+}

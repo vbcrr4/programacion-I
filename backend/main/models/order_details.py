@@ -18,13 +18,15 @@ class Order_Details(db.Model):
 
 
     def to_json(self):
+        product_json = self.product.to_json() if self.product else None
         order_detail_json = {
         'id': self.id,
-        'order_id':self.order_id,
-        'product_id':self.product_id,
-        'quantity':self.quantity,
-        'price':int(self.price) if self.price is not None else None,
-        'subtotal':int(self.subtotal) if self.subtotal is not None else None
+        'order_id':int(self.order_id),
+        'product_id':int(self.product_id),
+        'quantity':int(self.quantity),
+        'price':float(self.price) if self.price is not None else None,
+        'subtotal':float(self.subtotal) if self.subtotal is not None else None,
+        'product': product_json
 
     }
         return order_detail_json
@@ -32,11 +34,11 @@ class Order_Details(db.Model):
     def to_json_complete(self):
         order_details_json={
         'id': self.id,
-        'order_id':self.order_id,
-        'product_id':self.product_id,
-        'quantity':self.quantity,
-        'price':int(self.price) if self.price is not None else None,
-        'subtotal':int(self.subtotal) if self.subtotal is not None else None,
+        'order_id':int(self.order_id),
+        'product_id':int(self.product_id),
+        'quantity':int(self.quantity),
+        'price':(self.price) if self.price is not None else None,
+        'subtotal':(self.subtotal) if self.subtotal is not None else None,
         'order':self.order.to_json(),
         'product':self.product.to_json()
 

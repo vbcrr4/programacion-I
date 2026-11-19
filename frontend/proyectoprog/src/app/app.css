@@ -1,1 +1,145 @@
+:root {
+  --color-primary: #9b4dff;
+  --color-primary-hover: #7b3ce3;
+  --color-primary-light: rgba(155, 77, 255, 0.2);
 
+  --color-secondary: #2b0040;
+  --color-accent: #f5a623;
+
+  --color-success: #4caf50;
+  --color-danger: #e63946;
+  --color-danger-hover: #c1121f;
+  --color-warning: #ff9800;
+  --color-info: #2196f3;
+
+  --bg-gradient-start: #1e003e;
+  --bg-gradient-end: #000020;
+  --bg-gradient: linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-end));
+
+  --card-gradient-start: #1b0026;
+  --card-gradient-end: #1a003d;
+  --card-gradient: linear-gradient(180deg, var(--card-gradient-start), var(--card-gradient-end));
+
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-secondary: rgba(255, 255, 255, 0.08);
+  --bg-card-hover: rgba(155, 77, 255, 0.2);
+  --bg-transparent-light: rgba(255, 255, 255, 0.1);
+
+  --text-white: #ffffff;
+  --text-muted: #bbbbbb;
+  --text-secondary: #cccccc;
+  --text-placeholder: rgba(255, 255, 255, 0.6);
+
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.4);
+  --shadow-primary: 0 0 20px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 5px 15px rgba(155, 77, 255, 0.4);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.2rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-round: 50rem;
+  --radius-circle: 50%;
+
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  --font-xs: 0.75rem;
+  --font-sm: 0.85rem;
+  --font-md: 0.9rem;
+  --font-base: 1rem;
+  --font-lg: 1.1rem;
+  --font-xl: 1.5rem;
+  --font-2xl: 2rem;
+  --font-3xl: 2.2rem;
+
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  --card-max-width-sm: 380px;
+  --card-max-width-md: 500px;
+  --card-max-width-lg: 600px;
+  --card-max-width-xl: 800px;
+
+  --breakpoint-mobile: 480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-wide: 1280px;
+
+  --border-thin: 1px solid var(--color-primary);
+  --border-medium: 2px solid var(--color-primary);
+  --border-thick: 3px solid var(--color-primary);
+  --border-subtle: 1px solid rgba(255, 255, 255, 0.2);
+
+  --blur-sm: blur(6px);
+  --blur-md: blur(8px);
+  --blur-lg: blur(12px);
+
+  --input-height: 45px;
+  --button-height: 45px;
+  --action-btn-height: 70px;
+  --action-btn-height-lg: 90px;
+  --avatar-size: 45px;
+  --avatar-size-sm: 40px;
+  --avatar-size-lg: 70px;
+
+  --container-padding: 1rem;
+  --scrollbar-width: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-primary { color: var(--color-primary) !important; }
+.text-success { color: var(--color-success) !important; }
+.text-danger { color: var(--color-danger) !important; }
+.text-warning { color: var(--color-warning) !important; }
+.text-muted { color: var(--text-muted) !important; }
+
+.bg-primary { background-color: var(--color-primary) !important; }
+.bg-card { background-color: var(--bg-card) !important; }
+.bg-gradient { background: var(--bg-gradient) !important; }
+
+.shadow-sm { box-shadow: var(--shadow-sm) !important; }
+.shadow-md { box-shadow: var(--shadow-md) !important; }
+.shadow-lg { box-shadow: var(--shadow-lg) !important; }
+
+.rounded-sm { border-radius: var(--radius-sm) !important; }
+.rounded-md { border-radius: var(--radius-md) !important; }
+.rounded-lg { border-radius: var(--radius-lg) !important; }
+.rounded-xl { border-radius: var(--radius-xl) !important; }
+.rounded-full { border-radius: var(--radius-round) !important; }
+.rounded-circle { border-radius: var(--radius-circle) !important; }
