@@ -43,7 +43,7 @@ def create_app():
     api.add_resource(resources.ProductListResource, "/products")
     api.add_resource(resources.OrderResource, "/orders/<int:order_id>")
     api.add_resource(resources.OrderListResource, "/orders")
-    api.add_resource(resources.NotificationResource, "/notifications/<int:rating_id>")
+    api.add_resource(resources.NotificationResource, "/notifications/<int:notification_id>")
     api.add_resource(resources.NotificationListResource, "/notifications")
     api.add_resource(resources.OrderDetailResource, "/orderdetails/<int:orderdetails_id>")
     api.add_resource(resources.OrderDetailListResource, "/orderdetails")
