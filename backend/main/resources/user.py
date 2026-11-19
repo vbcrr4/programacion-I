@@ -96,6 +96,7 @@ class UserList(Resource):
         return jsonify({'users':[user.to_json() for user in users],'total': users.total,'pages':users.pages,'page':page})
 #        return USERS, 200
     
+    @role_required(roles = ["Admin"])
     def post(self):
 #No devolver al crear la contraseña en texto plano
         orders_ids = request.get_json().get('orders')
