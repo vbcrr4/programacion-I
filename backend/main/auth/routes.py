@@ -50,6 +50,7 @@ def refresh():
 def register():
     #Obtener user
     user = UserModel.from_json(request.get_json())
+    user.role = 'Client'
     #Verificar si el mail ya existe en la db, scalar() para saber la cantidad de ese email
     exists = db.session.query(UserModel).filter(UserModel.email == user.email).scalar() is not None
     if exists:
