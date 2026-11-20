@@ -457,7 +457,6 @@ export class Panel implements OnInit {
 
   createOrder(): void {
     if (this.newOrderForm.valid) {
-      console.log('Creating order with:', this.newOrderForm.value);
       // Note: This is a simplified implementation. A real-world scenario would likely require
       // resolving clientName to a user ID and products to a structured list of product IDs.
       this.orderService.createOrder(this.newOrderForm.value).subscribe({

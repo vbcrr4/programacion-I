@@ -74,7 +74,6 @@ export class Menu implements OnInit {
   addToCart(productId: number): void {
     this.orderService.addProductToOrder(productId, 1).subscribe({
       next: (response) => {
-        console.log('Product added to cart', response);
         alert('Producto agregado al carrito');
       },
       error: (err) => {

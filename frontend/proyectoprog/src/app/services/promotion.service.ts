@@ -13,7 +13,6 @@ export class PromotionService {
   constructor(private http: HttpClient) { }
 
   sendPromotion(data: any): Observable<any> {
-    console.log('Sending promotion', data);
     // Replace with actual HTTP POST request when the endpoint is available.
     return of({ success: true });
   }

@@ -31,9 +31,6 @@ export class Register {
 
 
   onSubmit(): void {
-    console.log('onSubmit called');
-    console.log('form valid:', this.registerForm.valid);
-    console.log('form value:', this.registerForm.value);
     if (this.registerForm.valid) {
       this.errorMessage = '';
       this.authService.register(this.registerForm.value).subscribe({

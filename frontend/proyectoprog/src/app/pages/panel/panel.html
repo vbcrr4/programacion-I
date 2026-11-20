@@ -261,6 +261,14 @@ customClass="menu-card">
                 <p><strong>Nombre:</strong> {{ user.name }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Rol:</strong> {{ user.role }}</p>
+                <p><strong>Estado:</strong> {{ user.is_active ? 'Activo' : 'Bloqueado' }}</p>
+                @if (user.role === 'Client') {
+                  @if (user.is_active) {
+                    <app-button size="sm" variant="danger" label="Bloquear" (buttonClick)="blockUser(user.id)"></app-button>
+                  } @else {
+                    <app-button size="sm" variant="success" label="Reactivar" (buttonClick)="validateUser(user.id)"></app-button>
+                  }
+                }
               </app-universal-card>
             }
           </div>
