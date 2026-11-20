@@ -17,7 +17,7 @@ def login():
     if (user is None) or not (user.validate_pass(request.get_json().get("password"))):
         return 'Invalid user or password', 401
     if not user.is_active:
-        return 'User is not active, 403' 
+        return 'User is not active', 403 
     #Genera un nuevo token
     access_token = create_access_token(identity=user)
     refresh_token = create_refresh_token(identity=user)
