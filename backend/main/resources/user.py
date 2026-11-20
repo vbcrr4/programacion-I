@@ -38,10 +38,6 @@ class User(Resource):
         db.session.delete(user)
         db.session.commit()
         return user.to_json(), 200
-#        if user_id in USERS:
-#            del USERS[user_id]
-#            return {"message": "User deleted successfully"}, 200
-#        return {"message": "User ID not found for deletion"}, 404
     @jwt_required()
     def put(self, user_id):
         user = db.session.query(UserModel).get_or_404(user_id)
@@ -106,7 +102,6 @@ class UserList(Resource):
         
         users = users.paginate(page=page, per_page=per_page, error_out=False)
         return jsonify({'users':[user.to_json() for user in users],'total': users.total,'pages':users.pages,'page':page})
-#        return USERS, 200
     
     @role_required(roles = ["Admin"])
     def post(self):
@@ -120,9 +115,4 @@ class UserList(Resource):
         db.session.add(user)
         db.session.commit()
         return user.to_json(), 201
-        #Pide la data para agregar la info nueva a users
         
-        #data = request.get_json()
-        #new_id = max(USERS.keys())+1
-        #USERS[new_id] = data
-        #return {'message': 'User created successfully','product_id':new_id}, 201
