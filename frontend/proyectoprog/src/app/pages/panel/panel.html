@@ -81,6 +81,7 @@ customClass="menu-card">
                     </app-action-bttn>
                     <app-action-bttn 
                       label="Borrar"
+                      buttonType="button"
                       (buttonClick)="deleteProduct(product.id)"
                       bttn_icon="bi bi-trash-fill">
                     </app-action-bttn>
@@ -134,19 +135,21 @@ customClass="menu-card">
                 <p class="subtitle">Completá los datos para agregar un producto al menú</p>
               </header>
 
-              <form>
+              <form [formGroup]="newProductForm" (ngSubmit)="createProduct()">
                 <app-input
                   type="text"
                   label="Nombre del producto"
                   placeholder="Ej: Pizza Napolitana"
                   iconStart="bi bi-pencil-square"
+                  formControlName="name"
                 ></app-input>
 
                 <app-input
-                  type="text"
+                  type="number"
                   label="Precio"
-                  placeholder="Ej: 2.000"
+                  placeholder="Ej: 2000"
                   iconStart="bi bi-currency-dollar"
+                  formControlName="price"
                 ></app-input>
 
                 <app-input
@@ -154,26 +157,30 @@ customClass="menu-card">
                   label="Categoría"
                   placeholder="Ej: Pizzas"
                   iconStart="bi bi-tags-fill"
+                  formControlName="category"
                 ></app-input>
 
                 <app-textarea
                   placeholder="Descripción del producto"
                   type="comment"
+                  [value]="newProductForm.value.description || ''"
+                  (valueChange)="newProductForm.patchValue({ description: $event })"
                 ></app-textarea>
 
                 <app-input
                   type="url"
                   label="Imagen del producto"
-                  placeholder=""
+                  placeholder="https://..."
                   iconStart="bi bi-image"
+                  formControlName="image_url"
                 ></app-input>
 
                 <div class="text-center mt-4">
-                  <app-action-bttn
+                  <app-button
                     label="Guardar"
-                    link="/panel"
-                    bttn_icon="bi bi-plus-lg"
-                  ></app-action-bttn>
+                    iconStart="bi bi-plus-lg"
+                    (buttonClick)="createProduct()"
+                  ></app-button>
                 </div>
               </form>
             </app-universal-card>

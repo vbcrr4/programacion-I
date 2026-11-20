@@ -61,6 +61,7 @@ export class Panel implements OnInit {
 
   promotionForm: FormGroup;
   newOrderForm: FormGroup;
+  newProductForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -83,6 +84,14 @@ export class Panel implements OnInit {
       clientName: ['', Validators.required],
       products: ['', Validators.required],
       total: [0, [Validators.required, Validators.min(0.01)]]
+    });
+
+    this.newProductForm = this.fb.group({
+      name: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0.01)]],
+      category: ['', Validators.required],
+      description: [''],
+      image_url: ['', Validators.required]
     });
   }
 
@@ -382,6 +391,32 @@ export class Panel implements OnInit {
     return Array.from({ length: this.unvalidatedUserTotalPages }, (_, i) => i + 1);
   }
   
+  createProduct(): void {
+    if (this.newProductForm.invalid) {
+      this.newProductForm.markAllAsTouched();
+      alert('Completá nombre, precio, categoría e imagen del producto.');
+      return;
+    }
+    const product = {
+      ...this.newProductForm.value,
+      price: Number(this.newProductForm.value.price),
+      available: true,
+      popularity: 0
+    };
+    this.productService.createProduct(product).subscribe({
+      next: () => {
+        alert('Producto creado.');
+        this.newProductForm.reset({ name: '', price: '', category: '', description: '', image_url: '' });
+        this.loadProducts();
+        this.selectTab('Gestion de menu');
+      },
+      error: (err: any) => {
+        console.error('Error creating product', err);
+        alert('Error al crear el producto.');
+      }
+    });
+  }
+
   deleteProduct(id: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(id).subscribe({

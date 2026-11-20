@@ -58,3 +58,6 @@ Thumbs.db
 #Apuntes mios
 /clase1
 /clase2
+
+# Reglas locales para agentes (no se versiona)
+AGENTS.md

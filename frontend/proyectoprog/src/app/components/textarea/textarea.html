@@ -15,10 +15,10 @@
         maxlength="500">
       </textarea>
       @if (value) {
-      <button class="clear-btn" (click)="clear()">
+      <button type="button" class="clear-btn" (click)="clear()">
         <i class="bi bi-x"></i>
       </button>
-      <button class="search-btn" (click)="search.emit(value)">
+      <button type="button" class="search-btn" (click)="search.emit(value)">
         <i class="bi bi-arrow-right"></i>
       </button>}
     </div>}
@@ -36,10 +36,10 @@
         maxlength="200">
       </textarea>
       @if (value) {
-        <button class="clear-btn" (click)="clear()">
+        <button type="button" class="clear-btn" (click)="clear()">
           <i class="bi bi-x"></i>
         </button>
-        <button class="search-btn" (click)="search.emit(value)">
+        <button type="button" class="search-btn" (click)="search.emit(value)">
           <i class="bi bi-arrow-right"></i>
         </button>}
 
