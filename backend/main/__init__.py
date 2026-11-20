@@ -58,7 +58,7 @@ def create_app():
     
 
 
-
+    app.config['PROPAGATE_EXCEPTIONS'] = True
     jwt.init_app(app)
     from main.auth import routes
     app.register_blueprint(routes.auth)
