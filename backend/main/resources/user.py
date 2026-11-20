@@ -23,39 +23,47 @@ class User(Resource):
         
         user = db.session.query(UserModel).get_or_404(user_id)
         role = get_jwt().get('role')
-        if role == 'Client' and user.id != get_jwt_identity():
-            return 'No tiene permisos para eliminar este recurso', 403
-        elif role == 'Client' and user.id == get_jwt_identity():
-            user.is_active = False #Desactiva el usuario
-            return 'Usuario desactivado', 200
+        # get_jwt_identify() devuelve String, por eso se compara contra str(user.id)
+
+        if role == 'Client' and str(user.id) != get_jwt_identity():
+            return "No tenes permisos para eliminar este recurso", 403
+        elif role == 'Client':
+            user.is_active = False #Desactivar el usuario
+            db.session.commit()
+            return "Usuario desactivado", 200
+
+
+        
         
         db.session.delete(user)
         db.session.commit()
         return user.to_json(), 200
-#        if user_id in USERS:
-#            del USERS[user_id]
-#            return {"message": "User deleted successfully"}, 200
-#        return {"message": "User ID not found for deletion"}, 404
     @jwt_required()
     def put(self, user_id):
         user = db.session.query(UserModel).get_or_404(user_id)
         claims = get_jwt()
         role = claims.get('role')
-        current_identity = get_jwt_identity()
+        is_self = str(get_jwt_identity()) == str(user.id)
 
         # Allow Admin/Empleado to edit any user, but Client can only edit self
-        if role in ['Admin', 'Empleado'] or str(current_identity) == str(user.id):
+        if role in ['Admin', 'Empleado'] or is_self:
             data = request.get_json().items()
-            for key, value in data:
-                # Prevent non-admins from changing roles
-                if key == 'role' and role != 'Admin':
-                    continue
-                setattr(user, key, value)
+            for key, value in request.get_json().items():
+                if key in ['name','cellphone','email','address']:
+                    setattr(user,key,value)
+                elif key == 'password' and (is_self or role == 'Admin'):
+                    user.plain_password = value # el setter hashea
+                elif key == 'is_active' and role in ['Admin','Empleado']:
+                    user.is_active = value
+                elif key == 'role' and role == 'Admin':
+                    user.role = value
             db.session.add(user)
             db.session.commit()
             return user.to_json(), 201
         else:
-            return 'No tiene permisos para modificar este usuario', 403
+            return 'No tenes permisos para modificar este usuario ', 403
+                
+            
     
 
 class UserList(Resource):
@@ -94,8 +102,8 @@ class UserList(Resource):
         
         users = users.paginate(page=page, per_page=per_page, error_out=False)
         return jsonify({'users':[user.to_json() for user in users],'total': users.total,'pages':users.pages,'page':page})
-#        return USERS, 200
     
+    @role_required(roles = ["Admin"])
     def post(self):
 #No devolver al crear la contraseña en texto plano
         orders_ids = request.get_json().get('orders')
@@ -107,9 +115,4 @@ class UserList(Resource):
         db.session.add(user)
         db.session.commit()
         return user.to_json(), 201
-        #Pide la data para agregar la info nueva a users
         
-        #data = request.get_json()
-        #new_id = max(USERS.keys())+1
-        #USERS[new_id] = data
-        #return {'message': 'User created successfully','product_id':new_id}, 201

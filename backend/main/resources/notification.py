@@ -7,33 +7,33 @@ from main.auth.decorators import role_required
 
 class Notification(Resource):
     @jwt_required(optional=True)
-    def get(self,rating_id):
-        rating = db.session.query(NotificationModel).get_or_404(rating_id)
+    def get(self,notification_id):
+        notification = db.session.query(NotificationModel).get_or_404(notification_id)
         current_identity = get_jwt_identity()
-        if current_identity == rating.user_id:
-            return rating.to_json_complete()
-        else: return rating.to_json() 
+        if current_identity == notification.user_id:
+            return notification.to_json_complete()
+        else: return notification.to_json() 
         
     @role_required(roles = ["Admin","Users"])
-    def delete(self,rating_id):
+    def delete(self,notification_id):
 
-        rating = db.session.query(NotificationModel).get_or_404(rating_id)
+        notification = db.session.query(NotificationModel).get_or_404(notification_id)
         role = get_jwt().get('role')
-        if role == 'Users' and rating.user_id != get_jwt_identity():
+        if role == 'Users' and notification.user_id != get_jwt_identity():
             return 'No tiene permisos para eliminar este recurso', 403
-        db.session.delete(rating)
+        db.session.delete(notification)
         db.session.commit()
-        return rating.to_json(), 200  
+        return notification.to_json(), 200  
     
     @role_required(roles = ["Admin"])
-    def put(self,rating_id):
-        rating = db.session.query(NotificationModel).get_or_404(rating_id)
+    def put(self,notification_id):
+        notification = db.session.query(NotificationModel).get_or_404(notification_id)
         data = request.get_json().items()
         for key, value in data:
-            setattr(rating, key, value)
-        db.session.add(rating)
+            setattr(notification, key, value)
+        db.session.add(notification)
         db.session.commit()
-        return rating.to_json(), 201
+        return notification.to_json(), 201
     
 class Notification_List(Resource):    
     @role_required(roles = ["Admin"])
@@ -74,7 +74,7 @@ class Notification_List(Resource):
 
     @role_required(roles=["Admin"])
     def post(self):
-        rating = NotificationModel.from_json(request.get_json())
-        db.session.add(rating)
+        notification = NotificationModel.from_json(request.get_json())
+        db.session.add(notification)
         db.session.commit()
-        return rating.to_json(), 201
+        return notification.to_json(), 201

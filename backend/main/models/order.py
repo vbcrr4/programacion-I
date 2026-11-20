@@ -3,7 +3,7 @@ from .. import db
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)#Aca tiene que haber una llave externa con el id del user, no se como hacerlo
-    created_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
     status = db.Column(db.Enum('pending','preparing','ready','delivered','canceled'))
     total = db.Column(db.Float,nullable=False)
     user = db.relationship('User',back_populates='orders')

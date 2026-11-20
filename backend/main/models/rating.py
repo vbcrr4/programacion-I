@@ -8,7 +8,7 @@ class Rating(db.Model):
     product_id=db.Column(db.Integer,db.ForeignKey('product.id'),nullable=False)
     rating=db.Column(db.Integer,nullable=False)
     comment=db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
 
     user = db.relationship('User', backref=db.backref('ratings', lazy=True))
     product = db.relationship('Product', backref=db.backref('ratings', lazy=True))

@@ -31,7 +31,7 @@ instance/
 *.pyvenv.cfg
 bin/
 lib/
-
+backend/DB/*.db
 
 
 # Entornos y configuraciones sensibles

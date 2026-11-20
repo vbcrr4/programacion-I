@@ -15,7 +15,7 @@ class User(db.Model):
     #Agregar un Default al rol, para poder usarlo más adelante con la seguridad
     role=db.Column(db.Enum('Client','Admin', 'Empleado'), default='Client') #######ELEGIDO UN DEFAULT PARA ESTE COMMIT
     is_active = db.Column(db.Boolean, default=True)
-    created_at = db.Column(db.DateTime, default=datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.now)
 
     orders = db.relationship("Order", back_populates="user",cascade="all, delete-orphan")
 
