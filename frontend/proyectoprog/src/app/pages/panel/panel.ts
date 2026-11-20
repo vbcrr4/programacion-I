@@ -246,7 +246,6 @@ export class Panel implements OnInit {
           this.users = response.users || [];
           this.userTotalPages = response.pages;
           this.userCurrentPage = response.page;
-          // this.unvalidatedUsers = this.users.filter(u => u.role === 'Client' && !u.is_active); // Removed client-side filter
           this.clientUsers = this.users.filter(u => u.role === 'Client');
         });
       },
