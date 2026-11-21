@@ -62,6 +62,7 @@ export class Panel implements OnInit {
   promotionForm: FormGroup;
   newOrderForm: FormGroup;
   newProductForm: FormGroup;
+  editingProductId: number | null = null;
 
   constructor(
     private authService: AuthService,
@@ -107,6 +108,9 @@ export class Panel implements OnInit {
 
   selectTab(tabName: string) {
     this.tabseleccionada = tabName;
+    if (tabName === 'Nuevo producto') {
+      this.editingProductId = null;
+    }
     if (tabName === 'Gestionar Clientes') {
       this.clientUserCurrentPage = 1;
       this.clientUserSearchTerms = { name: '', category: '' };
@@ -403,6 +407,22 @@ export class Panel implements OnInit {
       available: true,
       popularity: 0
     };
+    if (this.editingProductId !== null) {
+      this.productService.updateProduct(this.editingProductId, {
+        ...this.newProductForm.value,
+        price: Number(this.newProductForm.value.price)
+      }).subscribe({
+        next: () => {
+          alert('Producto actualizado.');
+          this.editingProductId = null;
+          this.newProductForm.reset({ name: '', price: '', category: '', description: '', image_url: '' });
+          this.loadProducts();
+          this.selectTab('Gestion de menu');
+        },
+        error: () => alert('Error al actualizar el producto.')
+      });
+      return;
+    }
     this.productService.createProduct(product).subscribe({
       next: () => {
         alert('Producto creado.');
@@ -414,6 +434,18 @@ export class Panel implements OnInit {
         console.error('Error creating product', err);
         alert('Error al crear el producto.');
       }
+    });
+  }
+
+  editProduct(product: any): void {
+    this.selectTab('Nuevo producto');
+    this.editingProductId = product.id;
+    this.newProductForm.patchValue({
+      name: product.name,
+      price: product.price,
+      category: product.category,
+      description: product.description,
+      image_url: product.image_url
     });
   }
 
