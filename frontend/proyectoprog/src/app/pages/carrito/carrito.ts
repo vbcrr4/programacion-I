@@ -64,7 +64,6 @@ export class Carrito implements OnInit {
     }
     this.ratingService.createRating(productId, rating, comment).subscribe({
       next: (response) => {
-        console.log('Rating submitted', response);
         alert('Calificación enviada para el producto.');
       },
       error: (err) => {

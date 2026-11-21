@@ -35,6 +35,8 @@ export class Login {
         error: (err) => {
           if (err.status === 401) {
             this.errorMessage = 'Usuario o contraseña incorrecta';
+          } else if (err.status === 403) {
+            this.errorMessage = 'Tu cuenta está desactivada o pendiente de aprobación';
           } else {
             this.errorMessage = 'Ocurrió un error. Por favor, intente nuevamente';
           }

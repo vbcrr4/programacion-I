@@ -61,6 +61,9 @@ export class Panel implements OnInit {
 
   promotionForm: FormGroup;
   newOrderForm: FormGroup;
+  newProductForm: FormGroup;
+  editingProductId: number | null = null;
+  expandedOrderId: number | null = null;
 
   constructor(
     private authService: AuthService,
@@ -84,6 +87,14 @@ export class Panel implements OnInit {
       products: ['', Validators.required],
       total: [0, [Validators.required, Validators.min(0.01)]]
     });
+
+    this.newProductForm = this.fb.group({
+      name: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0.01)]],
+      category: ['', Validators.required],
+      description: [''],
+      image_url: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
@@ -98,6 +109,9 @@ export class Panel implements OnInit {
 
   selectTab(tabName: string) {
     this.tabseleccionada = tabName;
+    if (tabName === 'Nuevo producto') {
+      this.editingProductId = null;
+    }
     if (tabName === 'Gestionar Clientes') {
       this.clientUserCurrentPage = 1;
       this.clientUserSearchTerms = { name: '', category: '' };
@@ -382,6 +396,60 @@ export class Panel implements OnInit {
     return Array.from({ length: this.unvalidatedUserTotalPages }, (_, i) => i + 1);
   }
   
+  createProduct(): void {
+    if (this.newProductForm.invalid) {
+      this.newProductForm.markAllAsTouched();
+      alert('Completá nombre, precio, categoría e imagen del producto.');
+      return;
+    }
+    const product = {
+      ...this.newProductForm.value,
+      price: Number(this.newProductForm.value.price),
+      available: true,
+      popularity: 0
+    };
+    if (this.editingProductId !== null) {
+      this.productService.updateProduct(this.editingProductId, {
+        ...this.newProductForm.value,
+        price: Number(this.newProductForm.value.price)
+      }).subscribe({
+        next: () => {
+          alert('Producto actualizado.');
+          this.editingProductId = null;
+          this.newProductForm.reset({ name: '', price: '', category: '', description: '', image_url: '' });
+          this.loadProducts();
+          this.selectTab('Gestion de menu');
+        },
+        error: () => alert('Error al actualizar el producto.')
+      });
+      return;
+    }
+    this.productService.createProduct(product).subscribe({
+      next: () => {
+        alert('Producto creado.');
+        this.newProductForm.reset({ name: '', price: '', category: '', description: '', image_url: '' });
+        this.loadProducts();
+        this.selectTab('Gestion de menu');
+      },
+      error: (err: any) => {
+        console.error('Error creating product', err);
+        alert('Error al crear el producto.');
+      }
+    });
+  }
+
+  editProduct(product: any): void {
+    this.selectTab('Nuevo producto');
+    this.editingProductId = product.id;
+    this.newProductForm.patchValue({
+      name: product.name,
+      price: product.price,
+      category: product.category,
+      description: product.description,
+      image_url: product.image_url
+    });
+  }
+
   deleteProduct(id: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
       this.productService.deleteProduct(id).subscribe({
@@ -408,6 +476,10 @@ export class Panel implements OnInit {
         }
       });
     }
+  }
+
+  toggleOrderDetail(orderId: number): void {
+    this.expandedOrderId = this.expandedOrderId === orderId ? null : orderId;
   }
 
   updateOrderStatus(orderId: number, status: string): void {
@@ -457,7 +529,6 @@ export class Panel implements OnInit {
 
   createOrder(): void {
     if (this.newOrderForm.valid) {
-      console.log('Creating order with:', this.newOrderForm.value);
       // Note: This is a simplified implementation. A real-world scenario would likely require
       // resolving clientName to a user ID and products to a structured list of product IDs.
       this.orderService.createOrder(this.newOrderForm.value).subscribe({

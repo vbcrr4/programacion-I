@@ -1,7 +1,10 @@
 import { Component, Input, Output, EventEmitter,  } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-calfiestrellas',
+  imports: [CommonModule],
   templateUrl: './calfiestrellas.html',
   styleUrls: ['./calfiestrellas.css']
 })
