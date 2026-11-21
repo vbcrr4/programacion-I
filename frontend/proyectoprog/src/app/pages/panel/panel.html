@@ -212,13 +212,27 @@ customClass="menu-card">
                 <div class="d-flex justify-content-end gap-2 mt-3">
                   <app-action-bttn
                     label="Ver Detalle"
+                    buttonType="button"
+                    (buttonClick)="toggleOrderDetail(order.id)"
                     bttn_icon="bi bi-eye-fill">
                   </app-action-bttn>
                   <app-action-bttn
                     label="Confirmar"
+                    buttonType="button"
+                    (buttonClick)="updateOrderStatus(order.id, 'preparing')"
                     bttn_icon="bi bi-check-lg">
                   </app-action-bttn>
                 </div>
+                @if (expandedOrderId === order.id) {
+                  <ul class="list-group mt-3">
+                    @for (d of order.order_details; track d.id) {
+                      <li class="list-group-item d-flex justify-content-between">
+                        <span>{{ d.product?.name }} x{{ d.quantity }}</span>
+                        <span>{{ d.subtotal | currency }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
               </app-universal-card>
             } @empty {
               <p class="text-center text-secondary mt-4">No hay pedidos para mostrar.</p>

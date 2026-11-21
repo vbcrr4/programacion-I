@@ -63,6 +63,7 @@ export class Panel implements OnInit {
   newOrderForm: FormGroup;
   newProductForm: FormGroup;
   editingProductId: number | null = null;
+  expandedOrderId: number | null = null;
 
   constructor(
     private authService: AuthService,
@@ -475,6 +476,10 @@ export class Panel implements OnInit {
         }
       });
     }
+  }
+
+  toggleOrderDetail(orderId: number): void {
+    this.expandedOrderId = this.expandedOrderId === orderId ? null : orderId;
   }
 
   updateOrderStatus(orderId: number, status: string): void {
