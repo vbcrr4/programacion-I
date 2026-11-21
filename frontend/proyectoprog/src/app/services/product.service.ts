@@ -24,6 +24,10 @@ export class ProductService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, data);
   }
 
+  setAvailability(id: number, available: boolean): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, { available });
+  }
+
   deleteProduct(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }

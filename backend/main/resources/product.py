@@ -30,6 +30,17 @@ class Product(Resource):
         db.session.commit()
         return product.to_json(), 201
 
+    # Admin y Empleado pueden cambiar solo la disponibilidad del producto
+    @role_required(roles = ["Admin", "Empleado"])
+    def patch(self, product_id):
+        product = db.session.query(ProductModel).get_or_404(product_id)
+        data = request.get_json()
+        if 'available' not in data:
+            return 'Solo se puede modificar available', 400
+        product.available = bool(data['available'])
+        db.session.commit()
+        return product.to_json(), 200
+
 
 class ProductList(Resource):
     @role_required(roles = ["Admin",'Client','Empleado'])
@@ -38,6 +49,10 @@ class ProductList(Resource):
         per_page = 10
 
         products = db.session.query(ProductModel)
+
+        # Los clientes solo ven los productos disponibles
+        if get_jwt().get('role') == 'Client':
+            products = products.filter(ProductModel.available == True)
 
         if request.args.get('page'):
             page = int(request.args.get('page'))

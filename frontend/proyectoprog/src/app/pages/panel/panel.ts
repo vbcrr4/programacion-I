@@ -478,6 +478,19 @@ export class Panel implements OnInit {
     }
   }
 
+  toggleAvailability(product: any): void {
+    this.productService.setAvailability(product.id, !product.available).subscribe({
+      next: (updated: any) => {
+        product.available = updated.available;
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
+        console.error('Error updating availability', err);
+        alert('Error al actualizar la disponibilidad.');
+      }
+    });
+  }
+
   toggleOrderDetail(orderId: number): void {
     this.expandedOrderId = this.expandedOrderId === orderId ? null : orderId;
   }

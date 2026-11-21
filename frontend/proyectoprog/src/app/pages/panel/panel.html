@@ -534,14 +534,23 @@ customClass="menu-card">
         }
 
         @case("Stock") {
-          <h2 class="text-center mt-4">Stock de productos</h2>
+          <h2 class="text-center mt-4">Disponibilidad de productos</h2>
           <div class="d-flex flex-column gap-3 mt-3">
             @for (product of products; track product.id) {
               <app-universal-card variant="glass" padding="md" borderRadius="lg">
                 <div class="d-flex justify-content-between align-items-center">
                   <span>{{ product.name }}</span>
-                  <!-- Assuming 'stock' property exists on product -->
-                  <span class="fw-bold">{{ product.stock }} unidades</span> 
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge" [ngClass]="product.available ? 'bg-success' : 'bg-danger'">
+                      {{ product.available ? 'Disponible' : 'Agotado' }}
+                    </span>
+                    <app-button
+                      size="sm"
+                      variant="outline"
+                      [label]="product.available ? 'Marcar agotado' : 'Marcar disponible'"
+                      (buttonClick)="toggleAvailability(product)">
+                    </app-button>
+                  </div>
                 </div>
               </app-universal-card>
             } @empty {

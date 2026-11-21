@@ -88,6 +88,10 @@ class OrderList(Resource):
     @jwt_required()
     def post(self):
         user_id = get_jwt_identity()
+        # No se puede pedir un producto no disponible (se valida antes de crear el pedido)
+        requested_product = db.session.query(ProductModel).get_or_404(request.get_json().get('product_id'))
+        if not requested_product.available:
+            return 'El producto no está disponible', 400
         # Check if there is an active order for the user
         order = db.session.query(OrderModel).filter_by(user_id=user_id, status='pending').first()
         if not order:
