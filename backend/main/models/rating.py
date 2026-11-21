@@ -56,9 +56,9 @@ class Rating(db.Model):
         product_id = rating_json.get('product_id')
         rating = rating_json.get('rating')
         comment = rating_json.get('comment')
-        created_at = datetime.strptime(rating_json.get('created_at'),'%d-%m-%Y')
+        
 
 
         return Rating(id=id,user_id=user_id,product_id=product_id,rating=rating,comment=comment
-                       ,created_at=created_at
+                       
                     )
