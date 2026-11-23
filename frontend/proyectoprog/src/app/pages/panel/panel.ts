@@ -64,6 +64,8 @@ export class Panel implements OnInit {
   newProductForm: FormGroup;
   editingProductId: number | null = null;
   expandedOrderId: number | null = null;
+  orderClients: any[] = [];
+  orderProducts: any[] = [];
 
   constructor(
     private authService: AuthService,
@@ -83,9 +85,9 @@ export class Panel implements OnInit {
     });
 
     this.newOrderForm = this.fb.group({
-      clientName: ['', Validators.required],
-      products: ['', Validators.required],
-      total: [0, [Validators.required, Validators.min(0.01)]]
+      user_id: ['', Validators.required],
+      product_id: ['', Validators.required],
+      quantity: [1, [Validators.required, Validators.min(1)]]
     });
 
     this.newProductForm = this.fb.group({
@@ -120,7 +122,18 @@ export class Panel implements OnInit {
       this.unvalidatedUserCurrentPage = 1;
       this.unvalidatedUserSearchTerms = { name: '', email: '' };
       this.loadUnvalidatedUsers();
+    } else if (tabName === 'Cargar Pedido') {
+      this.loadOrderFormData();
     }
+  }
+
+  loadOrderFormData(): void {
+    this.userService.getUsers(1, 100, undefined, 'Client').subscribe({
+      next: (r: any) => { this.orderClients = r.users || []; this.cdr.detectChanges(); }
+    });
+    this.productService.getProducts(1, 100).subscribe({
+      next: (r: any) => { this.orderProducts = (r.products || []).filter((p: any) => p.available); this.cdr.detectChanges(); }
+    });
   }
 
   getBadgeClass(status: string): string {
@@ -542,12 +555,15 @@ export class Panel implements OnInit {
 
   createOrder(): void {
     if (this.newOrderForm.valid) {
-      // Note: This is a simplified implementation. A real-world scenario would likely require
-      // resolving clientName to a user ID and products to a structured list of product IDs.
-      this.orderService.createOrder(this.newOrderForm.value).subscribe({
+      const { user_id, product_id, quantity } = this.newOrderForm.value;
+      this.orderService.createOrder({
+        user_id: Number(user_id),
+        product_id: Number(product_id),
+        quantity: Number(quantity)
+      }).subscribe({
         next: () => {
           alert('Pedido creado con éxito.');
-          this.newOrderForm.reset();
+          this.newOrderForm.reset({ user_id: '', product_id: '', quantity: 1 });
           this.selectTab('Pedidos'); // Switch to orders tab to see the new order
           this.loadOrders();
         },

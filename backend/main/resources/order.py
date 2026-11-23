@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request,jsonify
-from main.models import (OrderModel, OrderDetailsModel, ProductModel)
+from main.models import (OrderModel, OrderDetailsModel, ProductModel, UserModel)
 from .. import db
 from sqlalchemy import func, desc
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
@@ -88,6 +88,10 @@ class OrderList(Resource):
     @jwt_required()
     def post(self):
         user_id = get_jwt_identity()
+        # Admin y Empleado pueden crear el pedido a nombre de un cliente
+        if get_jwt().get('role') in ['Admin', 'Empleado'] and request.get_json().get('user_id'):
+            user_id = request.get_json().get('user_id')
+            db.session.query(UserModel).get_or_404(user_id)
         # No se puede pedir un producto no disponible (se valida antes de crear el pedido)
         requested_product = db.session.query(ProductModel).get_or_404(request.get_json().get('product_id'))
         if not requested_product.available:

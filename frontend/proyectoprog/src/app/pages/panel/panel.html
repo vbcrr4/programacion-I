@@ -504,23 +504,25 @@ customClass="menu-card">
           <h2 class="text-center mt-4">Cargar Nuevo Pedido</h2>
           <app-universal-card variant="glass" padding="xl" borderRadius="lg" size="md" customClass="mt-3">
             <form [formGroup]="newOrderForm" (ngSubmit)="createOrder()">
-              <app-input 
-                formControlName="clientName"
-                type="text" 
-                label="Nombre del Cliente" 
-                placeholder="Buscar cliente...">
-              </app-input>
-              <app-input 
-                formControlName="products"
-                type="text" 
-                label="Productos" 
-                placeholder="Añadir productos...">
-              </app-input>
-              <app-input 
-                formControlName="total"
-                type="number" 
-                label="Total" 
-                placeholder="$0.00">
+              <label class="form-label">Cliente</label>
+              <select class="form-select mb-3" formControlName="user_id">
+                <option value="">Seleccioná un cliente...</option>
+                @for (c of orderClients; track c.id) {
+                  <option [value]="c.id">{{ c.name }} ({{ c.email }})</option>
+                }
+              </select>
+              <label class="form-label">Producto</label>
+              <select class="form-select mb-3" formControlName="product_id">
+                <option value="">Seleccioná un producto...</option>
+                @for (p of orderProducts; track p.id) {
+                  <option [value]="p.id">{{ p.name }} - {{ p.price | currency }}</option>
+                }
+              </select>
+              <app-input
+                formControlName="quantity"
+                type="number"
+                label="Cantidad"
+                placeholder="1">
               </app-input>
               <app-button 
                 label="Crear Pedido" 
