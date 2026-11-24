@@ -1,3 +1,5 @@
+# Los Resources se exponen con alias *Resource; main/__init__.py los registra
+# en la API con api.add_resource().
 from .user import User as UserResource
 from .user import UserList as UserListResource
 from .product import Product as ProductResource

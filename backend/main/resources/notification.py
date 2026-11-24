@@ -5,15 +5,20 @@ from .. import db
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from main.auth.decorators import role_required
 
+# Recurso /notifications/<id>: operaciones sobre una notificación concreta.
 class Notification(Resource):
+    # PENDIENTE: con optional=True también responde sin token, y NotificationModel no define
+    # to_json_complete, por lo que fallaría si el usuario consulta su propia notificación.
     @jwt_required(optional=True)
     def get(self,notification_id):
         notification = db.session.query(NotificationModel).get_or_404(notification_id)
         current_identity = get_jwt_identity()
-        if current_identity == notification.user_id:
+        if current_identity == str(notification.user_id):
             return notification.to_json_complete()
         else: return notification.to_json() 
         
+    # PENDIENTE: el rol 'Users' no existe (los roles son Admin, Empleado y Client),
+    # por lo que en la práctica solo Admin puede borrar.
     @role_required(roles = ["Admin","Users"])
     def delete(self,notification_id):
 
@@ -35,6 +40,7 @@ class Notification(Resource):
         db.session.commit()
         return notification.to_json(), 201
     
+# Recurso /notifications: listado (solo Admin, con filtros y paginación) y creación.
 class Notification_List(Resource):    
     @role_required(roles = ["Admin"])
     def get(self):
@@ -43,26 +49,22 @@ class Notification_List(Resource):
 
         notifications = db.session.query(NotificationModel)
 
-        #paginacion
         if request.args.get('page'):
             page = int(request.args.get('page'))
         if request.args.get('per_page'):
             per_page = int(request.args.get('per_page'))
 
-        #filtro por id usuario
+        # Filtros opcionales por query string: user_id, created_at y status
         if request.args.get('user_id'):
             user_id = int(request.args.get('user_id'))
             notifications = notifications.filter(NotificationModel.user_id == user_id)
-        #filtro por fecha de creacion
         if request.args.get('created_at'):
             created_at = request.args.get('created_at')
             notifications = notifications.filter(NotificationModel.created_at == created_at)
-        #filtro por estado
         if request.args.get('status'):
             status = request.args.get('status')
             notifications = notifications.filter(NotificationModel.status == status)
         
-        #fin filtros
         notifications = notifications.paginate(page=page, per_page=per_page, error_out=True)
 
         return jsonify({'notifications': [notification.to_json() for notification in notifications.items],

@@ -6,6 +6,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from main.auth.decorators import role_required
 
 
+# Recurso /products/<id>: operaciones sobre un producto concreto.
 class Product(Resource):
     @role_required(roles = ["Admin",'Client','Empleado'])
     def get(self, product_id):
@@ -42,6 +43,7 @@ class Product(Resource):
         return product.to_json(), 200
 
 
+# Recurso /products: listado (con filtros y paginación) y creación de productos.
 class ProductList(Resource):
     @role_required(roles = ["Admin",'Client','Empleado'])
     def get(self):
@@ -60,24 +62,20 @@ class ProductList(Resource):
             per_page = int(request.args.get('per_page'))
 
         
-        #Buscamos por nombre
+        # Filtros opcionales por query string: name, price (máximo), available y category
         if request.args.get('name'):
             name = request.args.get('name')
             products = products.filter(ProductModel.name.ilike(f'%{name}%'))
-        #Buscamos por precio
         if request.args.get('price'):
             price = float(request.args.get('price'))
             products = products.filter(ProductModel.price <= price)
-        #Buscamos por disponibilidad
         if request.args.get('available'):
             available = request.args.get('available').lower() == 'true'
             products = products.filter(ProductModel.available == available)
-        #Buscamos por categoria
         if request.args.get('category'):
             category = request.args.get('category')
             products = products.filter(ProductModel.category.ilike(f'%{category}%'))
 
-        #fin filtros
 
         products = products.paginate(page=page, per_page=per_page, error_out=True)
 
